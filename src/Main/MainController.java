@@ -16,7 +16,7 @@ public class MainController implements Initializable {
     }
 
     public void OnButtonClicked(ActionEvent actionEvent) {
-        theLabel.setText("You clicked me");
+        theLabel.setText("button clicked");
         System.out.println("The button was clicked");
     }
 }
