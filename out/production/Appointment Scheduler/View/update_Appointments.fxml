@@ -6,9 +6,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.update_AppointmentsController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.update_AppointmentsController" prefHeight="600.0" prefWidth="800.0">
+    <children>
+        <TextField layoutX="163.0" layoutY="60.0" />
+        <TextField layoutX="163.0" layoutY="96.0" />
+        <TextField layoutX="163.0" layoutY="137.0" />
+        <TextField layoutX="163.0" layoutY="182.0" />
+        <TextField layoutX="163.0" layoutY="229.0" />
+        <TextField layoutX="535.0" layoutY="60.0" />
+        <TextField layoutX="163.0" layoutY="278.0" />
+        <TextField layoutX="535.0" layoutY="96.0" />
+        <TextField layoutX="163.0" layoutY="328.0" />
+        <TextField layoutX="163.0" layoutY="382.0" />
+        <Label layoutX="61.0" layoutY="64.0" text="Appointment ID" />
+        <Label layoutX="61.0" layoutY="141.0" text="Description" />
+        <Label layoutX="61.0" layoutY="100.0" text="Title" />
+        <Label layoutX="61.0" layoutY="282.0" text="Type" />
+        <Label layoutX="406.0" layoutY="64.0" text="Start Time" />
+        <Label layoutX="408.0" layoutY="100.0" text="End Time" />
+        <Label layoutX="58.0" layoutY="332.0" text="Customer ID" />
+        <Label layoutX="61.0" layoutY="233.0" text="Contact" />
+        <Label layoutX="61.0" layoutY="186.0" text="Location" />
+        <Label layoutX="407.0" layoutY="141.0" text="Start Date" />
+        <Label layoutX="409.0" layoutY="186.0" text="End Date" />
+        <Label layoutX="63.0" layoutY="386.0" text="User ID" />
+        <Button layoutX="408.0" layoutY="341.0" mnemonicParsing="false" text="Save" />
+        <Button layoutX="601.0" layoutY="341.0" mnemonicParsing="false" text="Cancel" />
+        <DatePicker layoutX="535.0" layoutY="137.0" />
+        <DatePicker layoutX="535.0" layoutY="182.0" />
+    </children>
 
 </AnchorPane>
