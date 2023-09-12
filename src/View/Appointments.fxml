@@ -43,7 +43,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="20.0" layoutY="298.0" mnemonicParsing="false" onAction="#onADDAppointment" text="ADD" />
+      <Button layoutX="20.0" layoutY="298.0" mnemonicParsing="false" onAction="#onADDAppointment" text="Add" />
       <Button layoutX="129.0" layoutY="298.0" mnemonicParsing="false" onAction="#onUpdateAppointment" text="Update" />
       <Button layoutX="250.0" layoutY="298.0" mnemonicParsing="false" onAction="#onDeleteAppointment" text="Delete" />
       <Button layoutX="21.0" layoutY="563.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
