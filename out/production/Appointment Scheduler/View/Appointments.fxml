@@ -5,6 +5,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -46,10 +47,13 @@
       <Button layoutX="20.0" layoutY="298.0" mnemonicParsing="false" onAction="#onADDAppointment" text="Add" />
       <Button layoutX="129.0" layoutY="298.0" mnemonicParsing="false" onAction="#onUpdateAppointment" text="Update" />
       <Button layoutX="250.0" layoutY="298.0" mnemonicParsing="false" onAction="#onDeleteAppointment" text="Delete" />
-      <Button layoutX="21.0" layoutY="563.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
-      <Button layoutX="129.0" layoutY="563.0" mnemonicParsing="false" onAction="#onUpdateCustomer" text="Update" />
-      <Button layoutX="250.0" layoutY="563.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete" />
-      <RadioButton layoutX="558.0" layoutY="33.0" mnemonicParsing="false" text="Month" />
-      <RadioButton layoutX="670.0" layoutY="33.0" mnemonicParsing="false" text="Week" />
+      <Button layoutX="14.0" layoutY="576.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
+      <Button layoutX="117.0" layoutY="576.0" mnemonicParsing="false" onAction="#onUpdateCustomer" text="Update" />
+      <Button layoutX="250.0" layoutY="576.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete" />
+      <RadioButton layoutX="558.0" layoutY="33.0" mnemonicParsing="false" text="Month">
+         <toggleGroup>
+            <ToggleGroup fx:id="appointmentFilter" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="670.0" layoutY="33.0" mnemonicParsing="false" text="Week" toggleGroup="$appointmentFilter" />
    </children>
 </AnchorPane>
