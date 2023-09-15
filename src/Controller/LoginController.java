@@ -24,10 +24,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        ResourceBundle rb = ResourceBundle.getBundle("Convert_fr.properties", Locale.getDefault());
-//        if(Locale.getDefault().getLanguage().equals("fr"))
-//            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
-
         System.out.println("I am initialized");
     }
 
