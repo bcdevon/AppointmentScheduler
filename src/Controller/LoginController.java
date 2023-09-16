@@ -21,10 +21,23 @@ public class LoginController implements Initializable {
     public Button exitButton;
     public TextField usernameTF;
     public TextField passwordTF;
+    public Label timeZoneText;
+    public Label userNameText;
+    public Label passwordText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("I am initialized");
+        ResourceBundle rb = ResourceBundle.getBundle("Main.language", Locale.getDefault());
+        if(Locale.getDefault().getLanguage().equals("fr"))
+            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
+            loginButton.setText(rb.getString("Login"));
+            exitButton.setText(rb.getString("Exit"));
+            timeZoneText.setText(rb.getString("TimeZone"));
+            userNameText.setText(rb.getString("username"));
+            passwordText.setText(rb.getString("Password"));
+            usernameTF.setPromptText(rb.getString("enter") + " " + rb.getString("username"));
+            passwordTF.setPromptText(rb.getString("enter") + " " + rb.getString("Password"));
     }
 
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {
