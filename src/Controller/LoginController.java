@@ -46,13 +46,15 @@ public class LoginController implements Initializable {
         String enteredUsername = usernameTF.getText();
         String enteredPassword = passwordTF.getText();
 
+        ResourceBundle rb = ResourceBundle.getBundle("Main.language", Locale.getDefault());
+
         //verify a login and password have been entered and they match.
         //check if username and password are blank
         if (enteredUsername.isBlank() || enteredPassword.isBlank()) {
             //if password and username is blank display an error and don't login
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
-            alert.setContentText("Enter a passord and username.");
+            alert.setContentText(rb.getString("enter") + " " + rb.getString("username") + " " + rb.getString("and") + " " + rb.getString("Password"));
             alert.showAndWait();
             System.out.println("No password or username was entered");
             return;
@@ -72,7 +74,7 @@ public class LoginController implements Initializable {
             // Display an error message if authentication fails.
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
-            alert.setContentText("Invalid username or password.");
+            alert.setContentText(rb.getString("invalid") + " " + rb.getString("username") + " " + rb.getString("and") + " " + rb.getString("Password"));
             alert.showAndWait();
         }
     }
@@ -81,7 +83,7 @@ public class LoginController implements Initializable {
         try {
             // Use PreparedStatement to safely execute the query.
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement(
-                    "SELECT * FROM users WHERE User_Name = ? AND Password = ?"
+                    "SELECT * FROM users WHERE User_Name = ? AND password = ?"
             );
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
