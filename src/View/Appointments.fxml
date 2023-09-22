@@ -13,8 +13,8 @@
    <children>
       <TableView layoutX="17.0" layoutY="91.0" prefHeight="200.0" prefWidth="749.0">
         <columns>
-          <TableColumn prefWidth="101.0" text="Appointment ID" />
-          <TableColumn prefWidth="50.0" text="Title" />
+          <TableColumn fx:id="apptIDCol" prefWidth="101.0" text="Appointment ID" />
+          <TableColumn fx:id="apptTitleCol" prefWidth="50.0" text="Title" />
             <TableColumn prefWidth="72.0" text="Description" />
             <TableColumn prefWidth="56.0" text="Location" />
             <TableColumn prefWidth="65.0" text="Contact" />
