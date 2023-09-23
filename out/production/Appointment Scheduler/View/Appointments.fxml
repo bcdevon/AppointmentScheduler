@@ -11,27 +11,27 @@
 
 <AnchorPane prefHeight="624.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentController">
    <children>
-      <TableView layoutX="17.0" layoutY="91.0" prefHeight="200.0" prefWidth="749.0">
+      <TableView fx:id="AppointmentTable" layoutX="17.0" layoutY="91.0" prefHeight="200.0" prefWidth="749.0">
         <columns>
-          <TableColumn prefWidth="101.0" text="Appointment ID" />
-          <TableColumn prefWidth="50.0" text="Title" />
-            <TableColumn prefWidth="72.0" text="Description" />
-            <TableColumn prefWidth="56.0" text="Location" />
-            <TableColumn prefWidth="65.0" text="Contact" />
-            <TableColumn prefWidth="52.0" text="Type" />
-            <TableColumn prefWidth="103.0" text="Start Date/Time" />
-            <TableColumn prefWidth="98.0" text="End Date/Time" />
-            <TableColumn prefWidth="81.0" text="Customer ID" />
-            <TableColumn prefWidth="70.0" text="User ID" />
+          <TableColumn fx:id="apptIDCol" prefWidth="101.0" text="Appointment ID" />
+          <TableColumn fx:id="apptTitleCol" prefWidth="50.0" text="Title" />
+            <TableColumn fx:id="apptDescriptionCol" prefWidth="72.0" text="Description" />
+            <TableColumn fx:id="apptLocationCol" prefWidth="56.0" text="Location" />
+            <TableColumn fx:id="apptContactCol" prefWidth="65.0" text="Contact" />
+            <TableColumn fx:id="apptTypeCol" prefWidth="52.0" text="Type" />
+            <TableColumn fx:id="apptStartCol" prefWidth="103.0" text="Start Date/Time" />
+            <TableColumn fx:id="apptEndCol" prefWidth="98.0" text="End Date/Time" />
+            <TableColumn fx:id="apptCustomerIDCol" prefWidth="81.0" text="Customer ID" />
+            <TableColumn fx:id="apptUserIDCol" prefWidth="70.0" text="User ID" />
         </columns>
       </TableView>
-      <TableView layoutX="15.0" layoutY="363.0" prefHeight="200.0" prefWidth="570.0">
+      <TableView fx:id="CustomerTable" layoutX="15.0" layoutY="363.0" prefHeight="200.0" prefWidth="570.0">
         <columns>
-          <TableColumn prefWidth="134.0" text="Customer ID" />
-          <TableColumn prefWidth="123.0" text="Customer Name" />
-            <TableColumn prefWidth="86.0" text="Address" />
-            <TableColumn prefWidth="111.0" text="Postal Code" />
-            <TableColumn prefWidth="115.0" text="Phone Number" />
+          <TableColumn fx:id="customerIDCol" prefWidth="134.0" text="Customer ID" />
+          <TableColumn fx:id="customerNameCol" prefWidth="123.0" text="Customer Name" />
+            <TableColumn fx:id="customerAddressCol" prefWidth="86.0" text="Address" />
+            <TableColumn fx:id="customerPostalCodeCol" prefWidth="111.0" text="Postal Code" />
+            <TableColumn fx:id="customerPhoneNumberCol" prefWidth="115.0" text="Phone Number" />
         </columns>
       </TableView>
       <Label layoutX="19.0" layoutY="14.0" text="Appointments">

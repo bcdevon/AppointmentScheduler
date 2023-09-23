@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
@@ -15,6 +17,23 @@ import java.util.ResourceBundle;
 
 public class AppointmentController implements Initializable {
     public ToggleGroup appointmentFilter;
+    public TableView AppointmentTable;
+    public TableColumn apptIDCol;
+    public TableColumn apptTitleCol;
+    public TableColumn apptDescriptionCol;
+    public TableColumn apptLocationCol;
+    public TableColumn apptContactCol;
+    public TableColumn apptTypeCol;
+    public TableColumn apptStartCol;
+    public TableColumn apptEndCol;
+    public TableColumn apptCustomerIDCol;
+    public TableColumn apptUserIDCol;
+    public TableView CustomerTable;
+    public TableColumn customerIDCol;
+    public TableColumn customerNameCol;
+    public TableColumn customerAddressCol;
+    public TableColumn customerPostalCodeCol;
+    public TableColumn customerPhoneNumberCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
