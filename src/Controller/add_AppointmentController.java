@@ -5,11 +5,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class add_AppointmentController {
+    public TextField addAppointmentTF;
+    public TextField addTitleTF;
+    public TextField addDescriptionTF;
+    public TextField addLocationTF;
+    public TextField addContactTF;
+    public TextField addStartTimeTF;
+    public TextField addTypeTF;
+    public TextField addEndTimeTF;
+    public TextField addCustomerIDTF;
+    public TextField addUserIDTF;
+    public DatePicker addStartDate;
+    public DatePicker addEndDate;
+
     public void onSave(ActionEvent actionEvent) {
     }
 
