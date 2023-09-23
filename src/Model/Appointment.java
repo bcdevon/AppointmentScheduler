@@ -14,7 +14,7 @@ public class Appointment {
     private int customerID;
     private int userID;
 
-    public Appointment(int id, String title, String description, String location, String contact, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID) {
+    public Appointment() {
         this.id = id;
         this.title = title;
         this.description = description;

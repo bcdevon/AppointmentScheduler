@@ -8,16 +8,16 @@
 
 <AnchorPane prefHeight="537.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.add_AppointmentController">
    <children>
-      <TextField layoutX="163.0" layoutY="60.0" />
-      <TextField layoutX="163.0" layoutY="96.0" />
-      <TextField layoutX="163.0" layoutY="137.0" />
-      <TextField layoutX="163.0" layoutY="182.0" />
-      <TextField layoutX="163.0" layoutY="229.0" />
-      <TextField layoutX="535.0" layoutY="60.0" />
-      <TextField layoutX="163.0" layoutY="278.0" />
-      <TextField layoutX="535.0" layoutY="96.0" />
-      <TextField layoutX="163.0" layoutY="328.0" />
-      <TextField layoutX="163.0" layoutY="382.0" />
+      <TextField fx:id="addAppointmentTF" layoutX="163.0" layoutY="60.0" />
+      <TextField fx:id="addTitleTF" layoutX="163.0" layoutY="96.0" />
+      <TextField fx:id="addDescriptionTF" layoutX="163.0" layoutY="137.0" />
+      <TextField fx:id="addLocationTF" layoutX="163.0" layoutY="182.0" />
+      <TextField fx:id="addContactTF" layoutX="163.0" layoutY="229.0" />
+      <TextField fx:id="addStartTimeTF" layoutX="535.0" layoutY="60.0" />
+      <TextField fx:id="addTypeTF" layoutX="163.0" layoutY="278.0" />
+      <TextField fx:id="addEndTimeTF" layoutX="535.0" layoutY="96.0" />
+      <TextField fx:id="addCustomerIDTF" layoutX="163.0" layoutY="328.0" />
+      <TextField fx:id="addUserIDTF" layoutX="163.0" layoutY="382.0" />
       <Label layoutX="61.0" layoutY="64.0" text="Appointment ID" />
       <Label layoutX="61.0" layoutY="141.0" text="Description" />
       <Label layoutX="61.0" layoutY="100.0" text="Title" />
@@ -32,7 +32,7 @@
       <Label layoutX="63.0" layoutY="386.0" text="User ID" />
       <Button layoutX="408.0" layoutY="341.0" mnemonicParsing="false" onAction="#onSave" text="Save" />
       <Button layoutX="601.0" layoutY="341.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
-      <DatePicker layoutX="535.0" layoutY="137.0" />
-      <DatePicker layoutX="535.0" layoutY="182.0" />
+      <DatePicker fx:id="addStartDate" layoutX="535.0" layoutY="137.0" />
+      <DatePicker fx:id="addEndDate" layoutX="535.0" layoutY="182.0" />
    </children>
 </AnchorPane>

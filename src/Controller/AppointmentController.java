@@ -1,5 +1,9 @@
 package Controller;
 
+import DAO.AppointmentDAO;
+import Model.Appointment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,10 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AppointmentController implements Initializable {
@@ -37,7 +43,32 @@ public class AppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set up cellValueFactory for each column
+        apptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptCustomerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        populateAppointmentTable();
 
+    }
+    private void populateAppointmentTable() {
+        // Create an instance of your AppointmentDAO
+        AppointmentDAO appointmentDAO = new AppointmentDAO();
+
+        // Fetch the appointment data from the database
+        List<Appointment> appointments = appointmentDAO.getAllAppointments();
+
+        // Create an ObservableList to store the data and set it to the TableView
+        ObservableList<Appointment> appointmentData = FXCollections.observableArrayList(appointments);
+
+        // Set the appointment data to the TableView
+        AppointmentTable.setItems(appointmentData);
     }
 
     public void onADDAppointment(ActionEvent actionEvent) throws IOException {
