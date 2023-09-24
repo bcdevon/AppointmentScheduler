@@ -23,8 +23,11 @@ public class AppointmentDAO {
                 appointment.setLocation(resultSet.getString("Location"));
                 appointment.setContact(resultSet.getString("Contact_ID"));
                 appointment.setType(resultSet.getString("Type"));
-//                appointment.setStart(resultSet.getObject());// Set other properties here
-//                appointment.setEnd(resultSet.getObject());
+
+                LocalDateTime startDateTime = resultSet.getObject("Start", LocalDateTime.class);
+                LocalDateTime endDateTime = resultSet.getObject("End", LocalDateTime.class);
+                appointment.setStart(startDateTime);
+                appointment.setEnd(endDateTime);
                 appointment.setCustomerID(resultSet.getInt("Customer_ID"));
                 appointments.add(appointment);
             }
