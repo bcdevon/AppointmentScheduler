@@ -1,7 +1,9 @@
 package Controller;
 
 import DAO.AppointmentDAO;
+import DAO.CustomerDAO;
 import Model.Appointment;
+import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,19 +58,30 @@ public class AppointmentController implements Initializable {
         apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         populateAppointmentTable();
 
+        customerIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        customerPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("postal"));
+        customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        populateCustomerTable();
+
     }
     private void populateAppointmentTable() {
         // Create an instance of your AppointmentDAO
         AppointmentDAO appointmentDAO = new AppointmentDAO();
-
         // Fetch the appointment data from the database
         List<Appointment> appointments = appointmentDAO.getAllAppointments();
-
         // Create an ObservableList to store the data and set it to the TableView
         ObservableList<Appointment> appointmentData = FXCollections.observableArrayList(appointments);
-
         // Set the appointment data to the TableView
         AppointmentTable.setItems(appointmentData);
+    }
+
+    private void populateCustomerTable(){
+        CustomerDAO customerDAO = new CustomerDAO();
+        List<Customer> customers = customerDAO.getAllCustomers();
+        ObservableList<Customer> customerData = FXCollections.observableArrayList(customers);
+        CustomerTable.setItems(customerData);
     }
 
     public void onADDAppointment(ActionEvent actionEvent) throws IOException {
