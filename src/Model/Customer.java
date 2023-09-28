@@ -15,6 +15,9 @@ public class Customer {
         this.phone = phone;
     }
 
+    public Customer(int idS, String nameS, String addressS, String postalcodeS, String phoneS) {
+    }
+
     public int getId() {
         return id;
     }
