@@ -25,16 +25,7 @@ public class add_CustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
     public void onSave(ActionEvent actionEvent) throws IOException {
-        int idS = Integer.parseInt(addIDTF.getText());
-        String nameS = addNameTF.getText();
-        String addressS = addAddressTF.getText();
-        String postalcodeS = addPostalCodeTF.getText();
-        String phoneS = addPhoneTF.getText();
-        Customer addcustomer = new Customer(idS,nameS,addressS,postalcodeS,phoneS);
-        CustomerTable.add(addcustomer);
-
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);
 
