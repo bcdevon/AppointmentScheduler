@@ -27,4 +27,6 @@ public class CustomerDAO {
         }
         return customers;
     }
+    //left off here create function to add a customer to the myql database
+    public static String addCustomer()
 }
