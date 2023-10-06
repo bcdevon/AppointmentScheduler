@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,9 +25,9 @@
       <TextField fx:id="addAddressTF" layoutX="151.0" layoutY="152.0" />
       <TextField fx:id="addPostalCodeTF" layoutX="151.0" layoutY="196.0" />
       <TextField fx:id="addPhoneTF" layoutX="151.0" layoutY="239.0" />
-      <TextField layoutX="151.0" layoutY="289.0" />
-      <TextField layoutX="393.0" layoutY="289.0" />
       <Button layoutX="131.0" layoutY="345.0" mnemonicParsing="false" onAction="#onSave" text="Save" />
       <Button layoutX="274.0" layoutY="345.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
+      <ComboBox fx:id="countryBox" layoutX="151.0" layoutY="289.0" prefWidth="150.0" />
+      <ComboBox fx:id="stateBox" layoutX="404.0" layoutY="289.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
