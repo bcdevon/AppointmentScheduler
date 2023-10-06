@@ -1,7 +1,12 @@
 package DAO;
 import Model.Customer;
 import helper.JDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,22 @@ public class CustomerDAO {
         }
         return customers;
     }
+    /**get all countries method
+     * database query to get all the countries
+     * @return all the countries*/
+    public static ObservableList<String> getAllCountries() throws SQLException{
+        ObservableList<String> allCountries = FXCollections.observableArrayList();
+        String sql = "SELECT Country FROM countries";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+        while (resultSet.next()){
+            allCountries.add(resultSet.getString("Country"));
+
+        }
+        return allCountries;
+    }
+
     //left off here create function to add a customer to the myql database
-    public static String addCustomer()
+//    public static String addCustomer();
+
 }
