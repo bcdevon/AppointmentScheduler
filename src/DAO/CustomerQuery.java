@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public abstract class CustomerQuery {
 
-        public static int insert(String fruitName, int colorId) throws SQLException {
+        public static int insert(int, int colorId) throws SQLException {
             String sql = "INSERT INTO FRUITS (Fruit_Name, Color_ID) VALUES(?, ?)";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, fruitName);

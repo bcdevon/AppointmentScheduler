@@ -11,7 +11,7 @@ public class Customer {
     private String country;
 
 
-    public Customer() {
+    public Customer(int id, String name, String address, String postal, String phone, int divisionId, String division, String country) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -20,6 +20,10 @@ public class Customer {
         this.divisionId = divisionId;
         this.division = division;
         this.country = country;
+
+    }
+
+    public Customer() {
 
     }
 
