@@ -47,6 +47,22 @@ public class CustomerDAO {
         return allCountries;
     }
 
+    /**get all divisions method
+     * database query to get all divisions
+     * @return all the divisions*/
+    public static ObservableList<String> getAllDivisions() throws SQLException{
+        ObservableList<String> allDivisions = FXCollections.observableArrayList();
+        String sql = "SELECT Division FROM first_level_divisions";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+        while (resultSet.next()){
+            allDivisions.add(resultSet.getString("Division"));
+        }
+        return allDivisions;
+    }
+
+
+
     //left off here create function to add a customer to the myql database
 //    public static String addCustomer();
 

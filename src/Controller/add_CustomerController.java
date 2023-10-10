@@ -33,10 +33,17 @@ public class add_CustomerController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        try {
+            stateBox.setItems(CustomerDAO.getAllDivisions());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
     public void onSave(ActionEvent actionEvent) throws IOException {
 
         //get input from each text field
+
 
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);
@@ -56,4 +63,5 @@ public class add_CustomerController implements Initializable {
         stage.setScene(appointment_scene);
         stage.show();
     }
+
 }
