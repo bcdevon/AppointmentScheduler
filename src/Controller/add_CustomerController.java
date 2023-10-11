@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.CustomerDAO;
+import DAO.CustomerQuery;
 import Model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +41,9 @@ public class add_CustomerController implements Initializable {
             throwables.printStackTrace();
         }
     }
-    public void onSave(ActionEvent actionEvent) throws IOException {
+    public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
+
+        CustomerQuery.select();
 
         //get input from each text field
 
