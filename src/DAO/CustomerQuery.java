@@ -30,4 +30,12 @@ public abstract class CustomerQuery {
 
         }
     }
+    public static void insert(int id, String name, String address, String postal, String phone, String createDate, String createdBy, String lastUpdated, int divisionId) throws SQLException {
+        String sql = "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Updated_By, Division_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, id);
+        ps.
+
+        }
+    }
 }
