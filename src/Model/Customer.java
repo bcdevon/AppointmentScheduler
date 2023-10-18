@@ -74,6 +74,7 @@ public class Customer {
     public void setDivisonId(int divisonId) {
         this.divisionId = divisonId;
     }
+
     public String getDivision() {
         return division;
     }

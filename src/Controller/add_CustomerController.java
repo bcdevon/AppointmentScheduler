@@ -43,7 +43,7 @@ public class add_CustomerController implements Initializable {
     }
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
 
-        CustomerQuery.select();
+//        CustomerQuery.select();
 
         //get input from each text field
 
