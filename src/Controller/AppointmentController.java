@@ -153,6 +153,8 @@ public class AppointmentController implements Initializable {
             int deletedCustomerID = selectedCustomer.getId();
             int rowsAffected = CustomerQuery.delete(deletedCustomerID);
             if(rowsAffected > 0){
+                //Customer was deleted updated customer table
+                populateCustomerTable();
                 System.out.println("Customer deleted");
             }
         }

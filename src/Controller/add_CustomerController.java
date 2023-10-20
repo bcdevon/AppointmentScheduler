@@ -3,6 +3,7 @@ package Controller;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
 import Model.Customer;
+import helper.JDBC;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -16,28 +17,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class add_CustomerController implements Initializable {
-    public TextField addIDTF;
+    public TextField addIDTF; // Assume you have defined the TextField in your FXML
     public TextField addNameTF;
     public TextField addAddressTF;
     public TextField addPostalCodeTF;
     public TextField addPhoneTF;
     public ComboBox countryBox;
     public ComboBox stateBox;
-
-    /**This is the ID Generator class.
-     * This class handles creating unique customer IDs for each customer that is created*/
-    public static class IdGenerator{
-        //lastAssignedID starts at 0 will be incremented by 1 and compared against other IDs.
-        private static int lastAssigned = 0;
-
-        //Get the list of all customer IDs to check for duplicates
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,9 +47,14 @@ public class add_CustomerController implements Initializable {
         }
     }
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
-        int rowsAffected = CustomerQuery.insert(10, "jane doe", "1234 blue street", "876-5309", "911", "1987-03-20 09:44:22", "steve", "1999-03-20 09:44:22", "tyler", 5 );
+        //get input from each text field
+//        int idS = Integer.parseInt(addIDTF.getText());
+        String nameS = addNameTF.getText();
+        String addressS = addAddressTF.getText();
+        String postalS = addPostalCodeTF.getText();
+        String phoneS = addPhoneTF.getText();
 
-//        CustomerQuery.select();
+        int rowsAffected = CustomerQuery.insert(nameS, addressS, postalS, phoneS, "1987-03-20 09:44:22", "steve", "1999-03-20 09:44:22", "tyler", 5 );
 
         //get input from each text field
 
