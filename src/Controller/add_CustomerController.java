@@ -3,6 +3,8 @@ package Controller;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
 import Model.Customer;
+import helper.JDBC;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,11 +17,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class add_CustomerController implements Initializable {
-    public TextField addIDTF;
+    public TextField addIDTF; // Assume you have defined the TextField in your FXML
     public TextField addNameTF;
     public TextField addAddressTF;
     public TextField addPostalCodeTF;
@@ -42,8 +47,14 @@ public class add_CustomerController implements Initializable {
         }
     }
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
+        //get input from each text field
+//        int idS = Integer.parseInt(addIDTF.getText());
+        String nameS = addNameTF.getText();
+        String addressS = addAddressTF.getText();
+        String postalS = addPostalCodeTF.getText();
+        String phoneS = addPhoneTF.getText();
 
-//        CustomerQuery.select();
+        int rowsAffected = CustomerQuery.insert(nameS, addressS, postalS, phoneS, "1987-03-20 09:44:22", "steve", "1999-03-20 09:44:22", "tyler", 5 );
 
         //get input from each text field
 
