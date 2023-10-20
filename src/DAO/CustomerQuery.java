@@ -10,15 +10,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class CustomerQuery {
-
-//        public static int insert(int, int colorId) throws SQLException {
-//            String sql = "INSERT INTO FRUITS (Fruit_Name, Color_ID) VALUES(?, ?)";
-//            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-//            ps.setString(1, fruitName);
-//            ps.setInt(2, colorId);
-//            int rowsAffected = ps.executeUpdate();
-//            return rowsAffected;
-//        }
     public static void select() throws SQLException {
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -30,7 +21,6 @@ public abstract class CustomerQuery {
             String postal = rs.getString("Postal_Code");
             int divisionId = rs.getInt("Division_ID");
             System.out.println(id + " " + name + " " + address + " " + postal + " " + divisionId);
-
         }
     }
     public static int insert(int id, String name, String address, String postal, String phone, String createDate, String createdBy, String lastUpdated, String lastUpdatedby, int divisionId) throws SQLException {
@@ -49,7 +39,21 @@ public abstract class CustomerQuery {
         ps.setInt(10, divisionId);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
-
+        }
+    public static int delete(int id) throws SQLException {
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, id);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
         }
     }
+
+//    public static int delete(int fruitId) throws SQLException {
+//        String sql = "DELETE FROM FRUITS WHERE Fruit_ID = ?";
+//        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+//        ps.setInt(1, fruitId);
+//        int rowsAffected = ps.executeUpdate();
+//        return rowsAffected;
+//    }
 

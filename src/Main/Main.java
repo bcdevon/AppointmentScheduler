@@ -28,7 +28,6 @@ public class Main extends Application {
 //        Locale.setDefault(new Locale("fr"));
         JDBC.openConnection();
         launch(args);
-        int rowsAffected = CustomerQuery.insert(9, "jane doe", "1234 blue street", "876-5309", "911", "1987-03-20 09:44:22", "steve", "1999-03-20 09:44:22", "tyler", 5 );
         JDBC.closeConnection();
     }
 

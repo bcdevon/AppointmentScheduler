@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.AppointmentDAO;
 import DAO.CustomerDAO;
+import DAO.CustomerQuery;
 import Model.Appointment;
 import Model.Customer;
 import javafx.collections.FXCollections;
@@ -12,15 +13,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentController implements Initializable {
@@ -131,8 +132,31 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
-    public void onDeleteCustomer(ActionEvent actionEvent) {
-    }
+    public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
+        //get selected customer from the CustomerTable;
+        Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
 
+        //If no part is selected, return and do nothing
+        if (selectedCustomer == null){
+            return;
+        }
+        //Display a confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Delete Customer");
+        alert.setContentText("Do you want to delete this Customer");
+
+        //Wait for response and check if they clicked ok
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            //Delete Customer if ok is clicked
+            int deletedCustomerID = selectedCustomer.getId();
+            int rowsAffected = CustomerQuery.delete(deletedCustomerID);
+            if(rowsAffected > 0){
+                System.out.println("Customer deleted");
+            }
+        }
+
+    }
 
 }
