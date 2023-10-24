@@ -7,24 +7,28 @@ public class Appointment {
     private String title;
     private String description;
     private String location;
-    private String contact;
     private String type;
     private LocalDateTime start;
     private LocalDateTime end;
     private int customerID;
     private int userID;
+    private int contactID;
 
-    public Appointment() {
+    public Appointment(int id, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID,  int contactID) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.location = location;
-        this.contact = contact;
         this.type = type;
         this.start = start;
         this.end = end;
         this.customerID = customerID;
         this.userID = userID;
+        this.contactID = contactID;
+    }
+
+    public Appointment(){
+
     }
 
     public int getId() {
