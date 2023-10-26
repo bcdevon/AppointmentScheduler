@@ -30,7 +30,7 @@
       <Label layoutX="407.0" layoutY="141.0" text="Start Date" />
       <Label layoutX="409.0" layoutY="186.0" text="End Date" />
       <Label layoutX="63.0" layoutY="386.0" text="User ID" />
-      <Button layoutX="408.0" layoutY="341.0" mnemonicParsing="false" onAction="#onSave" text="Save" />
+      <Button fx:id="saveButton" layoutX="408.0" layoutY="341.0" mnemonicParsing="false" onAction="#onSave" text="Save" />
       <Button layoutX="601.0" layoutY="341.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
       <DatePicker fx:id="addStartDate" layoutX="535.0" layoutY="137.0" />
       <DatePicker fx:id="addEndDate" layoutX="535.0" layoutY="182.0" />
