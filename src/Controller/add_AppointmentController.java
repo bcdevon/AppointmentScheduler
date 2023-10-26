@@ -1,15 +1,18 @@
 package Controller;
 
+import DAO.AppointmentQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class add_AppointmentController {
     public TextField addAppointmentTF;
@@ -24,8 +27,10 @@ public class add_AppointmentController {
     public TextField addUserIDTF;
     public DatePicker addStartDate;
     public DatePicker addEndDate;
+    public Button saveButton;
 
-    public void onSave(ActionEvent actionEvent) {
+    public void onSave(ActionEvent actionEvent) throws SQLException {
+        AppointmentQuery.select();
     }
 
     public void onCancel(ActionEvent actionEvent) throws IOException {

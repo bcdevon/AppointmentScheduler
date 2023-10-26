@@ -63,12 +63,12 @@ public class Appointment {
         this.location = location;
     }
 
-    public String getContact() {
-        return contact;
+    public int getContact() {
+        return contactID;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setContact(int contact) {
+        this.contactID = contact;
     }
 
     public String getType() {

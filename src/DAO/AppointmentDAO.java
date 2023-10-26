@@ -26,7 +26,7 @@ public class AppointmentDAO {
                 appointment.setTitle(resultSet.getString("Title"));
                 appointment.setDescription(resultSet.getString("Description"));
                 appointment.setLocation(resultSet.getString("Location"));
-                appointment.setContact(resultSet.getString("Contact_ID"));
+                appointment.setContact(resultSet.getInt("Contact_ID"));
                 appointment.setType(resultSet.getString("Type"));
 
                 LocalDateTime startDateTime = resultSet.getObject("Start", LocalDateTime.class);
