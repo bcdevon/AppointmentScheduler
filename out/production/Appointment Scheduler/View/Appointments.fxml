@@ -47,7 +47,7 @@
       </Label>
       <Button layoutX="20.0" layoutY="298.0" mnemonicParsing="false" onAction="#onADDAppointment" text="Add" />
       <Button layoutX="129.0" layoutY="298.0" mnemonicParsing="false" onAction="#onUpdateAppointment" text="Update" />
-      <Button layoutX="250.0" layoutY="298.0" mnemonicParsing="false" onAction="#onDeleteAppointment" text="Delete" />
+      <Button fx:id="deleteappointmentButton" layoutX="250.0" layoutY="298.0" mnemonicParsing="false" onAction="#onDeleteAppointment" text="Delete" />
       <Button layoutX="14.0" layoutY="576.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
       <Button layoutX="117.0" layoutY="576.0" mnemonicParsing="false" onAction="#onUpdateCustomer" text="Update" />
       <Button layoutX="250.0" layoutY="576.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete" />

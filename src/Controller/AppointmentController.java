@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.AppointmentDAO;
+import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
 import Model.Appointment;
@@ -107,7 +108,32 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
-    public void onDeleteAppointment(ActionEvent actionEvent) {
+    public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {
+        //get selected appointment from the appointmentTable;
+        Appointment selectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
+
+        //If no appointment is selected, return and do nothing
+        if (selectedAppointment == null){
+            return;
+        }
+        //Display a confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Delete Appointment");
+        alert.setContentText("Do you want to delete this Appointment");
+
+        //Wait for response and check if they clicked ok
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            //Delete Customer if ok is clicked
+            int deletedAppointmentID = selectedAppointment.getId();
+            int rowsAffected = AppointmentQuery.delete(deletedAppointmentID);
+            if(rowsAffected > 0){
+                //Appointment was deleted updated appointment table
+                populateAppointmentTable();
+                System.out.println("Appointment deleted");
+            }
+        }
     }
 
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
