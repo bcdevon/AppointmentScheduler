@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import helper.JDBC;
@@ -26,6 +27,7 @@ public class LoginController implements Initializable {
     public Label timeZoneText;
     public Label userNameText;
     public Label passwordText;
+    public TextField zoneIDTF;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,6 +42,9 @@ public class LoginController implements Initializable {
         passwordText.setText(rb.getString("Password"));
         usernameTF.setPromptText(rb.getString("enter") + " " + rb.getString("username"));
         passwordTF.setPromptText(rb.getString("enter") + " " + rb.getString("Password"));
+
+        //Set the zoneIDTF to the user current zoneID
+        zoneIDTF.setText(ZoneId.systemDefault().getId());
     }
 
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {

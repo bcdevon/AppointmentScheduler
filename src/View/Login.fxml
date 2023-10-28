@@ -27,6 +27,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="69.0" layoutY="232.0" />
+      <TextField fx:id="zoneIDTF" layoutX="69.0" layoutY="232.0" />
    </children>
 </AnchorPane>
