@@ -51,11 +51,11 @@
       <Button layoutX="14.0" layoutY="576.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
       <Button layoutX="117.0" layoutY="576.0" mnemonicParsing="false" onAction="#onUpdateCustomer" text="Update" />
       <Button layoutX="250.0" layoutY="576.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete" />
-      <RadioButton layoutX="558.0" layoutY="33.0" mnemonicParsing="false" text="Month">
+      <RadioButton fx:id="Month" layoutX="558.0" layoutY="33.0" mnemonicParsing="false" onAction="#onMonthSelected" text="Month">
          <toggleGroup>
             <ToggleGroup fx:id="appointmentFilter" />
          </toggleGroup></RadioButton>
-      <RadioButton layoutX="670.0" layoutY="33.0" mnemonicParsing="false" text="Week" toggleGroup="$appointmentFilter" />
+      <RadioButton fx:id="Week" layoutX="670.0" layoutY="33.0" mnemonicParsing="false" onAction="#onWeekSelected" text="Week" toggleGroup="$appointmentFilter" />
       <CheckBox mnemonicParsing="false" text="CheckBox" />
    </children>
 </AnchorPane>

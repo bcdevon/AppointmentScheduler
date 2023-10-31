@@ -8,25 +8,31 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="291.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
-      <TextField fx:id="usernameTF" layoutX="68.0" layoutY="31.0" promptText="Enter Username" />
-      <TextField fx:id="passwordTF" layoutX="69.0" layoutY="94.0" promptText="Enter Password" />
-      <Label fx:id="userNameText" layoutX="114.0" layoutY="14.0" text="Username">
+      <TextField fx:id="usernameTF" layoutX="71.0" layoutY="56.0" promptText="Enter Username" />
+      <TextField fx:id="passwordTF" layoutX="68.0" layoutY="109.0" promptText="Enter Password" />
+      <Label fx:id="userNameText" layoutX="114.0" layoutY="22.0" prefHeight="34.0" prefWidth="57.0" text="Username">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="passwordText" layoutX="116.0" layoutY="63.0" text="Password">
+      <Label fx:id="passwordText" layoutX="116.0" layoutY="92.0" text="Password">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <Button fx:id="loginButton" layoutX="68.0" layoutY="144.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Login" />
       <Button fx:id="exitButton" layoutX="183.0" layoutY="144.0" mnemonicParsing="false" onAction="#onExitClicked" text="Exit" />
-      <Label fx:id="timeZoneText" layoutX="103.0" layoutY="187.0" text="Time Zone">
+      <Label fx:id="timeZoneText" layoutX="14.0" layoutY="187.0" text="Time Zone">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="zoneIDTF" layoutX="69.0" layoutY="232.0" />
+      <TextField fx:id="zoneIDTF" layoutX="8.0" layoutY="231.0" prefHeight="25.0" prefWidth="101.0" />
+      <TextField fx:id="dateTime" layoutX="116.0" layoutY="231.0" />
+      <Label layoutX="149.0" layoutY="187.0" text="Date/Time">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

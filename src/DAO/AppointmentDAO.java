@@ -21,25 +21,66 @@ public class AppointmentDAO {
             String sql = "SELECT * FROM appointments";
             ResultSet resultSet = preparedStatement.executeQuery(sql);
             while (resultSet.next()) {
-                Appointment appointment = new Appointment();
-                appointment.setId(resultSet.getInt("Appointment_ID"));
-                appointment.setTitle(resultSet.getString("Title"));
-                appointment.setDescription(resultSet.getString("Description"));
-                appointment.setLocation(resultSet.getString("Location"));
-                appointment.setContact(resultSet.getInt("Contact_ID"));
-                appointment.setType(resultSet.getString("Type"));
-
-                LocalDateTime startDateTime = resultSet.getObject("Start", LocalDateTime.class);
-                LocalDateTime endDateTime = resultSet.getObject("End", LocalDateTime.class);
-                appointment.setStart(startDateTime);
-                appointment.setEnd(endDateTime);
-                appointment.setCustomerID(resultSet.getInt("Customer_ID"));
+                Appointment appointment = extractAppointmentFromResultSet(resultSet);
                 appointments.add(appointment);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return appointments;
+    }
+    public List<Appointment> getAppointmentsByMonth(LocalDateTime startOfMonth, LocalDateTime endOfMonth) throws SQLException {
+        List<Appointment> appointments = new ArrayList<>();
+        String sql = "SELECT * FROM appointments WHERE start >= ? AND start <= ?";
+
+        try{
+            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(startOfMonth));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(endOfMonth));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                appointments.add(appointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+    public List<Appointment> getAppointmentsForWeek(LocalDateTime startOfWeek, LocalDateTime endOfWeek) throws SQLException {
+        List<Appointment> appointments = new ArrayList<>();
+        String sql = "SELECT * FROM appointments WHERE start >= ? AND start <= ?";
+
+        try(PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)){
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(startOfWeek));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(endOfWeek));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                appointments.add(appointment);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+    private Appointment extractAppointmentFromResultSet(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("Appointment_ID");
+        String title = resultSet.getString("Title");
+        String description = resultSet.getString("Description");
+        String location = resultSet.getString("Location");
+        int contactID = resultSet.getInt("Contact_ID");
+        String type = resultSet.getString("Type");
+        LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
+        LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
+        int userID =resultSet.getInt("User_ID");
+        int customerID = resultSet.getInt("Customer_ID");
+
+        return new Appointment(id, title, description, location, type, start, end, customerID, userID, contactID);
     }
 
 }

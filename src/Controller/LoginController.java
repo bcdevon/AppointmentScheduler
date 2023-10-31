@@ -28,6 +28,7 @@ public class LoginController implements Initializable {
     public Label userNameText;
     public Label passwordText;
     public TextField zoneIDTF;
+    public TextField dateTime;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,7 +68,7 @@ public class LoginController implements Initializable {
 
         //check the entered username and password against the database
         if(authenticateUser(enteredUsername, enteredPassword)){
-            //If the do match load the Appointment screen
+            //If they do match load the Appointment screen
             Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
             Scene appointment_scene = new Scene(appointment_parent);
 
