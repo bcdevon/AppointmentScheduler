@@ -35,8 +35,8 @@ public class add_AppointmentController {
         String descriptionS = addDescriptionTF.getText();
         String locationS = addLocationTF.getText();
         String typeS = addTypeTF.getText();
-        String startS = "1987-03-20 09:44:22";
-        String endS = "1987-03-20 09:44:22";
+        String startS = "2023-10-20 09:44:22";
+        String endS = "2023-10-22 09:44:22";
         String creatdateS = "1987-03-20 09:44:22";
         String createdbyS = "Brady";
         String lastupdatedS = "1987-03-20 09:44:22";

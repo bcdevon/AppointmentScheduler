@@ -21,13 +21,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentController implements Initializable {
     public ToggleGroup appointmentFilter;
-    public TableView AppointmentTable;
+    public TableView<Appointment> AppointmentTable;
     public TableColumn apptIDCol;
     public TableColumn apptTitleCol;
     public TableColumn apptDescriptionCol;
@@ -44,6 +47,10 @@ public class AppointmentController implements Initializable {
     public TableColumn customerAddressCol;
     public TableColumn customerPostalCodeCol;
     public TableColumn customerPhoneNumberCol;
+    public RadioButton Month;
+    public RadioButton Week;
+    //Default filter selection
+    private String selectedFilter = "Month";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -187,4 +194,57 @@ public class AppointmentController implements Initializable {
 
     }
 
+    public void onMonthSelected(ActionEvent actionEvent) {
+        selectedFilter = "Month";
+        if(selectedFilter.equals("Month")){
+            List<Appointment> filteredAppointments = filteredAppointsbyMonth();
+            displayAppointments(filteredAppointments);
+        }
+    }
+
+    public void onWeekSelected(ActionEvent actionEvent) {
+        selectedFilter = "Week";
+        if (selectedFilter.equals("Week")) {
+            // Filter appointments for the current week
+            List<Appointment> filteredAppointments = filterAppointmentsByWeek();
+            displayAppointments(filteredAppointments);
+        }
+    }
+    //helper method to filtr appointments by month
+    private List<Appointment> filteredAppointsbyMonth() {
+        //get current date
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        //filter appointments for current month
+        List<Appointment> filteredAppointments = new ArrayList<>();
+        for (Appointment appointment : AppointmentTable.getItems()) {
+            if (appointment.getStart().getYear() == currentDate.getYear() &&
+            appointment.getStart().getMonth() == currentDate.getMonth()) {
+                filteredAppointments.add(appointment);
+            }
+        }
+        return filteredAppointments;
+    }
+
+    private List<Appointment> filterAppointmentsByWeek() {
+        LocalDateTime currentDate = LocalDateTime.now();
+        //calculate start of week
+        LocalDateTime startOfWeek = currentDate.with(DayOfWeek.MONDAY);
+        LocalDateTime endOfWeek = currentDate.with(DayOfWeek.SUNDAY).plusHours(59).plusSeconds(59);
+
+        // Filter appointments for the current week
+        List<Appointment> filteredAppointments = new ArrayList<>();
+        for (Appointment appointment : AppointmentTable.getItems()) {
+            if (appointment.getStart().isAfter(startOfWeek) && appointment.getStart().isBefore(endOfWeek)) {
+                filteredAppointments.add(appointment);
+            }
+        }
+        return filteredAppointments;
+    }
+    // Helper method to display the filtered appointments in the table
+    private void displayAppointments(List<Appointment> filteredAppointments) {
+        ObservableList<Appointment> filteredAppointmentData = FXCollections.observableArrayList(filteredAppointments);
+        AppointmentTable.setItems(filteredAppointmentData);
+    }
 }
+
