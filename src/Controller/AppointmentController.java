@@ -49,8 +49,9 @@ public class AppointmentController implements Initializable {
     public TableColumn customerPhoneNumberCol;
     public RadioButton Month;
     public RadioButton Week;
-    //Default filter selection
-    private String selectedFilter = "Month";
+    public RadioButton All;
+    //Default filter selectiontes
+    private String selectedFilter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -210,7 +211,7 @@ public class AppointmentController implements Initializable {
             displayAppointments(filteredAppointments);
         }
     }
-    //helper method to filtr appointments by month
+    //helper method to filter appointments by month
     private List<Appointment> filteredAppointsbyMonth() {
         //get current date
         LocalDateTime currentDate = LocalDateTime.now();
@@ -245,6 +246,10 @@ public class AppointmentController implements Initializable {
     private void displayAppointments(List<Appointment> filteredAppointments) {
         ObservableList<Appointment> filteredAppointmentData = FXCollections.observableArrayList(filteredAppointments);
         AppointmentTable.setItems(filteredAppointmentData);
+    }
+
+    public void onAllSelected(ActionEvent actionEvent) {
+        populateAppointmentTable();
     }
 }
 

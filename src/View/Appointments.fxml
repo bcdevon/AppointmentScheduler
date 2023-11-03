@@ -57,5 +57,6 @@
          </toggleGroup></RadioButton>
       <RadioButton fx:id="Week" layoutX="670.0" layoutY="33.0" mnemonicParsing="false" onAction="#onWeekSelected" text="Week" toggleGroup="$appointmentFilter" />
       <CheckBox mnemonicParsing="false" text="CheckBox" />
+      <RadioButton fx:id="All" layoutX="443.0" layoutY="33.0" mnemonicParsing="false" onAction="#onAllSelected" selected="true" text="All" toggleGroup="$appointmentFilter" />
    </children>
 </AnchorPane>
