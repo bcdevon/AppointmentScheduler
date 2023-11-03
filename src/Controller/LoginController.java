@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import helper.JDBC;
@@ -28,7 +30,7 @@ public class LoginController implements Initializable {
     public Label userNameText;
     public Label passwordText;
     public TextField zoneIDTF;
-    public TextField dateTime;
+    public TextField dateTimeTF;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,6 +48,15 @@ public class LoginController implements Initializable {
 
         //Set the zoneIDTF to the user current zoneID
         zoneIDTF.setText(ZoneId.systemDefault().getId());
+
+        //get the current date and time
+        Date currentDate = new Date();
+
+        //Format the date and time as a string
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDatetime = dateFormat.format(currentDate);
+        //set the text field to the formatted date time
+        dateTimeTF.setText(formattedDatetime);
     }
 
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {
@@ -110,4 +121,6 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
+    public void dateTimeTextField(ActionEvent actionEvent) {
+    }
 }
