@@ -2,20 +2,25 @@ package Controller;
 
 import DAO.AppointmentQuery;
 import DAO.CustomerQuery;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class add_AppointmentController {
+public class add_AppointmentController implements Initializable {
     public TextField addAppointmentTF;
     public TextField addTitleTF;
     public TextField addDescriptionTF;
@@ -29,6 +34,14 @@ public class add_AppointmentController {
     public DatePicker addStartDate;
     public DatePicker addEndDate;
     public Button saveButton;
+    public ComboBox addStartTimeBox;
+    public ComboBox addEndTimeBox;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        addStartTimeBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
+        addEndTimeBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
+    }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
         String titleS = addTitleTF.getText();
