@@ -9,14 +9,12 @@
 
 <AnchorPane prefHeight="537.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.add_AppointmentController">
    <children>
-      <TextField fx:id="addAppointmentTF" layoutX="163.0" layoutY="60.0" />
+      <TextField fx:id="addAppointmentTF" layoutX="163.0" layoutY="60.0" promptText="Automatically Assigned" />
       <TextField fx:id="addTitleTF" layoutX="163.0" layoutY="96.0" />
       <TextField fx:id="addDescriptionTF" layoutX="163.0" layoutY="137.0" />
       <TextField fx:id="addLocationTF" layoutX="163.0" layoutY="182.0" />
       <TextField fx:id="addContactTF" layoutX="163.0" layoutY="229.0" />
-      <TextField fx:id="addStartTimeTF" layoutX="535.0" layoutY="60.0" />
       <TextField fx:id="addTypeTF" layoutX="163.0" layoutY="278.0" />
-      <TextField fx:id="addEndTimeTF" layoutX="535.0" layoutY="96.0" />
       <TextField fx:id="addCustomerIDTF" layoutX="163.0" layoutY="328.0" />
       <TextField fx:id="addUserIDTF" layoutX="163.0" layoutY="382.0" />
       <Label layoutX="61.0" layoutY="64.0" text="Appointment ID" />
@@ -26,16 +24,16 @@
       <Label layoutX="406.0" layoutY="64.0" text="Start Time" />
       <Label layoutX="408.0" layoutY="100.0" text="End Time" />
       <Label layoutX="58.0" layoutY="332.0" text="Customer ID" />
-      <Label layoutX="61.0" layoutY="233.0" text="Contact" />
+      <Label layoutX="61.0" layoutY="233.0" text="Contact ID" />
       <Label layoutX="61.0" layoutY="186.0" text="Location" />
       <Label layoutX="407.0" layoutY="141.0" text="Start Date" />
       <Label layoutX="409.0" layoutY="186.0" text="End Date" />
       <Label layoutX="63.0" layoutY="386.0" text="User ID" />
       <Button fx:id="saveButton" layoutX="408.0" layoutY="341.0" mnemonicParsing="false" onAction="#onSave" text="Save" />
       <Button layoutX="601.0" layoutY="341.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
-      <DatePicker fx:id="addStartDate" layoutX="535.0" layoutY="137.0" />
-      <DatePicker fx:id="addEndDate" layoutX="535.0" layoutY="182.0" />
-      <ComboBox fx:id="addStartTimeBox" layoutX="547.0" layoutY="221.0" prefWidth="150.0" promptText="Select start time" />
-      <ComboBox fx:id="addEndTimeBox" layoutX="547.0" layoutY="256.0" prefWidth="150.0" promptText="Select end time" />
+      <DatePicker fx:id="addStartDate" layoutX="535.0" layoutY="137.0" promptText="Select start Date" />
+      <DatePicker fx:id="addEndDate" layoutX="535.0" layoutY="182.0" promptText="Select end Date" />
+      <ComboBox fx:id="addStartTimeBox" layoutX="535.0" layoutY="60.0" prefWidth="150.0" promptText="Select start time" />
+      <ComboBox fx:id="addEndTimeBox" layoutX="535.0" layoutY="96.0" prefWidth="150.0" promptText="Select end time" />
    </children>
 </AnchorPane>

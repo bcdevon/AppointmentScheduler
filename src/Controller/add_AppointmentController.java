@@ -18,6 +18,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class add_AppointmentController implements Initializable {
@@ -44,12 +49,34 @@ public class add_AppointmentController implements Initializable {
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
+
+        //combine selected date and time to create start and end date/time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String startDate = addStartDate.getValue().toString();
+        String startTime = addStartTimeBox.getValue().toString() + ":00";
+        String endDate = addEndDate.getValue().toString();
+        String endTime = addEndTimeBox.getValue().toString() + ":00";
+        LocalDateTime startDateTime = LocalDateTime.parse(startDate + " " + startTime, formatter);
+        LocalDateTime endDateTime = LocalDateTime.parse(endDate+ " " + endTime, formatter);
+
+       // Define your time zone
+        ZoneId localTimeZone = ZoneId.systemDefault();
+
+// Create ZonedDateTime objects with the local time and your time zone
+        ZonedDateTime startZonedDateTime = ZonedDateTime.of(startDateTime, localTimeZone);
+        ZonedDateTime endZonedDateTime = ZonedDateTime.of(endDateTime, localTimeZone);
+
+// Convert to UTC
+        ZonedDateTime startZonedDateTimeUTC = startZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
+        ZonedDateTime endZonedDateTimeUTC = endZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
+
+
         String titleS = addTitleTF.getText();
         String descriptionS = addDescriptionTF.getText();
         String locationS = addLocationTF.getText();
         String typeS = addTypeTF.getText();
-        String startS = "2023-10-20 09:44:22";
-        String endS = "2023-10-22 09:44:22";
+        String startS = startZonedDateTimeUTC.format(formatter);
+        String endS = endZonedDateTimeUTC.format(formatter);
         String creatdateS = "1987-03-20 09:44:22";
         String createdbyS = "Brady";
         String lastupdatedS = "1987-03-20 09:44:22";
