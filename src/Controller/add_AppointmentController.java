@@ -41,11 +41,17 @@ public class add_AppointmentController implements Initializable {
     public Button saveButton;
     public ComboBox addStartTimeBox;
     public ComboBox addEndTimeBox;
+    public ComboBox contactIDComboBox;
+    public ComboBox customerIDComboBox;
+    public ComboBox userIDComboBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addStartTimeBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
         addEndTimeBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
+        contactIDComboBox.setItems(FXCollections.observableArrayList(1, 2, 3));
+        customerIDComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 104));
+        userIDComboBox.setItems(FXCollections.observableArrayList(1, 2));
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
@@ -81,9 +87,9 @@ public class add_AppointmentController implements Initializable {
         String createdbyS = "Brady";
         String lastupdatedS = "1987-03-20 09:44:22";
         String lastupdatebyS = "Brady";
-        int customeridS = Integer.parseInt(addCustomerIDTF.getText());
-        int useridS = Integer.parseInt(addUserIDTF.getText());
-        int contactS = Integer.parseInt(addContactTF.getText());
+        int customeridS = (int) customerIDComboBox.getValue();
+        int useridS = (int) userIDComboBox.getValue();
+        int contactS = (int) contactIDComboBox.getValue();
 
         int rowsAffected = AppointmentQuery.insert(titleS, descriptionS, locationS, typeS, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS, customeridS, useridS, contactS);
 
