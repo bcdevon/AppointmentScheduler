@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -198,7 +199,7 @@ public class AppointmentController implements Initializable {
     public void onMonthSelected(ActionEvent actionEvent) {
         selectedFilter = "Month";
         if(selectedFilter.equals("Month")){
-            List<Appointment> filteredAppointments = filteredAppointsbyMonth();
+            List<Appointment> filteredAppointments = filteredAppointmentsbyMonth();
             displayAppointments(filteredAppointments);
         }
     }
@@ -212,13 +213,14 @@ public class AppointmentController implements Initializable {
         }
     }
     //helper method to filter appointments by month
-    private List<Appointment> filteredAppointsbyMonth() {
+    private List<Appointment> filteredAppointmentsbyMonth() {
+        populateAppointmentTable();
         //get current date
-        LocalDateTime currentDate = LocalDateTime.now();
-
+        LocalDate currentDate = LocalDate.now();
         //filter appointments for current month
         List<Appointment> filteredAppointments = new ArrayList<>();
         for (Appointment appointment : AppointmentTable.getItems()) {
+            LocalDate appointmentDate = appointment.getStart().toLocalDate();
             if (appointment.getStart().getYear() == currentDate.getYear() &&
             appointment.getStart().getMonth() == currentDate.getMonth()) {
                 filteredAppointments.add(appointment);
@@ -228,11 +230,11 @@ public class AppointmentController implements Initializable {
     }
 
     private List<Appointment> filterAppointmentsByWeek() {
+        populateAppointmentTable();
         LocalDateTime currentDate = LocalDateTime.now();
         //calculate start of week
         LocalDateTime startOfWeek = currentDate.with(DayOfWeek.MONDAY);
         LocalDateTime endOfWeek = currentDate.with(DayOfWeek.SUNDAY).plusHours(59).plusSeconds(59);
-
         // Filter appointments for the current week
         List<Appointment> filteredAppointments = new ArrayList<>();
         for (Appointment appointment : AppointmentTable.getItems()) {
