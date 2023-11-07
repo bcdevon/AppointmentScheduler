@@ -61,7 +61,21 @@ public class CustomerDAO {
         return allDivisions;
     }
 
-
+    public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
+        ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();
+        String sql = "SELECT Customer_ID FROM customers";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+        try {
+            while (resultSet.next()) {
+                int customerID = resultSet.getInt("Customer_ID");
+                allCustomerIDs.add(customerID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allCustomerIDs;
+    }
 
     //left off here create function to add a customer to the myql database
 //    public static String addCustomer();
