@@ -61,6 +61,54 @@ public class CustomerDAO {
         return allDivisions;
     }
 
+    public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
+        ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();
+        String sql = "SELECT Customer_ID FROM customers";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+        try {
+            while (resultSet.next()) {
+                int customerID = resultSet.getInt("Customer_ID");
+                allCustomerIDs.add(customerID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allCustomerIDs;
+    }
+
+    public static ObservableList<Integer> getAllContactIDs() throws SQLException {
+        ObservableList<Integer> allContactIDs = FXCollections.observableArrayList();
+        String sql = "SELECT Contact_ID FROM contacts";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+        try{
+            while (resultSet.next()) {
+                int contactID = resultSet.getInt("Contact_ID");
+                allContactIDs.add(contactID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allContactIDs;
+    }
+
+    public static ObservableList<Integer> getAllUserIDs() throws SQLException {
+        ObservableList<Integer> allUserIDs = FXCollections.observableArrayList();
+        String sql = "SELECT User_ID FROM users";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+        try{
+            while (resultSet.next()) {
+                int userID = resultSet.getInt("User_ID");
+                allUserIDs.add(userID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allUserIDs;
+    }
+
 
 
     //left off here create function to add a customer to the myql database

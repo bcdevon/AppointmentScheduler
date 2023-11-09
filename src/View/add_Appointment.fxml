@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="537.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.add_AppointmentController">
    <children>
-      <TextField fx:id="addAppointmentTF" layoutX="163.0" layoutY="60.0" promptText="Automatically Assigned" />
+      <TextField fx:id="addAppointmentTF" layoutX="163.0" layoutY="60.0" promptText="Automatically Assigned" editable="false"/>
       <TextField fx:id="addTitleTF" layoutX="163.0" layoutY="96.0" />
       <TextField fx:id="addDescriptionTF" layoutX="163.0" layoutY="137.0" />
       <TextField fx:id="addLocationTF" layoutX="163.0" layoutY="182.0" />
