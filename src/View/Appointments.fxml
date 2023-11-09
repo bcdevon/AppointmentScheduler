@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
@@ -56,7 +55,7 @@
             <ToggleGroup fx:id="appointmentFilter" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="Week" layoutX="670.0" layoutY="33.0" mnemonicParsing="false" onAction="#onWeekSelected" text="Week" toggleGroup="$appointmentFilter" />
-      <CheckBox mnemonicParsing="false" text="CheckBox" />
       <RadioButton fx:id="All" layoutX="443.0" layoutY="33.0" mnemonicParsing="false" onAction="#onAllSelected" selected="true" text="All" toggleGroup="$appointmentFilter" />
+      <Button fx:id="reportButton" layoutX="300.0" layoutY="24.0" mnemonicParsing="false" onAction="#onReportButton" prefHeight="35.0" prefWidth="70.0" text="Report" />
    </children>
 </AnchorPane>

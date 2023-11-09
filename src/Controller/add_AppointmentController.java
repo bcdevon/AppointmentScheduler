@@ -50,13 +50,21 @@ public class add_AppointmentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addStartTimeBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
         addEndTimeBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
-        contactIDComboBox.setItems(FXCollections.observableArrayList(1, 2, 3));
+        try {
+            contactIDComboBox.setItems(CustomerDAO.getAllContactIDs());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         try {
             customerIDComboBox.setItems(CustomerDAO.getAllCustomerIDs());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        userIDComboBox.setItems(FXCollections.observableArrayList(1, 2));
+        try {
+            userIDComboBox.setItems(CustomerDAO.getAllUserIDs());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {

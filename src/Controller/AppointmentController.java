@@ -51,6 +51,7 @@ public class AppointmentController implements Initializable {
     public RadioButton Month;
     public RadioButton Week;
     public RadioButton All;
+    public Button reportButton;
     //Default filter selectiontes
     private String selectedFilter;
 
@@ -252,6 +253,17 @@ public class AppointmentController implements Initializable {
 
     public void onAllSelected(ActionEvent actionEvent) {
         populateAppointmentTable();
+    }
+
+    public void onReportButton(ActionEvent actionEvent) throws IOException {
+        //load Update report screen
+        Parent report_Screen_parent = FXMLLoader.load(getClass().getResource("../View/Report_Screen.fxml"));
+        Scene report_Screen_scene = new Scene(report_Screen_parent);
+
+        //get the current window and set the scene to the Report Screen scene
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(report_Screen_scene);
+        stage.show();
     }
 }
 
