@@ -39,7 +39,7 @@
         </columns>
       </TableView>
       <ComboBox fx:id="reportMonth" layoutX="146.0" layoutY="45.0" prefWidth="150.0" promptText="Select Month" />
-      <ComboBox fx:id="reportContact" layoutX="348.0" layoutY="278.0" prefWidth="150.0" promptText="Select Contact" />
+      <ComboBox fx:id="reportContact" layoutX="348.0" layoutY="278.0" onAction="#onNameSelected" prefWidth="150.0" promptText="Select Contact" />
       <ComboBox layoutX="579.0" layoutY="45.0" prefWidth="150.0" promptText="Select Location" />
    </children>
 </AnchorPane>

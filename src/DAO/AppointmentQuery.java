@@ -56,4 +56,20 @@ public class AppointmentQuery {
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
+    public static int getContactIDByName(String contactName) throws SQLException {
+        int contactID = -1; // Default value if not found
+
+        String sql = "SELECT Contact_ID FROM contacts WHERE Contact_Name = ?";
+        try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)) {
+            ps.setString(1, contactName);
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    contactID = resultSet.getInt("Contact_ID");
+                }
+            }
+        }
+
+        return contactID;
+    }
 }

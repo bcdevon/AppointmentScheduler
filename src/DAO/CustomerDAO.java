@@ -77,21 +77,65 @@ public class CustomerDAO {
         return allCustomerIDs;
     }
 
-    public static ObservableList<Integer> getAllContactIDs() throws SQLException {
-        ObservableList<Integer> allContactIDs = FXCollections.observableArrayList();
-        String sql = "SELECT Contact_ID FROM contacts";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet resultSet = ps.executeQuery();
-        try{
-            while (resultSet.next()) {
-                int contactID = resultSet.getInt("Contact_ID");
-                allContactIDs.add(contactID);
+    public static ObservableList<String> getAllContactNames() throws SQLException {
+        ObservableList<String> allContactNames = FXCollections.observableArrayList();
+        String sql = "SELECT Contact_Name FROM contacts";
+        PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        try {
+            while (resultSet.next()){
+                String contactName = resultSet.getString("Contact_Name");
+                allContactNames.add(contactName);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return allContactIDs;
+        return allContactNames;
     }
+
+    public static ObservableList<Integer> getAppointmentsByContact(String contactName) throws SQLException {
+        ObservableList<Integer> allContactAppointments = FXCollections.observableArrayList();
+
+        // Step 1: Find contact ID by name
+        String contactIdSql = "SELECT Contact_ID FROM contacts WHERE Contact_Name = ?";
+        int contactId = -1;
+
+        try (PreparedStatement contactIdPs = JDBC.connection.prepareStatement(contactIdSql)) {
+            contactIdPs.setString(1, contactName);
+
+            try (ResultSet contactIdResultSet = contactIdPs.executeQuery()) {
+                if (contactIdResultSet.next()) {
+                    contactId = contactIdResultSet.getInt("Contact_ID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (contactId == -1) {
+            // Contact not found
+            return allContactAppointments;
+        }
+
+        // Step 2: Find appointments by contact ID
+        String appointmentsSql = "SELECT Appointment_ID FROM appointments WHERE Contact_ID = ?";
+
+        try (PreparedStatement appointmentsPs = JDBC.connection.prepareStatement(appointmentsSql)) {
+            appointmentsPs.setInt(1, contactId);
+
+            try (ResultSet appointmentsResultSet = appointmentsPs.executeQuery()) {
+                while (appointmentsResultSet.next()) {
+                    int appointmentID = appointmentsResultSet.getInt("Appointment_ID");
+                    allContactAppointments.add(appointmentID);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allContactAppointments;
+    }
+
 
     public static ObservableList<Integer> getAllUserIDs() throws SQLException {
         ObservableList<Integer> allUserIDs = FXCollections.observableArrayList();
