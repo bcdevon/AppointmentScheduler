@@ -52,7 +52,7 @@ public class AppointmentController implements Initializable {
     public RadioButton Week;
     public RadioButton All;
     public Button reportButton;
-    //Default filter selectiontes
+    //Default filter selection
     private String selectedFilter;
 
     @Override
