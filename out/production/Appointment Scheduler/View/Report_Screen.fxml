@@ -33,15 +33,15 @@
             <TableColumn fx:id="customerIDCol" prefWidth="108.0" text="Customer ID" />
         </columns>
       </TableView>
-      <TableView layoutX="579.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="locationReportTable" layoutX="579.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="locationCol" prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
       <ComboBox fx:id="reportMonth" layoutX="146.0" layoutY="45.0" onAction="#onMonthSelected" prefWidth="150.0" promptText="Select Month" />
       <ComboBox fx:id="reportContact" layoutX="348.0" layoutY="278.0" onAction="#onNameSelected" prefWidth="150.0" promptText="Select Contact" />
-      <ComboBox layoutX="579.0" layoutY="45.0" prefWidth="150.0" promptText="Select Location" />
+      <ComboBox fx:id="reportLocationBox" layoutX="579.0" layoutY="45.0" onAction="#onLocationSelected" prefWidth="150.0" promptText="Select Location" />
       <Button fx:id="backButton" layoutX="36.0" layoutY="29.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
    </children>
 </AnchorPane>

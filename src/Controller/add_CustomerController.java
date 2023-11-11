@@ -35,7 +35,7 @@ public class add_CustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            countryBox.setItems(CustomerDAO.getAllCountries());
+            countryBox.setItems((ObservableList) CustomerDAO.getAllCountries());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -78,4 +78,9 @@ public class add_CustomerController implements Initializable {
         stage.show();
     }
 
+    public void onCountrySelected(ActionEvent actionEvent) {
+    }
+
+    public void onDivisionSelected(ActionEvent actionEvent) {
+    }
 }

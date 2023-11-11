@@ -41,7 +41,7 @@
       </TableView>
       <ComboBox fx:id="reportMonth" layoutX="146.0" layoutY="45.0" onAction="#onMonthSelected" prefWidth="150.0" promptText="Select Month" />
       <ComboBox fx:id="reportContact" layoutX="348.0" layoutY="278.0" onAction="#onNameSelected" prefWidth="150.0" promptText="Select Contact" />
-      <ComboBox fx:id="reportLocation" layoutX="579.0" layoutY="45.0" onAction="#onLocationSelected" prefWidth="150.0" promptText="Select Location" />
+      <ComboBox fx:id="reportLocationBox" layoutX="579.0" layoutY="45.0" onAction="#onLocationSelected" prefWidth="150.0" promptText="Select Location" />
       <Button fx:id="backButton" layoutX="36.0" layoutY="29.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
    </children>
 </AnchorPane>

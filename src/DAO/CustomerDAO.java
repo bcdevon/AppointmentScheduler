@@ -1,4 +1,5 @@
 package DAO;
+import Model.Country;
 import Model.Customer;
 import helper.JDBC;
 import javafx.collections.FXCollections;
@@ -35,14 +36,15 @@ public class CustomerDAO {
     /**get all countries method
      * database query to get all the countries
      * @return all the countries*/
-    public static ObservableList<String> getAllCountries() throws SQLException{
-        ObservableList<String> allCountries = FXCollections.observableArrayList();
-        String sql = "SELECT Country FROM countries";
+    public static List<Country> getAllCountries() throws SQLException{
+        List<Country> allCountries = new ArrayList<>();
+        String sql = "SELECT Country_ID, Country FROM countries";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()){
-            allCountries.add(resultSet.getString("Country"));
-
+            int countryID = resultSet.getInt("Country_ID");
+            String countryName = resultSet.getString("Country");
+            allCountries.add(new Country(countryID, countryName));
         }
         return allCountries;
     }

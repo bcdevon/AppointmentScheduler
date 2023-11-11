@@ -1,6 +1,8 @@
 package Controller;
 
+import Model.Country;
 import Model.Report;
+import helper.CountryStringConverter;
 import helper.MonthConverter;
 import DAO.AppointmentDAO;
 import DAO.AppointmentQuery;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -46,6 +49,9 @@ public class report_Controller implements Initializable {
     public ComboBox reportMonth;
     public ComboBox reportContact;
     public Button backButton;
+    public ComboBox<Country> reportLocationBox;
+    public TableView locationReportTable;
+    public TableColumn locationCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,15 +64,18 @@ public class report_Controller implements Initializable {
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
-
-
-
-
-
         reportMonth.setItems(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
         try {
             reportContact.setItems(CustomerDAO.getAllContactNames());
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            List<Country> countries = CustomerDAO.getAllCountries();
+            ObservableList<Country> countryList = FXCollections.observableList(countries);
+            System.out.println(countryList);
+            reportLocationBox.setItems(countryList);
+        }catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -190,6 +199,9 @@ public class report_Controller implements Initializable {
     public void onMonthSelected(ActionEvent actionEvent) {
         populateMonthlyReport();
 
+    }
+
+    public void onLocationSelected(ActionEvent actionEvent) {
     }
 }
 
