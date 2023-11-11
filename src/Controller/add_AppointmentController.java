@@ -102,7 +102,8 @@ public class add_AppointmentController implements Initializable {
         String lastupdatebyS = "Brady";
         int customeridS = (int) customerIDComboBox.getValue();
         int useridS = (int) userIDComboBox.getValue();
-        int contactS = (int) contactIDComboBox.getValue();
+        String contactName = (String) contactIDComboBox.getValue();
+        int contactS = AppointmentQuery.getContactIDByName(contactName);
 
         int rowsAffected = AppointmentQuery.insert(titleS, descriptionS, locationS, typeS, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS, customeridS, useridS, contactS);
 
