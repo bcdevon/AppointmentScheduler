@@ -62,6 +62,22 @@ public class CustomerDAO {
         }
         return allDivisions;
     }
+    public static List<String> getDivisionsbyCountry() {
+        List<String> divisions = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT Division From first_level_divisons WHERE Country_ID = ?");
+            String sql = "SELECT Division From first_level_divisons WHERE Country_ID = ?";
+            ResultSet resultSet = preparedStatement.executeQuery(sql);
+            while (resultSet.next()){
+                String division = resultSet.getString("Division");
+                divisions.add(division);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return divisions;
+    }
 
     public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
         ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();

@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.xml.stream.Location;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -52,6 +53,8 @@ public class report_Controller implements Initializable {
     public ComboBox<Country> reportLocationBox;
     public TableView locationReportTable;
     public TableColumn locationCol;
+    public TableColumn divisionCol;
+    public TableColumn customerCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,6 +80,31 @@ public class report_Controller implements Initializable {
             reportLocationBox.setItems(countryList);
         }catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    private void populateLocationReport() {
+        Country selectedCountry = reportLocationBox.getValue();
+
+        if (selectedCountry != null) {
+            try {
+                // Assuming you have methods in CustomerDAO to get divisions and customers by country
+                List<String> divisions = CustomerDAO.getDivisionsByCountry(selectedCountry);
+                Map<String, Integer> customersByDivision = CustomerDAO.getCustomerCountByDivision(selectedCountry);
+
+                // Clear existing items
+                locationReportTable.getItems().clear();
+
+                // Display the selected country in locationCol
+                locationReportTable.getItems().add(new Report(selectedCountry.getName(), "", ""));
+
+                // Display divisions and customer counts
+                for (String division : divisions) {
+                    int customerCount = customersByDivision.getOrDefault(division, 0);
+                    locationReportTable.getItems().add(new Report("", division, String.valueOf(customerCount)));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
     private void populateMonthlyReport() {
@@ -202,6 +230,9 @@ public class report_Controller implements Initializable {
     }
 
     public void onLocationSelected(ActionEvent actionEvent) {
+        //get the selected country
+      populateLocationReport();
+
     }
 }
 
