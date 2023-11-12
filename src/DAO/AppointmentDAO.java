@@ -104,5 +104,27 @@ public class AppointmentDAO {
         return appointments;
     }
 
+    public static ObservableList<Appointment> getAppointmentsByMonthStart(int month) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        // Use a SQL query to get appointments for the specified month
+        String sql = "SELECT * FROM appointments WHERE MONTH(start) = ?";
+
+        try (PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, month);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                appointments.add(appointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointments;
+
+    }
+
 
 }

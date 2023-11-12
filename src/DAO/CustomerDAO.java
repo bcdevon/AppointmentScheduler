@@ -1,4 +1,5 @@
 package DAO;
+import Model.Country;
 import Model.Customer;
 import helper.JDBC;
 import javafx.collections.FXCollections;
@@ -35,14 +36,15 @@ public class CustomerDAO {
     /**get all countries method
      * database query to get all the countries
      * @return all the countries*/
-    public static ObservableList<String> getAllCountries() throws SQLException{
-        ObservableList<String> allCountries = FXCollections.observableArrayList();
-        String sql = "SELECT Country FROM countries";
+    public static List<Country> getAllCountries() throws SQLException{
+        List<Country> allCountries = new ArrayList<>();
+        String sql = "SELECT Country_ID, Country FROM countries";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()){
-            allCountries.add(resultSet.getString("Country"));
-
+            int countryID = resultSet.getInt("Country_ID");
+            String countryName = resultSet.getString("Country");
+            allCountries.add(new Country(countryID, countryName));
         }
         return allCountries;
     }
@@ -60,7 +62,41 @@ public class CustomerDAO {
         }
         return allDivisions;
     }
+    public static List<String> getDivisionsbyCountry(Country country) throws SQLException {
+        List<String> divisions = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT Division From first_level_divisons WHERE Country_ID = ?");
+            String sql = "SELECT Division From first_level_divisons WHERE Country_ID = ?";
+            System.out.println("SQL Query: " + sql);
+            ResultSet resultSet = preparedStatement.executeQuery(sql);
+            while (resultSet.next()){
+                String division = resultSet.getString("Division");
+                System.out.println("Division found: " + division);
+                divisions.add(division);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return divisions;
+    }
 
+    public static int getCustomerCountByDivision(String division) throws SQLException {
+        int customerCount = 0;
+        try {
+            PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT COUNT(*) AS CustomerCount FROM customers WHERE Division_ID = ?");
+            String sql = "SELECT COUNT(*) AS customerCount FROM customers WHERE Division_ID = ?";
+            preparedStatement.setString(1, division);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    customerCount = resultSet.getInt("customerCount");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerCount;
+    }
     public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
         ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();
         String sql = "SELECT Customer_ID FROM customers";
