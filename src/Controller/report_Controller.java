@@ -84,29 +84,27 @@ public class report_Controller implements Initializable {
     }
     private void populateLocationReport() {
         Country selectedCountry = reportLocationBox.getValue();
-
         if (selectedCountry != null) {
             try {
-                // Assuming you have methods in CustomerDAO to get divisions and customers by country
-                List<String> divisions = CustomerDAO.getDivisionsByCountry(selectedCountry);
-                Map<String, Integer> customersByDivision = CustomerDAO.getCustomerCountByDivision(selectedCountry);
-
-                // Clear existing items
-                locationReportTable.getItems().clear();
+                // Assuming you have methods in CustomerDAO to get divisions by country
+                List<String> divisions = CustomerDAO.getDivisionsbyCountry(selectedCountry);
+                System.out.println("Selected Country: " + selectedCountry.getName());
 
                 // Display the selected country in locationCol
-                locationReportTable.getItems().add(new Report(selectedCountry.getName(), "", ""));
+                locationReportTable.getItems().add(new Report(selectedCountry.getName(), "", 0));
 
                 // Display divisions and customer counts
                 for (String division : divisions) {
-                    int customerCount = customersByDivision.getOrDefault(division, 0);
-                    locationReportTable.getItems().add(new Report("", division, String.valueOf(customerCount)));
+                    long customerCount = CustomerDAO.getCustomerCountByDivision(division);
+                    System.out.println("Division: " + division + ", Customer Count: " + customerCount);
+                    locationReportTable.getItems().add(new Report(selectedCountry.getName(), division, customerCount));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
     private void populateMonthlyReport() {
         // Get selected month from combo box
         String selectedMonth = (String) reportMonth.getValue();
@@ -143,7 +141,7 @@ public class report_Controller implements Initializable {
             ObservableList<Report> resultReport = FXCollections.observableArrayList();
 
             // Add each type with its count to the result list
-            typeCountMap.forEach((type, count) -> resultReport.add(new Report(selectedMonth, type, count)));
+            typeCountMap.forEach((type, customerCount) -> resultReport.add(new Report(selectedMonth, type, customerCount)));
 
             // Add the fetched appointments to the table
             monthlyReportTable.setItems(resultReport);

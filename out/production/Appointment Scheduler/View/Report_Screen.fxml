@@ -33,10 +33,11 @@
             <TableColumn fx:id="customerIDCol" prefWidth="108.0" text="Customer ID" />
         </columns>
       </TableView>
-      <TableView fx:id="locationReportTable" layoutX="579.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="locationReportTable" layoutX="579.0" layoutY="78.0" prefHeight="200.0" prefWidth="229.0">
         <columns>
-          <TableColumn fx:id="locationCol" prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="locationCol" prefWidth="75.0" text="Country" />
+          <TableColumn fx:id="divisionCol" prefWidth="75.0" text="Division" />
+            <TableColumn fx:id="customerCol" prefWidth="75.0" text="Customer" />
         </columns>
       </TableView>
       <ComboBox fx:id="reportMonth" layoutX="146.0" layoutY="45.0" onAction="#onMonthSelected" prefWidth="150.0" promptText="Select Month" />

@@ -3,7 +3,7 @@ package Model;
 public class Report {
     private String month;
     private String type;
-    private long count;
+    private long customerCount;
 
     public String getMonth() {
         return month;
@@ -22,17 +22,17 @@ public class Report {
     }
 
     public long getCount() {
-        return count;
+        return customerCount;
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    public void setCount(long customerCount) {
+        this.customerCount = customerCount;
     }
 
-    public Report(String month, String type, long count) {
+    public Report(String month, String type, long customerCount) {
         this.month = month;
         this.type = type;
-        this.count = count;
+        this.customerCount = customerCount;
     }
 }
 
