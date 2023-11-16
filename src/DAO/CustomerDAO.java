@@ -80,7 +80,7 @@ public class CustomerDAO {
         return divisions;
     }
 
-    public static int getCustomerCountByDivision(String division) throws SQLException {
+    public static int getCustomerCountByDivision(Country country,String division) throws SQLException {
         int customerCount = 0;
         try {
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT COUNT(*) AS CustomerCount FROM customers WHERE Division_ID = ?");

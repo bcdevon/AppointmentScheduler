@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Country;
+import Model.LocationReport;
 import Model.Report;
 import helper.CountryStringConverter;
 import helper.MonthConverter;
@@ -83,27 +84,64 @@ public class report_Controller implements Initializable {
         }
     }
     private void populateLocationReport() {
+        locationReportTable.getItems().clear(); // Clear existing data
+
         Country selectedCountry = reportLocationBox.getValue();
         if (selectedCountry != null) {
             try {
-                // Assuming you have methods in CustomerDAO to get divisions by country
                 List<String> divisions = CustomerDAO.getDivisionsbyCountry(selectedCountry);
+
                 System.out.println("Selected Country: " + selectedCountry.getName());
 
-                // Display the selected country in locationCol
-                locationReportTable.getItems().add(new Report(selectedCountry.getName(), "", 0));
+                locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), "", 0));
 
-                // Display divisions and customer counts
                 for (String division : divisions) {
-                    long customerCount = CustomerDAO.getCustomerCountByDivision(division);
-                    System.out.println("Division: " + division + ", Customer Count: " + customerCount);
-                    locationReportTable.getItems().add(new Report(selectedCountry.getName(), division, customerCount));
+                    try {
+                        long customerCount = CustomerDAO.getCustomerCountByDivision(selectedCountry, division);
+                        locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), division, customerCount));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+
+                // Set up columns
+                locationCol.setCellValueFactory(new PropertyValueFactory<>("country"));
+                divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
+                customerCol.setCellValueFactory(new PropertyValueFactory<>("customerCount"));
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
+
+
+//    private void populateLocationReport() {
+//        Country selectedCountry = reportLocationBox.getValue();
+//        if (selectedCountry != null) {
+//            try {
+//                // Assuming you have methods in CustomerDAO to get divisions by country
+//                List<String> divisions = CustomerDAO.getDivisionsbyCountry(selectedCountry);
+//                System.out.println("Selected Country: " + selectedCountry.getName());
+//
+//                // Display the selected country in locationCol
+//                locationCol.setCellValueFactory(cellData -> new SimpleStringProperty(selectedCountry.getName()));
+//                divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));  // Adjust this based on your Report class
+//                customerCol.setCellValueFactory(new PropertyValueFactory<>("customerCount"));  // Adjust this based on your Report class
+//
+//
+//                // Display divisions and customer counts
+//                for (String division : divisions) {
+//                    long customerCount = CustomerDAO.getCustomerCountByDivision(division);
+//                    System.out.println("Division: " + division + ", Customer Count: " + customerCount);
+//                    locationReportTable.getItems().add(new Report(selectedCountry.getName(), division, customerCount));
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     private void populateMonthlyReport() {
         // Get selected month from combo box
