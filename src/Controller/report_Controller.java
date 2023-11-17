@@ -93,13 +93,15 @@ public class report_Controller implements Initializable {
 
                 System.out.println("Selected Country: " + selectedCountry.getName());
 
-                locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), "", 0));
+//                locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), "", 0));
 
                 for (String division : divisions) {
                     try {
                         int divisionId = CustomerDAO.getDivisionIdByName(division);
                         long customerCount = CustomerDAO.getCustomerCountByDivision(divisionId);
-                        locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), division, customerCount));
+                        if (customerCount > 0){
+                            locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), division, customerCount));
+                        }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
