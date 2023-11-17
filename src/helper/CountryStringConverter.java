@@ -1,20 +1,22 @@
 package helper;
+import java.util.HashMap;
+import java.util.Map;
 
-import Model.Country;
-import javafx.util.StringConverter;
 
-public class CountryStringConverter extends StringConverter<Country> {
-
-    public String toString(Country country) {
-        if (country == null) {
-            return null;
-        }
-        return country.getName();
+public class CountryStringConverter {
+    private static final Map<String, Integer> countryMap;
+    static {
+        //map country names to corresponding int ID
+        countryMap = new HashMap<>();
+        countryMap.put("U.S", 1);
+        countryMap.put("UK", 2);
+        countryMap.put("Canada", 3);
     }
-
-
-    public Country fromString(String string) {
-        // This method is not needed for a ComboBox
-        return null;
+    public static int getcountryAsInt(String country){
+        return countryMap.get(country);
     }
 }
+
+
+
+
