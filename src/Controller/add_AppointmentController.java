@@ -3,6 +3,7 @@ package Controller;
 import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -65,6 +66,8 @@ public class add_AppointmentController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        // Set initial focus on addTitleTF
+        Platform.runLater(() -> addTitleTF.requestFocus());
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {

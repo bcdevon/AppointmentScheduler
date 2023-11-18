@@ -4,6 +4,8 @@ import DAO.CustomerDAO;
 import DAO.CustomerQuery;
 import Model.Customer;
 import helper.JDBC;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +26,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class add_CustomerController implements Initializable {
-    public TextField addIDTF; // Assume you have defined the TextField in your FXML
+    public TextField addIDTF;
     public TextField addNameTF;
     public TextField addAddressTF;
     public TextField addPostalCodeTF;
@@ -35,7 +37,7 @@ public class add_CustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            countryBox.setItems((ObservableList) CustomerDAO.getAllCountries());
+            countryBox.setItems(FXCollections.observableList(CustomerDAO.getAllCountries()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -45,6 +47,8 @@ public class add_CustomerController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        // Set initial focus on addNameTF
+        Platform.runLater(() -> addNameTF.requestFocus());
     }
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
         //get input from each text field
