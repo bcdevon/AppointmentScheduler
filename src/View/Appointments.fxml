@@ -30,8 +30,8 @@
           <TableColumn fx:id="customerIDCol" prefWidth="134.0" text="Customer ID" />
           <TableColumn fx:id="customerNameCol" prefWidth="123.0" text="Customer Name" />
             <TableColumn fx:id="customerAddressCol" prefWidth="86.0" text="Address" />
-            <TableColumn fx:id="customerPostalCodeCol" prefWidth="111.0" text="Postal Code" />
-            <TableColumn fx:id="customerPhoneNumberCol" prefWidth="115.0" text="Phone Number" />
+            <TableColumn fx:id="customerPostalCodeCol" prefWidth="111.0" text="Phone Number" />
+            <TableColumn fx:id="customerPhoneNumberCol" prefWidth="115.0" text="Postal Code" />
         </columns>
       </TableView>
       <Label layoutX="17.0" layoutY="50.0" text="Appointments">

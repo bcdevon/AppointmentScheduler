@@ -89,16 +89,19 @@ public class report_Controller implements Initializable {
         Country selectedCountry = reportLocationBox.getValue();
         if (selectedCountry != null) {
             try {
-                List<String> divisions = CustomerDAO.getDivisionsbyCountry(selectedCountry);
+                List<String> divisions = CustomerDAO.getDivisionsByCountry(selectedCountry);
 
                 System.out.println("Selected Country: " + selectedCountry.getName());
 
-                locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), "", 0));
+//                locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), "", 0));
 
                 for (String division : divisions) {
                     try {
-                        long customerCount = CustomerDAO.getCustomerCountByDivision(selectedCountry, division);
-                        locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), division, customerCount));
+                        int divisionId = CustomerDAO.getDivisionIdByName(division);
+                        long customerCount = CustomerDAO.getCustomerCountByDivision(divisionId);
+                        if (customerCount > 0){
+                            locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), division, customerCount));
+                        }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
