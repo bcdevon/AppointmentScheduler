@@ -100,15 +100,17 @@ public class add_AppointmentController implements Initializable {
         String startS = startZonedDateTimeUTC.format(formatter);
         String endS = endZonedDateTimeUTC.format(formatter);
         String creatdateS = "1987-03-20 09:44:22";
-        String createdbyS = "Brady";
+        String createdbyS = "test";
         String lastupdatedS = "1987-03-20 09:44:22";
-        String lastupdatebyS = "Brady";
+        String lastupdatebyS = "test";
+        System.out.println("Selected Customer ID: " + customerIDComboBox.getValue());
         int customeridS = (int) customerIDComboBox.getValue();
         int useridS = (int) userIDComboBox.getValue();
         String contactName = (String) contactIDComboBox.getValue();
         int contactS = AppointmentQuery.getContactIDByName(contactName);
-
-        int rowsAffected = AppointmentQuery.insert(titleS, descriptionS, locationS, typeS, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS, customeridS, useridS, contactS);
+        System.out.println("Customer ID: " + customeridS);
+        System.out.println("User ID: " + useridS);
+        int rowsAffected = AppointmentQuery.insert(titleS, descriptionS, locationS, typeS, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS, useridS, customeridS, contactS);
 
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);

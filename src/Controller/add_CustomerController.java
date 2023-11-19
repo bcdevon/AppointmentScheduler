@@ -58,7 +58,7 @@ public class add_CustomerController implements Initializable {
         String postalS = addPostalCodeTF.getText();
         String phoneS = addPhoneTF.getText();
 
-        int rowsAffected = CustomerQuery.insert(nameS, addressS, postalS, phoneS, "1987-03-20 09:44:22", "steve", "1999-03-20 09:44:22", "tyler", 5 );
+        int rowsAffected = CustomerQuery.insert(nameS, addressS, postalS, phoneS, "1987-03-20 09:44:22", "script", "1999-03-20 09:44:22", "script", 5 );
 
         //get input from each text field
 
