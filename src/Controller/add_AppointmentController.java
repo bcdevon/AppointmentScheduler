@@ -3,6 +3,8 @@ package Controller;
 import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
+import Model.User;
+import helper.CurrentUser;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -100,7 +102,7 @@ public class add_AppointmentController implements Initializable {
         String startS = startZonedDateTimeUTC.format(formatter);
         String endS = endZonedDateTimeUTC.format(formatter);
         String creatdateS = "1987-03-20 09:44:22";
-        String createdbyS = "test";
+        String createdbyS = CurrentUser.getCurrentUser().getUsername();
         String lastupdatedS = "1987-03-20 09:44:22";
         String lastupdatebyS = "test";
         System.out.println("Selected Customer ID: " + customerIDComboBox.getValue());

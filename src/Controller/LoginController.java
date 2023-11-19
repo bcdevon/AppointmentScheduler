@@ -1,4 +1,6 @@
 package Controller;
+import Model.User;
+import helper.CurrentUser;
 import helper.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -79,6 +81,13 @@ public class LoginController implements Initializable {
 
         //check the entered username and password against the database
         if(authenticateUser(enteredUsername, enteredPassword)){
+
+            // Fetch user information from the database
+            User authenticatedUser = getUserByUsername(enteredUsername);
+
+            // Set the authenticated user as the current user
+            CurrentUser.setCurrentUser(authenticatedUser);
+
             //If they do match load the Appointment screen
             Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
             Scene appointment_scene = new Scene(appointment_parent);
@@ -95,6 +104,27 @@ public class LoginController implements Initializable {
             alert.showAndWait();
         }
     }
+    private User getUserByUsername(String username) {
+        try {
+            // Use PreparedStatement to safely execute the query.
+            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(
+                    "SELECT * FROM users WHERE User_Name = ?"
+            );
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if the query returned any results.
+            if (resultSet.next()) {
+                int userId = resultSet.getInt("User_ID");
+                // You can add more fields as needed
+                return new User(userId, username);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return null;
+    }
+
 
     private boolean authenticateUser(String username, String password) {
         try {
