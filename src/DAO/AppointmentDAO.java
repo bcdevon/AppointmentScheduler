@@ -125,6 +125,23 @@ public class AppointmentDAO {
         return appointments;
 
     }
+    public static List<Appointment> getAppointmentsByCustomerId(int customerId) throws SQLException{
+        List<Appointment> appointments = new ArrayList<>();
 
+        String sql = "SELECT * FROM appointments WHERE Customer_ID = ?";
 
+        try (PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, customerId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                appointments.add(appointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointments;
+    }
 }

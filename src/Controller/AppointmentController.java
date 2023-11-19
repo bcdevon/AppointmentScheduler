@@ -172,10 +172,30 @@ public class AppointmentController implements Initializable {
         //get selected customer from the CustomerTable;
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
 
+        // Print selected customer information
+        System.out.println("Selected Customer: " + selectedCustomer);
+
+
         //If no part is selected, return and do nothing
         if (selectedCustomer == null){
+            System.out.println("No customer selected. Exiting.");
             return;
         }
+
+        // Check if the customer has appointments
+        if (hasAppointments(selectedCustomer.getId())) {
+            // Display a message indicating that the customer has appointments
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Customer has Appointments");
+            alert.setContentText("This customer has appointments. Please delete the appointments before deleting the customer.");
+            alert.showAndWait();
+            return; // Do not proceed with deletion
+        }
+
+
+        // Print information about the selected customer
+        System.out.println("Selected Customer ID: " + selectedCustomer.getId());
         //Display a confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete");
@@ -185,9 +205,13 @@ public class AppointmentController implements Initializable {
         //Wait for response and check if they clicked ok
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK){
+            System.out.println("User confirmed deletion.");
             //Delete Customer if ok is clicked
             int deletedCustomerID = selectedCustomer.getId();
             int rowsAffected = CustomerQuery.delete(deletedCustomerID);
+            // Print the number of rows affected
+            System.out.println("Rows affected after deletion: " + rowsAffected);
+
             if(rowsAffected > 0){
                 //Customer was deleted updated customer table
                 populateCustomerTable();
@@ -195,6 +219,19 @@ public class AppointmentController implements Initializable {
             }
         }
 
+
+
+
+
+
+    }
+    // Helper method to check if a customer has appointments
+    private boolean hasAppointments(int customerId) throws SQLException {
+        // Fetch appointments for the given customer ID
+        List<Appointment> appointments = AppointmentDAO.getAppointmentsByCustomerId(customerId);
+
+        // Check if there are any appointments
+        return !appointments.isEmpty();
     }
 
     public void onMonthSelected(ActionEvent actionEvent) {
