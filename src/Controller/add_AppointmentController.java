@@ -74,6 +74,9 @@ public class add_AppointmentController implements Initializable {
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
 
+        //get current date and time
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
         //combine selected date and time to create start and end date/time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String startDate = addStartDate.getValue().toString();
@@ -101,17 +104,15 @@ public class add_AppointmentController implements Initializable {
         String typeS = addTypeTF.getText();
         String startS = startZonedDateTimeUTC.format(formatter);
         String endS = endZonedDateTimeUTC.format(formatter);
-        String creatdateS = "1987-03-20 09:44:22";
+        String creatdateS = currentDateTime.format(formatter);
+        System.out.println(creatdateS);
         String createdbyS = CurrentUser.getCurrentUser().getUsername();
         String lastupdatedS = "1987-03-20 09:44:22";
         String lastupdatebyS = "test";
-        System.out.println("Selected Customer ID: " + customerIDComboBox.getValue());
         int customeridS = (int) customerIDComboBox.getValue();
         int useridS = (int) userIDComboBox.getValue();
         String contactName = (String) contactIDComboBox.getValue();
         int contactS = AppointmentQuery.getContactIDByName(contactName);
-        System.out.println("Customer ID: " + customeridS);
-        System.out.println("User ID: " + useridS);
         int rowsAffected = AppointmentQuery.insert(titleS, descriptionS, locationS, typeS, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS, useridS, customeridS, contactS);
 
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));

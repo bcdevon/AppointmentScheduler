@@ -108,14 +108,32 @@ public class AppointmentController implements Initializable {
     }
 
     public void onUpdateAppointment(ActionEvent actionEvent) throws IOException {
-        //load Update Appointment screen
-        Parent update_Appointment_parent = FXMLLoader.load(getClass().getResource("../View/update_Appointments.fxml"));
-        Scene update_Appointment_scene = new Scene(update_Appointment_parent);
+        //get the selected appointment
+        Appointment selectedAppointment = AppointmentTable.getSelectionModel().getSelectedItem();
 
-        //get the current window and set the scene to the Update appointment scene
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(update_Appointment_scene);
-        stage.show();
+        if (selectedAppointment != null){
+            //load Update Appointment screen
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/update_Appointments.fxml"));
+            Parent update_Appointment_parent = loader.load();
+
+            // Access the controller of the update screen
+            update_AppointmentsController updateController = loader.getController();
+
+            // Prepopulate the fields in the update screen
+            updateController.updateAppointmentIDTF.setText(String.valueOf(selectedAppointment.getId()));
+            updateController.updateTitleTF.setText(selectedAppointment.getTitle());
+            updateController.updateDescriptionTF.setText(selectedAppointment.getDescription());
+            // ... repeat this for other fields
+
+            // Set the scene
+            Scene update_Appointment_scene = new Scene(update_Appointment_parent);
+
+            //get the current window and set the scene to the Update appointment scene
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(update_Appointment_scene);
+            stage.show();
+        }
+        else return;
     }
 
     public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {
