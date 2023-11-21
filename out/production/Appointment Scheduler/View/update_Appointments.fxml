@@ -8,16 +8,16 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.update_AppointmentsController">
     <children>
-        <TextField layoutX="163.0" layoutY="60.0" />
-        <TextField layoutX="163.0" layoutY="96.0" />
-        <TextField layoutX="163.0" layoutY="137.0" />
-        <TextField layoutX="163.0" layoutY="182.0" />
-        <TextField layoutX="163.0" layoutY="229.0" />
-        <TextField layoutX="535.0" layoutY="60.0" />
-        <TextField layoutX="163.0" layoutY="278.0" />
-        <TextField layoutX="535.0" layoutY="96.0" />
-        <TextField layoutX="163.0" layoutY="328.0" />
-        <TextField layoutX="163.0" layoutY="382.0" />
+        <TextField fx:id="updateAppointmentIDTF" disable="true" layoutX="163.0" layoutY="60.0" promptText="Automatically assigned" />
+        <TextField fx:id="updateTitleTF" layoutX="163.0" layoutY="96.0" />
+        <TextField fx:id="updateDescriptionTF" layoutX="163.0" layoutY="137.0" />
+        <TextField fx:id="updateLocationTF" layoutX="163.0" layoutY="182.0" />
+        <TextField fx:id="updateContactTF" layoutX="163.0" layoutY="229.0" />
+        <TextField fx:id="updateStartTime" layoutX="535.0" layoutY="60.0" />
+        <TextField fx:id="updateTypeTF" layoutX="163.0" layoutY="278.0" />
+        <TextField fx:id="updateEndTime" layoutX="535.0" layoutY="96.0" />
+        <TextField fx:id="updateCustomerIDTF" layoutX="163.0" layoutY="328.0" />
+        <TextField fx:id="updateUserIDTF" layoutX="163.0" layoutY="382.0" />
         <Label layoutX="61.0" layoutY="64.0" text="Appointment ID" />
         <Label layoutX="61.0" layoutY="141.0" text="Description" />
         <Label layoutX="61.0" layoutY="100.0" text="Title" />
@@ -30,10 +30,10 @@
         <Label layoutX="407.0" layoutY="141.0" text="Start Date" />
         <Label layoutX="409.0" layoutY="186.0" text="End Date" />
         <Label layoutX="63.0" layoutY="386.0" text="User ID" />
-        <Button layoutX="413.0" layoutY="341.0" mnemonicParsing="false" onAction="#onSave" text="Save" />
-        <Button layoutX="601.0" layoutY="341.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
-        <DatePicker layoutX="535.0" layoutY="137.0" />
-        <DatePicker layoutX="535.0" layoutY="182.0" />
+        <Button fx:id="saveUpdateButton" layoutX="413.0" layoutY="341.0" mnemonicParsing="false" onAction="#onSaveUpdate" text="Save" />
+        <Button fx:id="cancelUpdateButton" layoutX="601.0" layoutY="341.0" mnemonicParsing="false" onAction="#onCancelUpdate" text="Cancel" />
+        <DatePicker fx:id="updateStartDate" layoutX="535.0" layoutY="137.0" />
+        <DatePicker fx:id="updateEndDate" layoutX="535.0" layoutY="182.0" />
     </children>
 
 </AnchorPane>
