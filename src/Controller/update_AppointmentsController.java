@@ -1,6 +1,8 @@
 package Controller;
 
+import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
+import helper.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -64,6 +66,12 @@ public class update_AppointmentsController implements Initializable {
         String updateDescription = updateDescriptionTF.getText();
         String updateLocation = updateLocationTF.getText();
         String updateType = updateTypeTF.getText();
+//        String lastupdatedS = startZonedDateTimeUTC.format(formatter);
+//        String lastupdatebyS = endZonedDateTimeUTC.format(formatter);
+//        int customeridS = (int) customerIDComboBox.getValue();
+//        int useridS = (int) userIDComboBox.getValue();
+//        String contactName = (String) contactIDComboBox.getValue();
+//        int contactS = AppointmentQuery.getContactIDByName(contactName);
 
     }
 
