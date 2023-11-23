@@ -38,8 +38,21 @@ public class update_AppointmentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateStartTimeComboBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
+        updateEndTimeComboBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
+
         try {
             updateContactComboBox.setItems(CustomerDAO.getAllContactNames());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            updateUserIDComboBox.setItems(CustomerDAO.getAllUserIDs());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            updateCustomerIDComboBox.setItems(CustomerDAO.getAllCustomerIDs());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
