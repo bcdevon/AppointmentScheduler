@@ -105,7 +105,6 @@ public class add_AppointmentController implements Initializable {
         String startS = startZonedDateTimeUTC.format(formatter);
         String endS = endZonedDateTimeUTC.format(formatter);
         String creatdateS = currentDateTime.format(formatter);
-        System.out.println(creatdateS);
         String createdbyS = CurrentUser.getCurrentUser().getUsername();
         String lastupdatedS = "1987-03-20 09:44:22";
         String lastupdatebyS = "test";

@@ -107,7 +107,7 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
-    public void onUpdateAppointment(ActionEvent actionEvent) throws IOException {
+    public void onUpdateAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         //get the selected appointment
         Appointment selectedAppointment = AppointmentTable.getSelectionModel().getSelectedItem();
 
@@ -123,6 +123,10 @@ public class AppointmentController implements Initializable {
             updateController.updateAppointmentIDTF.setText(String.valueOf(selectedAppointment.getId()));
             updateController.updateTitleTF.setText(selectedAppointment.getTitle());
             updateController.updateDescriptionTF.setText(selectedAppointment.getDescription());
+            updateController.updateLocationTF.setText(selectedAppointment.getLocation());
+            String contactName = AppointmentQuery.getContactNamebyID(selectedAppointment.getContact());
+            updateController.updateContactComboBox.setValue(contactName);
+
             // ... repeat this for other fields
 
             // Set the scene

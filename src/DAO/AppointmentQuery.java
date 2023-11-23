@@ -72,4 +72,22 @@ public class AppointmentQuery {
 
         return contactID;
     }
+
+    public static String getContactNamebyID(int contactID) throws SQLException {
+
+        String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = ?";
+        String contactName = null;
+        try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)) {
+            ps.setInt(1, contactID);
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    contactName = resultSet.getString("Contact_Name");
+                }
+            }
+        }
+
+        return contactName;
+    }
+    
 }
