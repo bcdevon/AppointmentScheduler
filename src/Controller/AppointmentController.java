@@ -126,6 +126,13 @@ public class AppointmentController implements Initializable {
             updateController.updateLocationTF.setText(selectedAppointment.getLocation());
             String contactName = AppointmentQuery.getContactNamebyID(selectedAppointment.getContact());
             updateController.updateContactComboBox.setValue(contactName);
+            updateController.updateTypeTF.setText(selectedAppointment.getType());
+            updateController.updateUserIDComboBox.setValue(selectedAppointment.getUserID());
+            updateController.updateCustomerIDComboBox.setValue(selectedAppointment.getCustomerID());
+            updateController.updateStartTimeComboBox.setValue(selectedAppointment.getStart());
+            updateController.updateEndTimeComboBox.setValue(selectedAppointment.getEnd());
+            updateController.updateStartDate.setValue(selectedAppointment.getStart().toLocalDate());
+            updateController.updateEndDate.setValue(selectedAppointment.getEnd().toLocalDate());
 
             // ... repeat this for other fields
 
