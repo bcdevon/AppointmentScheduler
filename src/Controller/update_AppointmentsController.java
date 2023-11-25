@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class update_AppointmentsController implements Initializable {
@@ -60,18 +62,29 @@ public class update_AppointmentsController implements Initializable {
         }
     }
 
-    public void onSave(ActionEvent actionEvent) {
+    public void onSaveUpdate(ActionEvent actionEvent) throws SQLException {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
         //get appointment updates
         String updateTitle = updateTitleTF.getText();
         String updateDescription = updateDescriptionTF.getText();
         String updateLocation = updateLocationTF.getText();
         String updateType = updateTypeTF.getText();
-//        String lastupdatedS = startZonedDateTimeUTC.format(formatter);
-//        String lastupdatebyS = endZonedDateTimeUTC.format(formatter);
-//        int customeridS = (int) customerIDComboBox.getValue();
-//        int useridS = (int) userIDComboBox.getValue();
-//        String contactName = (String) contactIDComboBox.getValue();
-//        int contactS = AppointmentQuery.getContactIDByName(contactName);
+        String startS = startZonedDateTimeUTC.format(formatter);
+        String endS = endZonedDateTimeUTC.format(formatter);
+        String creatdateS = currentDateTime.format(formatter);
+        String createdbyS = CurrentUser.getCurrentUser().getUsername();
+        String lastupdatedS = formattedDateTime;
+        String lastupdatebyS = CurrentUser.getCurrentUser().getUsername();
+        int customeridS = (int) updateCustomerIDComboBox.getValue();
+        int useridS = (int) updateUserIDComboBox.getValue();
+        String contactName = (String) updateContactComboBox.getValue();
+        int contactS = AppointmentQuery.getContactIDByName(contactName);
+
+        int rowsAffected = AppointmentQuery.insert(updateTitle, updateDescription, updateLocation,
+                updateType, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS,
+                useridS, customeridS, contactS);
 
     }
 
@@ -85,8 +98,6 @@ public class update_AppointmentsController implements Initializable {
         stage.show();
     }
 
-    public void onSaveUpdate(ActionEvent actionEvent) {
-    }
 
     public void onCancelUpdate(ActionEvent actionEvent) throws IOException {
         //return to appointment screen without updating
