@@ -62,17 +62,18 @@ public class update_AppointmentsController implements Initializable {
         }
     }
 
-    public void onSaveUpdate(ActionEvent actionEvent) throws SQLException {
+    public void onSaveUpdate(ActionEvent actionEvent) throws SQLException, IOException {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
         //get appointment updates
+        int appointmentId = Integer.parseInt(updateAppointmentIDTF.getText());
         String updateTitle = updateTitleTF.getText();
         String updateDescription = updateDescriptionTF.getText();
         String updateLocation = updateLocationTF.getText();
         String updateType = updateTypeTF.getText();
-        String startS = startZonedDateTimeUTC.format(formatter);
-        String endS = endZonedDateTimeUTC.format(formatter);
+        String startS = currentDateTime.format(formatter);
+        String endS = currentDateTime.format(formatter);
         String creatdateS = currentDateTime.format(formatter);
         String createdbyS = CurrentUser.getCurrentUser().getUsername();
         String lastupdatedS = formattedDateTime;
@@ -82,9 +83,21 @@ public class update_AppointmentsController implements Initializable {
         String contactName = (String) updateContactComboBox.getValue();
         int contactS = AppointmentQuery.getContactIDByName(contactName);
 
-        int rowsAffected = AppointmentQuery.insert(updateTitle, updateDescription, updateLocation,
+        int rowsAffected = AppointmentQuery.update(
+                appointmentId, updateTitle, updateDescription, updateLocation,
                 updateType, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS,
                 useridS, customeridS, contactS);
+//        int rowsAffected = AppointmentQuery.update(appointmentId, updateDescription, updateLocation,
+//                updateType, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS,
+//                useridS, customeridS, contactS);
+
+        Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
+        Scene appointment_scene = new Scene(appointment_parent);
+
+        //Get the current window and set the scene to the appointment scene
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(appointment_scene);
+        stage.show();
 
     }
 

@@ -26,6 +26,7 @@ public class AppointmentQuery {
             int contact = rs.getInt("Contact_ID");
             System.out.println(id + " " + title + " " + description + " " + location + " " + type + " " + customerID + " " + userID + " " + contact);
         }
+
     }
     public static int insert(String title, String description, String location, String type, String start, String end, String createDate, String createdBy, String lastUpdated, String lastUpdatedby, int userID, int customerID, int contact) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -45,6 +46,27 @@ public class AppointmentQuery {
         ps.setInt(11, customerID);
         ps.setInt(12, userID);
         ps.setInt(13, contact);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+    public static int update(int appointmentId, String title, String description, String location, String type, String start, String end, String createDate, String createdBy, String lastUpdated, String lastUpdatedby, int userID, int customerID, int contact) throws SQLException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String sql = "UPDATE appointments SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, Create_Date=?, Created_By=?, Last_Update=?, Last_Updated_By=?, Customer_ID=?, User_ID=?, Contact_ID=? WHERE Appointment_ID=?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, title );
+        ps.setString(2, description);
+        ps.setString(3, location);
+        ps.setString(4, type);
+        ps.setString(5, start);
+        ps.setString(6, end);
+        ps.setString(7, createDate);
+        ps.setString(8, createdBy);
+        ps.setString(9, lastUpdated);
+        ps.setString(10, lastUpdatedby);
+        ps.setInt(11, customerID);
+        ps.setInt(12, userID);
+        ps.setInt(13, contact);
+        ps.setInt(14, appointmentId);  // Set the appointment ID for the WHERE clause
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
