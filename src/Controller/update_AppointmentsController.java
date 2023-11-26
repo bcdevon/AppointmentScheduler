@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -62,18 +65,52 @@ public class update_AppointmentsController implements Initializable {
         }
     }
 
+
+//    //get current date and time
+//    LocalDateTime currentDateTime = LocalDateTime.now();
+//
+//    //combine selected date and time to create start and end date/time
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//    String startDate = addStartDate.getValue().toString();
+//    String startTime = addStartTimeBox.getValue().toString() + ":00";
+//    String endDate = addEndDate.getValue().toString();
+//    String endTime = addEndTimeBox.getValue().toString() + ":00";
+//    LocalDateTime startDateTime = LocalDateTime.parse(startDate + " " + startTime, formatter);
+//    LocalDateTime endDateTime = LocalDateTime.parse(endDate+ " " + endTime, formatter);
+//
+//    // Define your time zone
+//    ZoneId localTimeZone = ZoneId.systemDefault();
     public void onSaveUpdate(ActionEvent actionEvent) throws SQLException, IOException {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
+        //startdate time from text fields
+        String startDate = updateStartDate.getValue().toString();
+        String endDate = updateEndDate.getValue().toString();
+        String startTime = updateStartTimeComboBox.getValue().toString() + ":00";
+        String endTime = updateEndTimeComboBox.getValue().toString() + ":00";
+        LocalDateTime startDateTime = LocalDateTime.parse(startDate + " " + startTime, formatter);
+        LocalDateTime endDateTime = LocalDateTime.parse(endDate+ " " + endTime, formatter);
+
+        // Define your time zone
+        ZoneId localTimeZone = ZoneId.systemDefault();
+
+// Create ZonedDateTime objects with the local time and your time zone
+        ZonedDateTime startZonedDateTime = ZonedDateTime.of(startDateTime, localTimeZone);
+        ZonedDateTime endZonedDateTime = ZonedDateTime.of(endDateTime, localTimeZone);
+
+// Convert to UTC
+        ZonedDateTime startZonedDateTimeUTC = startZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
+        ZonedDateTime endZonedDateTimeUTC = endZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
+
         //get appointment updates
         int appointmentId = Integer.parseInt(updateAppointmentIDTF.getText());
         String updateTitle = updateTitleTF.getText();
         String updateDescription = updateDescriptionTF.getText();
         String updateLocation = updateLocationTF.getText();
         String updateType = updateTypeTF.getText();
-        String startS = currentDateTime.format(formatter);
-        String endS = currentDateTime.format(formatter);
+        String startS = startZonedDateTimeUTC.format(formatter);
+        String endS = endZonedDateTimeUTC.format(formatter);
         String creatdateS = currentDateTime.format(formatter);
         String createdbyS = CurrentUser.getCurrentUser().getUsername();
         String lastupdatedS = formattedDateTime;
