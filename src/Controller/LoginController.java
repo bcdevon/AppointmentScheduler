@@ -2,6 +2,7 @@ package Controller;
 import Model.User;
 import helper.CurrentUser;
 import helper.JDBC;
+import helper.UserLog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,13 +65,14 @@ public class LoginController implements Initializable {
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {
         String enteredUsername = usernameTF.getText();
         String enteredPassword = passwordTF.getText();
-
         ResourceBundle rb = ResourceBundle.getBundle("Main.language", Locale.getDefault());
+
+        UserLog.loginAttempt(enteredUsername, authenticateUser(enteredUsername, enteredPassword));
 
         //verify a login and password have been entered and they match.
         //check if username and password are blank
         if (enteredUsername.isBlank() || enteredPassword.isBlank()) {
-            //if password and username is blank display an error and don't login
+            //if password and username is blank display an error and don't login.
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText(rb.getString("enter") + " " + rb.getString("username") + " " + rb.getString("and") + " " + rb.getString("Password"));

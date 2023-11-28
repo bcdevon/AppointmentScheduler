@@ -1,0 +1,2 @@
+2023-11-27 21:45:48 - User: test, Log In Attempt: Success
+2023-11-27 21:46:09 - User: admin, Log In Attempt: Success
