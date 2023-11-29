@@ -187,14 +187,26 @@ public class AppointmentController implements Initializable {
     }
 
     public void onUpdateCustomer(ActionEvent actionEvent) throws IOException {
-        //load Update Customer screen
-        Parent update_Customer_parent = FXMLLoader.load(getClass().getResource("../View/update_Customer.fxml"));
-        Scene update_Customer_scene = new Scene(update_Customer_parent);
+        Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
 
-        //get the current window and set the scene to the Update Customer scene
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(update_Customer_scene);
-        stage.show();
+        if (selectedCustomer != null){
+            //load Update Customer screen
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/update_Customer.fxml"));
+            Parent update_Customer_parent = loader.load();
+
+            //Access the controller of the update screen.
+            update_CustomerController customerUpdate = loader.getController();
+
+            //Prepopulate fields in the customer update screen.
+
+
+            //Set the scene
+            Scene update_Customer_scene = new Scene(update_Customer_parent);
+            //get the current window and set the scene to the Update Customer scene
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(update_Customer_scene);
+            stage.show();
+        }
     }
 
     public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
