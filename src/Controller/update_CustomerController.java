@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.CustomerQuery;
+import helper.CurrentUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class update_CustomerController {
     public TextField updateIDTF;
@@ -23,15 +26,22 @@ public class update_CustomerController {
     public ComboBox updateDivisionComboBox;
 
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
         int customerIDS = Integer.parseInt(updateIDTF.getText());
         String nameS = updateNameTF.getText();
         String addressS = updateAddressTF.getText();
         String postalS = updatePostalCodeTF.getText();
         String phoneS = updatePhoneTF.getText();
+        String createdateS = currentDateTime.format(formatter);
+        String createdbyS = CurrentUser.getCurrentUser().getUsername();
+        String lastUpdatedS = formattedDateTime;
+        String lastUpdateByS = CurrentUser.getCurrentUser().getUsername();
         String countryS = (String) updateCountryComb0Box.getValue();
         String divisionS = (String) updateDivisionComboBox.getValue();
 
-        int rowsAffected = CustomerQuery.update(customerIDS, nameS, addressS, postalS, phoneS, countryS, divisionS);
+        int rowsAffected = CustomerQuery.update(customerIDS, nameS, addressS, postalS, phoneS, createdateS, createdbyS, lastUpdatedS, lastUpdateByS, countryS, divisionS);
 
 
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));

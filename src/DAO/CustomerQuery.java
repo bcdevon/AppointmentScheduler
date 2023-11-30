@@ -48,11 +48,21 @@ public abstract class CustomerQuery {
         return rowsAffected;
         }
 
-    public static int update(int customerIDS, String nameS, String addressS, String postalS, String phoneS, String countryS, String divisionS) throws SQLException {
+
+    public static int update(int customerIDS, String nameS, String addressS, String postalS, String phoneS, String createdateS, String createdbyS, String lastUpdatedS, String lastUpdateByS, String countryS, String divisionS) throws SQLException {
         String sql = "UPDATE customers SET Customer_Name =?, Address =?, Postal_Code =?, Phone =?, Create_Date =?, Created_By =?, Last_Update =?, Last_Updated_By =?, Division_ID =? WHERE Customer_ID = ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, nameS);
-        ps.setString();
+        ps.setInt(1,customerIDS);
+        ps.setString(2, nameS);
+        ps.setString(3, addressS);
+        ps.setString(4, postalS);
+        ps.setString(5, phoneS);
+        ps.setString(6, createdateS);
+        ps.setString(7, createdbyS);
+        ps.setString(8, lastUpdatedS);
+        ps.setString(9, lastUpdateByS);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
     }
 }
 

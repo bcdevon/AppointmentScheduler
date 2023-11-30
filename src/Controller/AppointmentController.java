@@ -198,6 +198,12 @@ public class AppointmentController implements Initializable {
             update_CustomerController customerUpdate = loader.getController();
 
             //Prepopulate fields in the customer update screen.
+            customerUpdate.updateIDTF.setText(String.valueOf(selectedCustomer.getId()));
+            customerUpdate.updatePhoneTF.setText(selectedCustomer.getPhone());
+            customerUpdate.updateAddressTF.setText(selectedCustomer.getAddress());
+            customerUpdate.updatePostalCodeTF.setText(selectedCustomer.getPostal());
+            customerUpdate.updateNameTF.setText(selectedCustomer.getName());
+            customerUpdate.updateDivisionComboBox.setValue(selectedCustomer.getDivision());
 
 
             //Set the scene
