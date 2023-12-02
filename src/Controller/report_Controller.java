@@ -90,9 +90,6 @@ public class report_Controller implements Initializable {
         if (selectedCountry != null) {
             try {
                 List<String> divisions = CustomerDAO.getDivisionsByCountry(selectedCountry);
-
-                System.out.println("Selected Country: " + selectedCountry.getName());
-
 //                locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), "", 0));
 
                 for (String division : divisions) {

@@ -52,11 +52,15 @@ public class AppointmentController implements Initializable {
     public RadioButton Week;
     public RadioButton All;
     public Button reportButton;
+    public Button deleteappointmentButton;
+    public TableColumn DivisionNameCol;
+    public TableColumn DivisionIDCol;
     //Default filter selection
     private String selectedFilter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // Set up cellValueFactory for each column
         apptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -75,6 +79,8 @@ public class AppointmentController implements Initializable {
         customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         customerPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("postal"));
         customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        DivisionIDCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        DivisionNameCol.setCellValueFactory(new PropertyValueFactory<>("division"));
         populateCustomerTable();
 
     }
@@ -134,6 +140,7 @@ public class AppointmentController implements Initializable {
             updateController.updateStartDate.setValue(selectedAppointment.getStart().toLocalDate());
             updateController.updateEndDate.setValue(selectedAppointment.getEnd().toLocalDate());
 
+
             // ... repeat this for other fields
 
             // Set the scene
@@ -186,9 +193,16 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
-    public void onUpdateCustomer(ActionEvent actionEvent) throws IOException {
+    public void onUpdateCustomer(ActionEvent actionEvent) throws IOException, SQLException {
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
+        System.out.println("Selected Customer Division ID: " + selectedCustomer.getDivisionId());
 
+////        int customerCountryID = CustomerDAO.getCountryByDivisionID(selectedCustomer.getDivisonId());
+//        String customerDivsionName = selectedCustomer.getDivision();
+//        System.out.println("customer division ID " + customerDivsionName);
+//        String divisionName = CustomerDAO.getDivisionNameByID(selectedCustomer.getDivisonId());
+//        System.out.println("division name: " +  divisionName);
+//        System.out.println("country ID: " + customerCountryID);
         if (selectedCustomer != null){
             //load Update Customer screen
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/update_Customer.fxml"));
@@ -204,6 +218,7 @@ public class AppointmentController implements Initializable {
             customerUpdate.updatePostalCodeTF.setText(selectedCustomer.getPostal());
             customerUpdate.updateNameTF.setText(selectedCustomer.getName());
             customerUpdate.updateDivisionComboBox.setValue(selectedCustomer.getDivision());
+
 
 
             //Set the scene

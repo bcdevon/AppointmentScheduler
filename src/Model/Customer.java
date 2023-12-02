@@ -67,12 +67,12 @@ public class Customer {
         this.phone = phone;
     }
 
-    public int getDivisonId() {
+    public int getDivisionId() {
         return divisionId;
     }
 
-    public void setDivisonId(int divisonId) {
-        this.divisionId = divisonId;
+    public void setDivisionId(int divisionId) {
+        this.divisionId = divisionId;
     }
 
     public String getDivision() {
@@ -83,9 +83,7 @@ public class Customer {
         this.division = division;
     }
 
-    public String getCountry() {
-        return country;
-    }
+    public String getCountry() {return country; }
 
     public void setCountry(String country) {
         this.country = country;

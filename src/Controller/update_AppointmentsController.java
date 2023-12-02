@@ -124,9 +124,6 @@ public class update_AppointmentsController implements Initializable {
                 appointmentId, updateTitle, updateDescription, updateLocation,
                 updateType, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS,
                 useridS, customeridS, contactS);
-//        int rowsAffected = AppointmentQuery.update(appointmentId, updateDescription, updateLocation,
-//                updateType, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS,
-//                useridS, customeridS, contactS);
 
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);
