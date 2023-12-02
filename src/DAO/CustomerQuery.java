@@ -49,18 +49,19 @@ public abstract class CustomerQuery {
         }
 
 
-    public static int update(int customerIDS, String nameS, String addressS, String postalS, String phoneS, String createdateS, String createdbyS, String lastUpdatedS, String lastUpdateByS, String countryS, String divisionS) throws SQLException {
-        String sql = "UPDATE customers SET Customer_Name =?, Address =?, Postal_Code =?, Phone =?, Create_Date =?, Created_By =?, Last_Update =?, Last_Updated_By =?, Division_ID =? WHERE Customer_ID = ?)";
+    public static int update(int customerIDS, String nameS, String addressS, String postalS, String phoneS, String createdateS, String createdbyS, String lastUpdatedS, String lastUpdateByS, int divisionIDS) throws SQLException {
+        String sql = "UPDATE customers SET Customer_Name =?, Address =?, Postal_Code =?, Phone =?, Create_Date =?, Created_By =?, Last_Update =?, Last_Updated_By =?, Division_ID =? WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1,customerIDS);
-        ps.setString(2, nameS);
-        ps.setString(3, addressS);
-        ps.setString(4, postalS);
-        ps.setString(5, phoneS);
-        ps.setString(6, createdateS);
-        ps.setString(7, createdbyS);
-        ps.setString(8, lastUpdatedS);
-        ps.setString(9, lastUpdateByS);
+        ps.setString(1, nameS);
+        ps.setString(2, addressS);
+        ps.setString(3, postalS);
+        ps.setString(4, phoneS);
+        ps.setString(5, createdateS);
+        ps.setString(6, createdbyS);
+        ps.setString(7, lastUpdatedS);
+        ps.setString(8, lastUpdateByS);
+        ps.setInt(9, divisionIDS);
+        ps.setInt(10,customerIDS);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }

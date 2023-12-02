@@ -15,6 +15,19 @@ import java.util.List;
 import Controller.report_Controller;
 
 public class CustomerDAO {
+    public static String getDivisionNameByID(int divisionID) throws SQLException {
+        String divisionName = null;
+        String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
+        try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)){
+            ps.setInt(1, divisionID);
+            try (ResultSet resultSet = ps.executeQuery()){
+                if (resultSet.next()){
+                    divisionName = resultSet.getString("Division");
+                }
+            }
+        }
+        return divisionName;
+    }
     public List<Customer> getAllCustomers(){
         List<Customer> customers = new ArrayList<>();
         try {
@@ -28,6 +41,8 @@ public class CustomerDAO {
                 customer.setAddress(resultSet.getString("Address"));
                 customer.setPostal(resultSet.getString("Postal_Code"));
                 customer.setPhone(resultSet.getString("Phone"));
+                customer.setDivisionId(resultSet.getInt("Division_ID"));
+                customer.setDivision(getDivisionNameByID(customer.getDivisionId()));
                 customers.add(customer);
             }
         } catch (SQLException e) {
@@ -64,6 +79,37 @@ public class CustomerDAO {
         }
         return allDivisions;
     }
+//    int divisionId = -1;
+//        try {
+//        String sql = "SELECT Division_ID FROM first_level_divisions WHERE Division = ?";
+//        PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+//        preparedStatement.setString(1, divisionName);
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//
+//        if (resultSet.next()) {
+//            divisionId = resultSet.getInt("Division_ID");
+//        }
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//    }
+//        return divisionId;
+
+    public static int getCountryByDivisionID(int divisionId) {
+        int countryID = 0;
+        try {
+            //get the country by the division id from first level divisions
+            String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = ? ";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setInt(1, divisionId);
+            ResultSet resultSet = ps.executeQuery(sql);
+            countryID = resultSet.getInt("Country_ID");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return countryID;
+    }
+
     public static List<String> getDivisionsByCountry(Country country) throws SQLException {
         List<String> divisions = new ArrayList<>();
 
@@ -92,6 +138,8 @@ public class CustomerDAO {
 
         return divisions;
     }
+
+
 
 //    public static List<String> getDivisionsbyCountry(Country country) throws SQLException {
 //        List<String> divisions = new ArrayList<>();
@@ -147,6 +195,20 @@ public class CustomerDAO {
         }
         return divisionId;
     }
+
+//    public static String getDivisionNameByID(int divisionID) throws SQLException{
+//        String divisionName = "";
+//        try {
+//            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
+//            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+//            preparedStatement.setInt(1, divisionID);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            divisionName = resultSet.getString("Division");
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return divisionName;
+//    }
 
     public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
         ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();
