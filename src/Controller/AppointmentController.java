@@ -5,6 +5,7 @@ import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
 import Model.Appointment;
+import Model.Country;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -195,6 +196,10 @@ public class AppointmentController implements Initializable {
 
     public void onUpdateCustomer(ActionEvent actionEvent) throws IOException, SQLException {
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
+        int divisionID = selectedCustomer.getDivisionId();
+        int countryID = CustomerDAO.getCountryIDByDivisionID(divisionID);
+        String countryName = CustomerDAO.getCountryByCountryID(countryID);
+        Country country = new Country(countryID, countryName);
         System.out.println("Selected Customer Division ID: " + selectedCustomer.getDivisionId());
 
 ////        int customerCountryID = CustomerDAO.getCountryByDivisionID(selectedCustomer.getDivisonId());
@@ -218,6 +223,7 @@ public class AppointmentController implements Initializable {
             customerUpdate.updatePostalCodeTF.setText(selectedCustomer.getPostal());
             customerUpdate.updateNameTF.setText(selectedCustomer.getName());
             customerUpdate.updateDivisionComboBox.setValue(selectedCustomer.getDivision());
+            customerUpdate.updateCountryComboBox.setValue(country);
 
 
 
