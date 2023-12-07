@@ -5,6 +5,7 @@ import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
 import Model.Appointment;
+import Model.Country;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,8 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -113,6 +116,8 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
+
+
     public void onUpdateAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         //get the selected appointment
         Appointment selectedAppointment = AppointmentTable.getSelectionModel().getSelectedItem();
@@ -122,8 +127,25 @@ public class AppointmentController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/update_Appointments.fxml"));
             Parent update_Appointment_parent = loader.load();
 
+
+
+
+
             // Access the controller of the update screen
             update_AppointmentsController updateController = loader.getController();
+
+            String startDateTimeString = String.valueOf(selectedAppointment.getStart());
+            String endDateTimeString = String.valueOf(selectedAppointment.getEnd());
+            LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+            LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+            LocalTime endTime = endDateTime.toLocalTime();
+            LocalTime startTime = startDateTime.toLocalTime();
+            String endTimeString = endTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+            String startTimeString = startTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+
+            updateController.updateStartTimeComboBox.setValue(startTimeString);
+            updateController.updateEndTimeComboBox.setValue(endTimeString);
+
 
             // Prepopulate the fields in the update screen
             updateController.updateAppointmentIDTF.setText(String.valueOf(selectedAppointment.getId()));
@@ -135,8 +157,8 @@ public class AppointmentController implements Initializable {
             updateController.updateTypeTF.setText(selectedAppointment.getType());
             updateController.updateUserIDComboBox.setValue(selectedAppointment.getUserID());
             updateController.updateCustomerIDComboBox.setValue(selectedAppointment.getCustomerID());
-            updateController.updateStartTimeComboBox.setValue(selectedAppointment.getStart());
-            updateController.updateEndTimeComboBox.setValue(selectedAppointment.getEnd());
+//            updateController.updateStartTimeComboBox.setValue(selectedAppointment.startTimeString);
+//            updateController.updateEndTimeComboBox.setValue(selectedAppointment.getEnd());
             updateController.updateStartDate.setValue(selectedAppointment.getStart().toLocalDate());
             updateController.updateEndDate.setValue(selectedAppointment.getEnd().toLocalDate());
 
@@ -195,6 +217,10 @@ public class AppointmentController implements Initializable {
 
     public void onUpdateCustomer(ActionEvent actionEvent) throws IOException, SQLException {
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
+        int divisionID = selectedCustomer.getDivisionId();
+        int countryID = CustomerDAO.getCountryIDByDivisionID(divisionID);
+        String countryName = CustomerDAO.getCountryByCountryID(countryID);
+        Country country = new Country(countryID, countryName);
         System.out.println("Selected Customer Division ID: " + selectedCustomer.getDivisionId());
 
 ////        int customerCountryID = CustomerDAO.getCountryByDivisionID(selectedCustomer.getDivisonId());
@@ -218,6 +244,7 @@ public class AppointmentController implements Initializable {
             customerUpdate.updatePostalCodeTF.setText(selectedCustomer.getPostal());
             customerUpdate.updateNameTF.setText(selectedCustomer.getName());
             customerUpdate.updateDivisionComboBox.setValue(selectedCustomer.getDivision());
+            customerUpdate.updateCountryComboBox.setValue(country);
 
 
 

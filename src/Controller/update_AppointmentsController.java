@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
+import Model.Appointment;
 import helper.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -19,11 +20,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class update_AppointmentsController implements Initializable {
@@ -48,7 +48,12 @@ public class update_AppointmentsController implements Initializable {
         updateStartTimeComboBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
         updateEndTimeComboBox.setItems(FXCollections.observableArrayList("01:00", "02:00", "03:00","04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"));
 
-        try {
+
+
+
+
+
+            try {
             updateContactComboBox.setItems(CustomerDAO.getAllContactNames());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,6 +85,7 @@ public class update_AppointmentsController implements Initializable {
 //
 //    // Define your time zone
 //    ZoneId localTimeZone = ZoneId.systemDefault();
+
     public void onSaveUpdate(ActionEvent actionEvent) throws SQLException, IOException {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

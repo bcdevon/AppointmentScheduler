@@ -302,6 +302,38 @@ public class CustomerDAO {
         return allUserIDs;
     }
 
+    public static int getCountryIDByDivisionID(int divisionID) throws SQLException {
+        int countryID = -1; // Default value indicating failure or no match
+
+        String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = ?";
+        try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)) {
+            ps.setInt(1, divisionID);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    countryID = resultSet.getInt("Country_ID");
+                }
+            }
+        }
+
+        return countryID;
+    }
+
+    public static String getCountryByCountryID(int countryID) throws SQLException {
+        String country = null;
+
+        String sql = "SELECT Country FROM countries WHERE Country_ID = ?";
+        try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)) {
+            ps.setInt(1, countryID);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    country = resultSet.getString("Country");
+                }
+            }
+        }
+
+        return country;
+    }
+
 
 
     //left off here create function to add a customer to the myql database
