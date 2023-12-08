@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppointmentQuery {
     public static void select() throws SQLException {
@@ -111,5 +113,33 @@ public class AppointmentQuery {
 
         return contactName;
     }
-    
+
+
+    public static List<String> getAppointmentsBetween(String startTime, String endTime) throws SQLException {
+        List<String> appointments = new ArrayList<>();
+        String sql = "SELECT * FROM appointments WHERE Start >= ? AND Start <= ?";
+
+
+        try (PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, startTime);
+            preparedStatement.setString(2, endTime);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    // Customize this part based on your actual database columns
+                    String appointmentInfo = String.format(
+                            "Appointment_ID: %d, Title: %s, Start: %s, End: %s",
+                            resultSet.getInt("Appointment_ID"),
+                            resultSet.getString("Title"),
+                            resultSet.getString("Start"),
+                            resultSet.getString("End"));
+
+                    appointments.add(appointmentInfo);
+                }
+            }
+        }
+
+        return appointments;
+    }
+
 }

@@ -7,6 +7,7 @@ import DAO.CustomerQuery;
 import Model.Appointment;
 import Model.Country;
 import Model.Customer;
+import helper.AppointmentReminder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,6 +65,10 @@ public class AppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+        AppointmentReminder.checkAppointments();
+
+
         // Set up cellValueFactory for each column
         apptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -86,7 +91,9 @@ public class AppointmentController implements Initializable {
         DivisionNameCol.setCellValueFactory(new PropertyValueFactory<>("division"));
         populateCustomerTable();
 
+
     }
+
     private void populateAppointmentTable() {
         // Create an instance of your AppointmentDAO
         AppointmentDAO appointmentDAO = new AppointmentDAO();
@@ -96,6 +103,7 @@ public class AppointmentController implements Initializable {
         ObservableList<Appointment> appointmentData = FXCollections.observableArrayList(appointments);
         // Set the appointment data to the TableView
         AppointmentTable.setItems(appointmentData);
+
     }
 
     private void populateCustomerTable(){
@@ -103,6 +111,7 @@ public class AppointmentController implements Initializable {
         List<Customer> customers = customerDAO.getAllCustomers();
         ObservableList<Customer> customerData = FXCollections.observableArrayList(customers);
         CustomerTable.setItems(customerData);
+
     }
 
     public void onADDAppointment(ActionEvent actionEvent) throws IOException {
