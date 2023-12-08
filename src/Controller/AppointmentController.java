@@ -7,6 +7,7 @@ import DAO.CustomerQuery;
 import Model.Appointment;
 import Model.Country;
 import Model.Customer;
+import helper.AppointmentReminder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,6 +64,7 @@ public class AppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        AppointmentReminder.checkAppointments();
 
         // Set up cellValueFactory for each column
         apptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
