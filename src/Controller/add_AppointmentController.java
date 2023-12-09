@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.AppointmentQuery;
+import helper.AppointmentOverlap;
 import DAO.CustomerDAO;
 import DAO.CustomerQuery;
 import Model.User;
@@ -116,6 +117,8 @@ public class add_AppointmentController implements Initializable {
         ZonedDateTime endZonedDateTimeUTC = endZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
 
 
+
+
         String titleS = addTitleTF.getText();
         String descriptionS = addDescriptionTF.getText();
         String locationS = addLocationTF.getText();
@@ -130,6 +133,19 @@ public class add_AppointmentController implements Initializable {
         int useridS = (int) userIDComboBox.getValue();
         String contactName = (String) contactIDComboBox.getValue();
         int contactS = AppointmentQuery.getContactIDByName(contactName);
+
+        // Check for appointment overlap
+        int appointmentId = -1;
+        if (AppointmentOverlap.appointmentOverlapChecker(appointmentId, customeridS, startDateTime, endDateTime)) {
+            // Display an error message or handle the case where there is an overlap
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("Error: Appointment overlaps with an existing appointment.");
+            alert.showAndWait();
+            System.out.println("Error: Appointment overlaps with an existing appointment.");
+            return; // Don't proceed with saving the appointment
+        }
+
         int rowsAffected = AppointmentQuery.insert(titleS, descriptionS, locationS, typeS, startS, endS, creatdateS, createdbyS, lastupdatedS, lastupdatebyS, useridS, customeridS, contactS);
 
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));

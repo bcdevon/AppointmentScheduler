@@ -3,6 +3,7 @@ package Controller;
 import DAO.AppointmentQuery;
 import DAO.CustomerDAO;
 import Model.Appointment;
+import helper.AppointmentOverlap;
 import helper.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -139,6 +140,17 @@ public class update_AppointmentsController implements Initializable {
         int useridS = (int) updateUserIDComboBox.getValue();
         String contactName = (String) updateContactComboBox.getValue();
         int contactS = AppointmentQuery.getContactIDByName(contactName);
+
+        // Check for appointment overlap
+        if (AppointmentOverlap.appointmentOverlapChecker(appointmentId, customeridS, startDateTime, endDateTime)) {
+            // Display an error message or handle the case where there is an overlap
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("Error: Appointment overlaps with an existing appointment.");
+            alert.showAndWait();
+            System.out.println("Error: Appointment overlaps with an existing appointment.");
+            return; // Don't proceed with saving the appointment
+        }
 
         int rowsAffected = AppointmentQuery.update(
                 appointmentId, updateTitle, updateDescription, updateLocation,
