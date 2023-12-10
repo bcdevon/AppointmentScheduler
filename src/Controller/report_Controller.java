@@ -143,24 +143,18 @@ public class report_Controller implements Initializable {
 //        }
 //    }
 
+    /**This is the populate monthly report method.
+     * This method retrieves appointments for the selected month, counts appointments by type, and displays results in the table.
+     * */
     private void populateMonthlyReport() {
-        // Get selected month from combo box
+        //Get selected month from combo box
         String selectedMonth = (String) reportMonth.getValue();
-        // Convert the month name to its corresponding integer value
+        //convert month name to its corresponding integer value
         int selectedMonthInt = MonthConverter.getMonthAsInt(selectedMonth);
 
         try {
-            // Get appointments for the selected month
+            //get appointments for the selected month
             ObservableList<Appointment> appointments = AppointmentDAO.getAppointmentsByMonthStart(selectedMonthInt);
-
-            // Map to store count of each type
-            Map<String, Long> typeCountMap = new HashMap<>();
-
-            // Count occurrences of each type
-            for (Appointment appointment : appointments) {
-                String type = appointment.getType();
-                typeCountMap.put(type, typeCountMap.getOrDefault(type, 0L) + 1);
-            }
 
             // Set up columns and add data to the table
             TableColumn<Report, String> monthCol = new TableColumn<>("Month");
@@ -178,10 +172,17 @@ public class report_Controller implements Initializable {
             // Create a new list for displaying in the TableView
             ObservableList<Report> resultReport = FXCollections.observableArrayList();
 
-            // Add each type with its count to the result list
+            // Count occurrences of each type using Map.forEach
+            Map<String, Long> typeCountMap = new HashMap<>();
+            appointments.forEach(appointment -> {
+                String type = appointment.getType();
+                typeCountMap.put(type, typeCountMap.getOrDefault(type, 0L) + 1);
+            });
+
+            // Add each type with its count to the result list using Map.forEach
             typeCountMap.forEach((type, customerCount) -> resultReport.add(new Report(selectedMonth, type, customerCount)));
 
-            // Add the fetched appointments to the table
+            // Add the appointments to the table
             monthlyReportTable.setItems(resultReport);
 
         } catch (SQLException e) {
@@ -189,12 +190,10 @@ public class report_Controller implements Initializable {
         }
     }
 
-
-
+//
 //    private void populateMonthlyReport() {
 //        // Get selected month from combo box
 //        String selectedMonth = (String) reportMonth.getValue();
-//
 //        // Convert the month name to its corresponding integer value
 //        int selectedMonthInt = MonthConverter.getMonthAsInt(selectedMonth);
 //
@@ -202,32 +201,47 @@ public class report_Controller implements Initializable {
 //            // Get appointments for the selected month
 //            ObservableList<Appointment> appointments = AppointmentDAO.getAppointmentsByMonthStart(selectedMonthInt);
 //
+//            // Map to store count of each type
+//            Map<String, Long> typeCountMap = new HashMap<>();
+//
+//            // Count occurrences of each type
+//            for (Appointment appointment : appointments) {
+//                String type = appointment.getType();
+//                typeCountMap.put(type, typeCountMap.getOrDefault(type, 0L) + 1);
+//            }
+//
 //            // Set up columns and add data to the table
-//            TableColumn<Appointment, String> monthCol = new TableColumn<>("Month");
-//            // Set the value for monthCol
+//            TableColumn<Report, String> monthCol = new TableColumn<>("Month");
 //            monthCol.setCellValueFactory(cellData -> new SimpleStringProperty(selectedMonth));
 //
-//            TableColumn<Appointment, String> typeCol = new TableColumn<>("Type");
+//            TableColumn<Report, String> typeCol = new TableColumn<>("Type");
 //            typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 //
-//            TableColumn<Appointment, String> countCol = new TableColumn<>("Appointment ID");
-//            countCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+//            TableColumn<Report, String> countCol = new TableColumn<>("Count");
+//            countCol.setCellValueFactory(new PropertyValueFactory<>("count"));
 //
 //            // Add columns to the table
 //            monthlyReportTable.getColumns().setAll(monthCol, typeCol, countCol);
 //
+//            // Create a new list for displaying in the TableView
+//            ObservableList<Report> resultReport = FXCollections.observableArrayList();
+//
+//            // Add each type with its count to the result list
+//            typeCountMap.forEach((type, customerCount) -> resultReport.add(new Report(selectedMonth, type, customerCount)));
+//
 //            // Add the fetched appointments to the table
-//            monthlyReportTable.setItems(appointments);
+//            monthlyReportTable.setItems(resultReport);
+//
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-//
 //    }
 
-
+    /**This is the populateContactScheduleReport method.
+     * This method populates the contact schedule report table based on the selected contact name*/
     private void populateContactScheduleReport() {
         // Clear existing items
-//        contactScheduleReport.getItems().clear();
+        contactScheduleReport.getItems().clear();
 
         // Get the selected contact name
         String selectedContactName = (String) reportContact.getValue();
@@ -236,10 +250,12 @@ public class report_Controller implements Initializable {
             try {
                 // Get contact ID based on the selected name
                 int contactID = AppointmentQuery.getContactIDByName(selectedContactName);
-                // Fetch appointments for the contact
-                ObservableList<Appointment> contactAppointments = AppointmentDAO.getAppointmentsByContactID(contactID);
-                // Populate the table with the fetched appointments
-                contactScheduleReport.setItems(contactAppointments);
+
+                // get appointments for the contact using lambda expression
+                AppointmentDAO.getAppointmentsByContactID(contactID).forEach(appointment ->
+                        //add each appointment to the contact schedule table
+                        contactScheduleReport.getItems().add(appointment));
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
