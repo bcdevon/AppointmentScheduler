@@ -64,21 +64,6 @@ public class update_AppointmentsController implements Initializable {
     }
 
 
-//    //get current date and time
-//    LocalDateTime currentDateTime = LocalDateTime.now();
-//
-//    //combine selected date and time to create start and end date/time
-//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//    String startDate = addStartDate.getValue().toString();
-//    String startTime = addStartTimeBox.getValue().toString() + ":00";
-//    String endDate = addEndDate.getValue().toString();
-//    String endTime = addEndTimeBox.getValue().toString() + ":00";
-//    LocalDateTime startDateTime = LocalDateTime.parse(startDate + " " + startTime, formatter);
-//    LocalDateTime endDateTime = LocalDateTime.parse(endDate+ " " + endTime, formatter);
-//
-//    // Define your time zone
-//    ZoneId localTimeZone = ZoneId.systemDefault();
-
     public void onSaveUpdate(ActionEvent actionEvent) throws SQLException, IOException {
         //get current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -166,18 +151,6 @@ public class update_AppointmentsController implements Initializable {
         stage.show();
 
     }
-
-    public void onCancel(ActionEvent actionEvent) throws IOException {
-        Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
-        Scene appointment_scene = new Scene(appointment_parent);
-
-        //Get the current window and set the scene to the appointment scene
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(appointment_scene);
-        stage.show();
-    }
-
-
     public void onCancelUpdate(ActionEvent actionEvent) throws IOException {
         //return to appointment screen without updating
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));

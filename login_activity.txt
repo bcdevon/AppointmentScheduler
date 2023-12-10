@@ -154,3 +154,12 @@
 2023-12-08 19:32:56 - User: test, Log In Attempt: Success
 2023-12-08 21:42:38 - User: test, Log In Attempt: Success
 2023-12-08 21:45:17 - User: test, Log In Attempt: Success
+2023-12-09 11:27:13 - User: test, Log In Attempt: Success
+2023-12-09 15:38:21 - User: test, Log In Attempt: Success
+2023-12-09 15:43:10 - User: test, Log In Attempt: Success
+2023-12-09 15:55:26 - User: test, Log In Attempt: Success
+2023-12-09 16:37:21 - User: test, Log In Attempt: Success
+2023-12-09 16:41:48 - User: test, Log In Attempt: Success
+2023-12-09 16:43:58 - User: test, Log In Attempt: Success
+2023-12-09 19:41:22 - User: test, Log In Attempt: Success
+2023-12-09 19:42:10 - User: test, Log In Attempt: Success
