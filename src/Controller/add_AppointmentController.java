@@ -27,17 +27,16 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**This is the add_AppointmentController class.
+ * This class handles adding appointments, save or cancel when an appointment is added.
+ * It also manages values in textfields, combo boxes, and a date picker.
+ * */
 public class add_AppointmentController implements Initializable {
     public TextField addAppointmentTF;
     public TextField addTitleTF;
     public TextField addDescriptionTF;
     public TextField addLocationTF;
-    public TextField addContactTF;
-    public TextField addStartTimeTF;
     public TextField addTypeTF;
-    public TextField addEndTimeTF;
-    public TextField addCustomerIDTF;
-    public TextField addUserIDTF;
     public DatePicker addStartDate;
     public DatePicker addEndDate;
     public Button saveButton;
@@ -47,6 +46,10 @@ public class add_AppointmentController implements Initializable {
     public ComboBox customerIDComboBox;
     public ComboBox userIDComboBox;
 
+    /**This is the initialize method.
+     * This method is call during initialization and sets up the available value options for the combo boxes.
+     * @param url The location of the FXML file
+     * @param resourceBundle Resources used for initialization*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addStartTimeBox.setItems(FXCollections.observableArrayList("01:00", "01:15","01:30","01:45", "02:00","02:15", "02:30", "02:45", "03:00", "03:15", "03:30", "03:45", "04:00", "04:15", "04:30", "04:45", "05:00", "05:15", "05:30", "05:45",  "06:00", "06:15", "06:30", "06:45", "07:00", "07:15", "07:30", "07:45","08:00", "08:15", "08:30", "08:45", "09:00", "09:15", "09:30", "09:45","10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "13:00","13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45", "19:00", "19:15", "19:30", "19:45", "20:00", "20:15", "20:30", "20:45","21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30", "22:45", "23:00", "23:15", "23:30", "23:45", "24:00"));
@@ -70,6 +73,11 @@ public class add_AppointmentController implements Initializable {
         Platform.runLater(() -> addTitleTF.requestFocus());
     }
 
+    /**This is the onSave method.
+     * This is an eventhandler method that is called when the user clicks the save button to save an added appointment.
+     * It gets values from the text fields, and combo Boxes it formats and converts the time and date.
+     * It also verifies times are withing business hours before saving and checks for overlapping appointments
+     * @param actionEvent  The event triggered when the save button is clicked*/
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
 
         //get current date and time
@@ -116,9 +124,7 @@ public class add_AppointmentController implements Initializable {
         ZonedDateTime startZonedDateTimeUTC = startZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
         ZonedDateTime endZonedDateTimeUTC = endZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
 
-
-
-
+        //Get values from fields and comboBoxes
         String titleS = addTitleTF.getText();
         String descriptionS = addDescriptionTF.getText();
         String locationS = addLocationTF.getText();
@@ -157,6 +163,10 @@ public class add_AppointmentController implements Initializable {
         stage.show();
     }
 
+    /**This is the onCancel method.
+     * This is an event handler method that is called when the user clicks the cancel button.
+     * The appointment will not be added and the application returns to the appointments screen.
+     * @param actionEvent The event triggered when the cancel button is clicked*/
     public void onCancel(ActionEvent actionEvent) throws IOException {
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);
