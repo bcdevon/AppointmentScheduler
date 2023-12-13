@@ -47,7 +47,7 @@ public class add_AppointmentController implements Initializable {
     public ComboBox userIDComboBox;
 
     /**This is the initialize method.
-     * This method is call during initialization and sets up the available value options for the combo boxes.
+     * This method is called during initialization and sets up the available value options for the combo boxes.
      * @param url The location of the FXML file
      * @param resourceBundle Resources used for initialization*/
     @Override
