@@ -33,6 +33,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**This is the AppointmentController Class.
+ * This is the controller class for managing appointments in the application.
+ * It handles interactions between the user interface and the data access objects.*/
 public class AppointmentController implements Initializable {
     public ToggleGroup appointmentFilter;
     public TableView<Appointment> AppointmentTable;
@@ -62,14 +65,20 @@ public class AppointmentController implements Initializable {
     //Default filter selection
     private String selectedFilter;
 
+    /**This is the initialize method.
+     * This method is called during initialization and sets up the Appointment table, and
+     * Customer Table with customers and appointments from the database.
+     * It also sets up the columns in the tables to display the correct information
+     * @param resourceBundle resourced used for initialization
+     * @param url The location of the Appointments.fxml*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        //Check for upcoming appointments
         AppointmentReminder.checkAppointments();
 
 
-        // Set up cellValueFactory for each column
+        // Set the values for the appointment table columns
         apptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         apptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -80,8 +89,10 @@ public class AppointmentController implements Initializable {
         apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         apptCustomerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         apptUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        //Populate the appointment table
         populateAppointmentTable();
 
+        //Set the values for the customer table columns
         customerIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -89,6 +100,7 @@ public class AppointmentController implements Initializable {
         customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         DivisionIDCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         DivisionNameCol.setCellValueFactory(new PropertyValueFactory<>("division"));
+        //Populate the customer table.
         populateCustomerTable();
 
 
