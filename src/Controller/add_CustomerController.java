@@ -63,10 +63,10 @@ public class add_CustomerController implements Initializable {
     }
 
     /**This is the onSave method.
-     * This is an eventhandler method that is called when the user clicks the save button to save an added Customer.
+     * This is an event handler method that is called when the user clicks the save button to save an added Customer.
      * It gets values from the text fields, and combo Boxes it formats and converts the time and date.
      * It also gets information about the user who created the customer and the time it was created.
-     * @param actionEvent  The event triggered when the save button is clicked*/
+     * @param actionEvent  The event triggered when the save button is clicked.*/
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
         //get current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();

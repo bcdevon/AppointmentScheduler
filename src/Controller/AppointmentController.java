@@ -106,26 +106,40 @@ public class AppointmentController implements Initializable {
 
     }
 
+    /**This is the populateAppointmentTable method.
+     * This method gets all the appointment data, creates an observable list
+     * and sets it to the tableview.*/
     private void populateAppointmentTable() {
         // Create an instance of your AppointmentDAO
         AppointmentDAO appointmentDAO = new AppointmentDAO();
         // Fetch the appointment data from the database
         List<Appointment> appointments = appointmentDAO.getAllAppointments();
-        // Create an ObservableList to store the data and set it to the TableView
+        // Create an Observable List to store the data and set it to the TableView
         ObservableList<Appointment> appointmentData = FXCollections.observableArrayList(appointments);
         // Set the appointment data to the TableView
         AppointmentTable.setItems(appointmentData);
 
     }
 
+    /**This is the populateCustomerTable.
+     * This method get all the customer data, creates an observable list
+     * and sets it to the tableview.*/
     private void populateCustomerTable(){
+        // Create an instance of your CustomerDAO
         CustomerDAO customerDAO = new CustomerDAO();
+        // Fetch the customer data from the database
         List<Customer> customers = customerDAO.getAllCustomers();
+        // Create an Observable List to store the data and set it to the tableview
         ObservableList<Customer> customerData = FXCollections.observableArrayList(customers);
+        // Set the Customer data to the tableview
         CustomerTable.setItems(customerData);
 
     }
 
+    /**This is the onADDAppointment method.
+     * This is an event handler method that is called when the user clicks add appointment.
+     * It navigates the user to the add appointment screen.
+     * @param actionEvent The event triggered when the Add button is clicked.*/
     public void onADDAppointment(ActionEvent actionEvent) throws IOException {
         //load Add Appointment screen
         Parent add_Appointment_parent = FXMLLoader.load(getClass().getResource("../View/add_Appointment.fxml"));
@@ -137,8 +151,14 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
-
-
+    /**This is the onUpdateAppointment method.
+     * This is an event handler method that is called when the user clicks update appointment.
+     * It fetches the selected appointment and also verifies that an appointment was selected.
+     * It also sets the fields and combo Boxes with the values from the selected appontment and
+     * navigates to the update appointment screen.
+     * @param actionEvent The event triggered when the Update button is clicked.
+     * @
+     * */
     public void onUpdateAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         //get the selected appointment
         Appointment selectedAppointment = AppointmentTable.getSelectionModel().getSelectedItem();
@@ -178,13 +198,8 @@ public class AppointmentController implements Initializable {
             updateController.updateTypeTF.setText(selectedAppointment.getType());
             updateController.updateUserIDComboBox.setValue(selectedAppointment.getUserID());
             updateController.updateCustomerIDComboBox.setValue(selectedAppointment.getCustomerID());
-//            updateController.updateStartTimeComboBox.setValue(selectedAppointment.startTimeString);
-//            updateController.updateEndTimeComboBox.setValue(selectedAppointment.getEnd());
             updateController.updateStartDate.setValue(selectedAppointment.getStart().toLocalDate());
             updateController.updateEndDate.setValue(selectedAppointment.getEnd().toLocalDate());
-
-
-            // ... repeat this for other fields
 
             // Set the scene
             Scene update_Appointment_scene = new Scene(update_Appointment_parent);
@@ -197,6 +212,12 @@ public class AppointmentController implements Initializable {
         else return;
     }
 
+    /**This is the onDeleteAppointment method.
+     * This is an event handler method that is called when the user clicks the delete appointment button.
+     * It gets the selected appointment and verifies an appointment was selected.
+     * It then deletes the appointment from the database based on appointment ID
+     * displaying an alert before deleting to make sure nothing is deleted by accident.
+     * @param actionEvent The event triggered when the delete button is clicked.*/
     public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {
         //get selected appointment from the appointmentTable;
         Appointment selectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
@@ -225,6 +246,10 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**This is the onAddCustomer method.
+     * This is an event handler method that is called when the Add Customer button is clicked.
+     * It navigates to the add Customer Screen.
+     * @param actionEvent The event triggered when the Add customer button is clicked.*/
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
         //Load Add Customer Screen
         Parent add_Customer_parent = FXMLLoader.load(getClass().getResource("../View/add_Customer.fxml"));
@@ -236,7 +261,14 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
+    /**This is the onUpdateCustomer method.
+     * This is an event handler method that is called when the user clicks the update customer button.
+     * It gets the selected customer verifies a customer was selected and navigates to the update customer screen.
+     * The fields and combo boxes in the update screen are pre-populated with the values from
+     * the selected customer.
+     * @param actionEvent The event triggered whe the update button is clicked.*/
     public void onUpdateCustomer(ActionEvent actionEvent) throws IOException, SQLException {
+        //Get the selected customer from the table
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
         int divisionID = selectedCustomer.getDivisionId();
         int countryID = CustomerDAO.getCountryIDByDivisionID(divisionID);
@@ -244,12 +276,7 @@ public class AppointmentController implements Initializable {
         Country country = new Country(countryID, countryName);
         System.out.println("Selected Customer Division ID: " + selectedCustomer.getDivisionId());
 
-////        int customerCountryID = CustomerDAO.getCountryByDivisionID(selectedCustomer.getDivisonId());
-//        String customerDivsionName = selectedCustomer.getDivision();
-//        System.out.println("customer division ID " + customerDivsionName);
-//        String divisionName = CustomerDAO.getDivisionNameByID(selectedCustomer.getDivisonId());
-//        System.out.println("division name: " +  divisionName);
-//        System.out.println("country ID: " + customerCountryID);
+        //Check if a customer is selected
         if (selectedCustomer != null){
             //load Update Customer screen
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/update_Customer.fxml"));
@@ -267,8 +294,6 @@ public class AppointmentController implements Initializable {
             customerUpdate.updateDivisionComboBox.setValue(selectedCustomer.getDivision());
             customerUpdate.updateCountryComboBox.setValue(country);
 
-
-
             //Set the scene
             Scene update_Customer_scene = new Scene(update_Customer_parent);
             //get the current window and set the scene to the Update Customer scene
@@ -278,13 +303,19 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**This is the onDeleteCustomer method.
+     * This is an event handler method that is called when the delete customer button is clicked.
+     * It gets the selected customer, verifies a customer is selected and checks if the customer
+     * has any appointments. If the customer has any appointments it displays a warning message
+     * and does not delete the customer. If the customer has no appointments and the user confirms the
+     * deletion the customer is deleted.
+     * @param actionEvent The event triggered when the delete button is clicked.*/
     public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
         //get selected customer from the CustomerTable;
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
 
         // Print selected customer information
         System.out.println("Selected Customer: " + selectedCustomer);
-
 
         //If no part is selected, return and do nothing
         if (selectedCustomer == null){
@@ -302,7 +333,6 @@ public class AppointmentController implements Initializable {
             alert.showAndWait();
             return; // Do not proceed with deletion
         }
-
 
         // Print information about the selected customer
         System.out.println("Selected Customer ID: " + selectedCustomer.getId());
