@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**This is the update_AppointmentsController class.
+ * This class handles updating existing appointments, checking for appointment overlaps,
+ * and saving updates.*/
 public class update_AppointmentsController implements Initializable {
     public TextField updateAppointmentIDTF;
     public TextField updateTitleTF;
@@ -41,6 +44,11 @@ public class update_AppointmentsController implements Initializable {
     public ComboBox updateEndTimeComboBox;
     public ComboBox updateContactComboBox;
 
+    /**This is the initialize method.
+     * This method is called during initialization and sets up the combo boxes and populates them with data.
+     * @param resourceBundle resources used for initialization.
+     * @param url The location of the update_Appointments.fxml.
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateStartTimeComboBox.setItems(FXCollections.observableArrayList("01:00", "01:15","01:30","01:45", "02:00","02:15", "02:30", "02:45", "03:00", "03:15", "03:30", "03:45", "04:00", "04:15", "04:30", "04:45", "05:00", "05:15", "05:30", "05:45",  "06:00", "06:15", "06:30", "06:45", "07:00", "07:15", "07:30", "07:45","08:00", "08:15", "08:30", "08:45", "09:00", "09:15", "09:30", "09:45","10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "13:00","13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45", "19:00", "19:15", "19:30", "19:45", "20:00", "20:15", "20:30", "20:45","21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30", "22:45", "23:00", "23:15", "23:30", "23:45", "24:00"));
@@ -63,7 +71,12 @@ public class update_AppointmentsController implements Initializable {
         }
     }
 
-
+    /**
+     * This is the onSaveUpdate method.
+     * This is an event handler method that is called when the save button is clicked.
+     * It saves the updated appointment after validating time and checking for overlaps.
+     * @param actionEvent The event triggered when the Save button is clicked.
+     */
     public void onSaveUpdate(ActionEvent actionEvent) throws SQLException, IOException {
         //get current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -92,7 +105,7 @@ public class update_AppointmentsController implements Initializable {
         ZonedDateTime startZonedDateTimeEastern = startZonedDateTime.withZoneSameInstant(easternTimeZone);
         ZonedDateTime endZoneDateTimeEastern = endZonedDateTime.withZoneSameInstant(easternTimeZone);
 
-        // Check if the appointment time is between 8:00 AM and 10:00 PM Eastern Time
+        // Check if the appointment time is in business hours between 8:00 AM and 10:00 PM Eastern Time
         if ((startZonedDateTimeEastern.getHour() < 8 || startZonedDateTimeEastern.getHour() >= 22) || (endZoneDateTimeEastern.getHour() < 8 || endZoneDateTimeEastern.getHour() >= 22 )) {
             // Display an error message or handle the case where the time is not within the allowed range
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -151,6 +164,11 @@ public class update_AppointmentsController implements Initializable {
         stage.show();
 
     }
+
+    /**This is the onCancelUpdate method.
+     * This is an event handler method that is called when the cancel button is clicked.
+     * It returns to the appointment screen without saving the update.
+     * @param actionEvent The event triggered when the cancel button is clicked.*/
     public void onCancelUpdate(ActionEvent actionEvent) throws IOException {
         //return to appointment screen without updating
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
