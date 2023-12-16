@@ -23,8 +23,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import helper.JDBC;
+
+/**This is the loginController class.
+ * This class handles user authentication and navigation to the main application screen.
+ * */
 public class LoginController implements Initializable {
-    public Label theLabel;
     public Button loginButton;
     public Button exitButton;
     public TextField usernameTF;
@@ -35,12 +38,19 @@ public class LoginController implements Initializable {
     public TextField zoneIDTF;
     public TextField dateTimeTF;
 
+    /**This is the initialize method.
+     * This method is called during initialization and sets up localization, default values,
+     * and the current date and time.
+     * @param url  The location of the Login.fxml
+     * @param resourceBundle resources used for initialization*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("I am initialized");
+        //load localization resources
         ResourceBundle rb = ResourceBundle.getBundle("Main.language", Locale.getDefault());
         if (Locale.getDefault().getLanguage().equals("fr"))
             System.out.println(rb.getString("hello") + " " + rb.getString("world"));
+        //Set the labels and buttons text based on localization.
         loginButton.setText(rb.getString("Login"));
         exitButton.setText(rb.getString("Exit"));
         timeZoneText.setText(rb.getString("TimeZone"));
@@ -62,11 +72,17 @@ public class LoginController implements Initializable {
         dateTimeTF.setText(formattedDatetime);
     }
 
+    /**This is the onLoginClicked method.
+     * This is an event handler method that is called when the login button is clicked.
+     * It authenticates the user and navigates to the main application screen or
+     * displays an error message if username and password don't match.
+     * @param actionEvent The event triggered when the login button is clicked*/
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {
         String enteredUsername = usernameTF.getText();
         String enteredPassword = passwordTF.getText();
+        //load the localization resources
         ResourceBundle rb = ResourceBundle.getBundle("Main.language", Locale.getDefault());
-
+        //log the attempted login
         UserLog.loginAttempt(enteredUsername, authenticateUser(enteredUsername, enteredPassword));
 
         //verify a login and password have been entered and they match.
@@ -106,6 +122,11 @@ public class LoginController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    /**This is the getUserByUsername method.
+     * This method gets a user from the database based on the provided username.
+     * @param username the username of the user to retrieve
+     * @return The user object if found.*/
     private User getUserByUsername(String username) {
         try {
             // Use PreparedStatement to safely execute the query.
@@ -118,41 +139,51 @@ public class LoginController implements Initializable {
             // Check if the query returned any results.
             if (resultSet.next()) {
                 int userId = resultSet.getInt("User_ID");
-                // You can add more fields as needed
+                //return user if found
                 return new User(userId, username);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+        //return nothing if user not found
         return null;
     }
 
-
+    /**This is the authenticateUser method.
+     * This method authenticates a user based on the provided username and password.
+     * @param username the username to authenticate.
+     * @param password the password to authenticate.
+     * @return True if the authentication passes else return false.*/
     private boolean authenticateUser(String username, String password) {
         try {
-            // Use PreparedStatement to safely execute the query.
+            //Check for user with provided username and password.
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement(
                     "SELECT * FROM users WHERE User_Name = ? AND password = ?"
             );
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 
+            //execute query and retrieve results
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Check if the query returned any results.
+            // If any results are returned then it is True user authenticated.
             return resultSet.next();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+            //If no results ar returned then it is False user not authenticated.
             return false;
         }
     }
 
+    /**This is the onExitClicked method.
+     * This is an event handler method that is called when the user clicks exit.
+     * When the exit button is pressed the application closes.
+     * @param actionEvent The event triggered when the exit button is clicked.*/
     public void onExitClicked(ActionEvent actionEvent) {
         //Get the current application stage and close it
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
     }
 
-    public void dateTimeTextField(ActionEvent actionEvent) {
-    }
+
 }

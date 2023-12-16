@@ -35,6 +35,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**This is the report_Controller class.
+ * This class handles generating and displaying various reports.
+ * It manages the interaction between the UI components and the data access objects.
+ * It initializes the tableviews columns and combo boxes */
 public class report_Controller implements Initializable {
     public TableView monthlyReportTable;
     public TableColumn monthCol;
@@ -57,6 +61,10 @@ public class report_Controller implements Initializable {
     public TableColumn divisionCol;
     public TableColumn customerCol;
 
+    /**This is the initialize method.
+     * This method is called during initialization and sets up combo boxes, cell value factories and initial data.
+     * @param url The location of the Report_Screen.fxml.
+     * @param resourceBundle resources used for initialization.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //set up cellValueFactory for each column
@@ -83,19 +91,35 @@ public class report_Controller implements Initializable {
             e.printStackTrace();
         }
     }
-    private void populateLocationReport() {
-        locationReportTable.getItems().clear(); // Clear existing data
+    /**
+     * Populates the Location Report table with data based on the selected country.
+     * This method fetches divisions and their respective customer counts for the selected country
+     * from the database and updates the locationReportTable accordingly. It also configures
+     * the necessary TableColumn properties for the country, division, and customer count.
+     */
 
+    /**This is the populateLocationReport method.
+     * This method populates the location report with data based on the selected country.
+     * This method gets divisions and their customer counts for the selected country and displays
+     * them in the table.*/
+    private void populateLocationReport() {
+        // Clear existing data
+        locationReportTable.getItems().clear();
+
+        //get the selected country from the combo box
         Country selectedCountry = reportLocationBox.getValue();
+
         if (selectedCountry != null) {
             try {
                 List<String> divisions = CustomerDAO.getDivisionsByCountry(selectedCountry);
-//                locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), "", 0));
-
+                //iterate through divisions and populate the table with customer count
                 for (String division : divisions) {
                     try {
+                        //get the divisions for the selected country
                         int divisionId = CustomerDAO.getDivisionIdByName(division);
+                        //get the customer count for the divisions
                         long customerCount = CustomerDAO.getCustomerCountByDivision(divisionId);
+                        //Add a new report entry to the table if there are customers.
                         if (customerCount > 0){
                             locationReportTable.getItems().add(new LocationReport(selectedCountry.getName(), division, customerCount));
                         }
@@ -115,36 +139,9 @@ public class report_Controller implements Initializable {
         }
     }
 
-
-
-//    private void populateLocationReport() {
-//        Country selectedCountry = reportLocationBox.getValue();
-//        if (selectedCountry != null) {
-//            try {
-//                // Assuming you have methods in CustomerDAO to get divisions by country
-//                List<String> divisions = CustomerDAO.getDivisionsbyCountry(selectedCountry);
-//                System.out.println("Selected Country: " + selectedCountry.getName());
-//
-//                // Display the selected country in locationCol
-//                locationCol.setCellValueFactory(cellData -> new SimpleStringProperty(selectedCountry.getName()));
-//                divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));  // Adjust this based on your Report class
-//                customerCol.setCellValueFactory(new PropertyValueFactory<>("customerCount"));  // Adjust this based on your Report class
-//
-//
-//                // Display divisions and customer counts
-//                for (String division : divisions) {
-//                    long customerCount = CustomerDAO.getCustomerCountByDivision(division);
-//                    System.out.println("Division: " + division + ", Customer Count: " + customerCount);
-//                    locationReportTable.getItems().add(new Report(selectedCountry.getName(), division, customerCount));
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
     /**This is the populate monthly report method.
-     * This method retrieves appointments for the selected month, counts appointments by type, and displays results in the table.
+     * This method retrieves appointments for the selected month,
+     * counts appointments by type, and displays results in the table.
      * */
     private void populateMonthlyReport() {
         //Get selected month from combo box
@@ -172,8 +169,11 @@ public class report_Controller implements Initializable {
             // Create a new list for displaying in the TableView
             ObservableList<Report> resultReport = FXCollections.observableArrayList();
 
-            // Count occurrences of each type using Map.forEach
+            //The use of a lambda expression here captures the intent of the code:for each appointment,
+            // the typeCountMap. This clearly conveys the purpose of the loop and makes the code more maintainable.
+            // Count occurrences of each type using Map.forEach this is one of the uses of a lambda expression
             Map<String, Long> typeCountMap = new HashMap<>();
+            //iterate over each appointment and update the typeCountMap.
             appointments.forEach(appointment -> {
                 String type = appointment.getType();
                 typeCountMap.put(type, typeCountMap.getOrDefault(type, 0L) + 1);
@@ -190,55 +190,11 @@ public class report_Controller implements Initializable {
         }
     }
 
-//
-//    private void populateMonthlyReport() {
-//        // Get selected month from combo box
-//        String selectedMonth = (String) reportMonth.getValue();
-//        // Convert the month name to its corresponding integer value
-//        int selectedMonthInt = MonthConverter.getMonthAsInt(selectedMonth);
-//
-//        try {
-//            // Get appointments for the selected month
-//            ObservableList<Appointment> appointments = AppointmentDAO.getAppointmentsByMonthStart(selectedMonthInt);
-//
-//            // Map to store count of each type
-//            Map<String, Long> typeCountMap = new HashMap<>();
-//
-//            // Count occurrences of each type
-//            for (Appointment appointment : appointments) {
-//                String type = appointment.getType();
-//                typeCountMap.put(type, typeCountMap.getOrDefault(type, 0L) + 1);
-//            }
-//
-//            // Set up columns and add data to the table
-//            TableColumn<Report, String> monthCol = new TableColumn<>("Month");
-//            monthCol.setCellValueFactory(cellData -> new SimpleStringProperty(selectedMonth));
-//
-//            TableColumn<Report, String> typeCol = new TableColumn<>("Type");
-//            typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-//
-//            TableColumn<Report, String> countCol = new TableColumn<>("Count");
-//            countCol.setCellValueFactory(new PropertyValueFactory<>("count"));
-//
-//            // Add columns to the table
-//            monthlyReportTable.getColumns().setAll(monthCol, typeCol, countCol);
-//
-//            // Create a new list for displaying in the TableView
-//            ObservableList<Report> resultReport = FXCollections.observableArrayList();
-//
-//            // Add each type with its count to the result list
-//            typeCountMap.forEach((type, customerCount) -> resultReport.add(new Report(selectedMonth, type, customerCount)));
-//
-//            // Add the fetched appointments to the table
-//            monthlyReportTable.setItems(resultReport);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
 
     /**This is the populateContactScheduleReport method.
-     * This method populates the contact schedule report table based on the selected contact name*/
+     * This method gets the appointments for the chosen contact.
+     * It then populates the contact schedule report table based on the selected contact name*/
     private void populateContactScheduleReport() {
         // Clear existing items
         contactScheduleReport.getItems().clear();
@@ -252,6 +208,8 @@ public class report_Controller implements Initializable {
                 int contactID = AppointmentQuery.getContactIDByName(selectedContactName);
 
                 // get appointments for the contact using lambda expression
+                // The lambda express is concise, showing the logic for each Appointment.
+                // It eliminates the need for explicit iteration using traditional loops.
                 AppointmentDAO.getAppointmentsByContactID(contactID).forEach(appointment ->
                         //add each appointment to the contact schedule table
                         contactScheduleReport.getItems().add(appointment));
@@ -262,10 +220,18 @@ public class report_Controller implements Initializable {
         }
     }
 
+    /**This is the onNameSelected method.
+     * This is an event handler method that is called when contact name is selected.
+     * It calls the populateContactScheduleReport button to update the contact Schedule report table.
+     * @param actionEvent The action event triggered by the button click.*/
     public void onNameSelected(ActionEvent actionEvent) {
         populateContactScheduleReport();
     }
 
+    /**This is the onBackButton method.
+     * This is and event handler method theat is called when the back button is clicked.
+     * It navigates to the Appointments screen.
+     * @param actionEvent The action event triggered when the back button is clicked.*/
     public void onBackButton(ActionEvent actionEvent) throws IOException {
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);
@@ -276,15 +242,21 @@ public class report_Controller implements Initializable {
         stage.show();
     }
 
+    /**This is the onMonthSelected method.
+     * This is an event handler method that is called when a month is selected.
+     * It calls the populateMonthlReport method to update the monthly report.
+     * @param actionEvent The event triggered when a month is selected.*/
     public void onMonthSelected(ActionEvent actionEvent) {
         populateMonthlyReport();
 
     }
 
+    /**This is the onLocationSelected method.
+     * This method is called when a location country is selected.
+     * It calls the populateLocationReport method to update the location report.
+     * @param actionEvent The event triggered when a country is selected.*/
     public void onLocationSelected(ActionEvent actionEvent) {
-        //get the selected country
       populateLocationReport();
-
     }
 }
 
