@@ -365,7 +365,11 @@ public class AppointmentController implements Initializable {
 
 
     }
-    // Helper method to check if a customer has appointments
+    /**This is the hadAppointments method.
+     * This method gets appointments from the database based on the cusotmer ID
+     * and checks if there are any appointments for that customer.
+     * @param customerId The ID of the customer to check for appointments.
+     * @return True if the customer has appointments else False.*/
     private boolean hasAppointments(int customerId) throws SQLException {
         // Fetch appointments for the given customer ID
         List<Appointment> appointments = AppointmentDAO.getAppointmentsByCustomerId(customerId);
@@ -374,24 +378,40 @@ public class AppointmentController implements Initializable {
         return !appointments.isEmpty();
     }
 
+    /**This is the onMonthSelected method.
+     * This is an event handler method that is called when the user selects the month filter.
+     * When the month filter is selected the displayed appointments are updated to show the current months appointments.
+     * @param actionEvent The event triggered when the month filter is selected.*/
     public void onMonthSelected(ActionEvent actionEvent) {
         selectedFilter = "Month";
+        //Check if month filter was selected
         if(selectedFilter.equals("Month")){
+            // Filter appointments for the current month
             List<Appointment> filteredAppointments = filteredAppointmentsbyMonth();
             displayAppointments(filteredAppointments);
         }
     }
 
+    /**This is the onWeekSelected method.
+     * This is an event handler method that is called when the user selects the week filter.
+     * When the week filter is selected the displayed appointments are updated to show the current weeks appointments.
+     * @param actionEvent The event triggered when the week filter is selected.*/
     public void onWeekSelected(ActionEvent actionEvent) {
         selectedFilter = "Week";
+        //Check if week filter was selected
         if (selectedFilter.equals("Week")) {
             // Filter appointments for the current week
             List<Appointment> filteredAppointments = filterAppointmentsByWeek();
             displayAppointments(filteredAppointments);
         }
     }
-    //helper method to filter appointments by month
+
+    /**This is the filteredAppointmentsbyMonth method.
+     * This method gets the current date and filters appointments that fall within the current month
+     * and returns a list of filtered appointments.
+     * @return List of appointments filtered by the current month.*/
     private List<Appointment> filteredAppointmentsbyMonth() {
+        //Populate appointment table with current data.
         populateAppointmentTable();
         //get current date
         LocalDate currentDate = LocalDate.now();
@@ -407,11 +427,19 @@ public class AppointmentController implements Initializable {
         return filteredAppointments;
     }
 
+    /**This is the filterAppointmentsByWeek method.
+     * This method gets the current date calculates the start and end of a week
+     * and filters the appointments that fall within the current week.
+     * It then returns a list of filtered appointments by week.
+     * @return List of filtered appointments by week.*/
     private List<Appointment> filterAppointmentsByWeek() {
+        //Populate appointment table with current data
         populateAppointmentTable();
+        //get current date
         LocalDateTime currentDate = LocalDateTime.now();
         //calculate start of week
         LocalDateTime startOfWeek = currentDate.with(DayOfWeek.MONDAY);
+        //calculate end of week
         LocalDateTime endOfWeek = currentDate.with(DayOfWeek.SUNDAY).plusHours(59).plusSeconds(59);
         // Filter appointments for the current week
         List<Appointment> filteredAppointments = new ArrayList<>();
@@ -422,16 +450,29 @@ public class AppointmentController implements Initializable {
         }
         return filteredAppointments;
     }
-    // Helper method to display the filtered appointments in the table
+
+    /**This is the displayAppointments method.
+     * This method takes a list of filtered appointments and updates the table view to display them.
+     * @param filteredAppointments the list of appointments to display*/
     private void displayAppointments(List<Appointment> filteredAppointments) {
+        //Create an ObsevableList for the filtered appointments
         ObservableList<Appointment> filteredAppointmentData = FXCollections.observableArrayList(filteredAppointments);
+        //Set the ObservableList as the datasource for the appointment table.
         AppointmentTable.setItems(filteredAppointmentData);
     }
 
+    /**This is the onAllSelected method.
+     * This is an event handler method that is called when the all filter is selected.
+     * It populates the appointment table to show all the appointments.
+     * @param actionEvent The event triggered when the all filter is selected*/
     public void onAllSelected(ActionEvent actionEvent) {
         populateAppointmentTable();
     }
 
+    /**This is the onReportButton method.
+     * This is an event handler method that is called when the report button is clicked.
+     * This method navigates to the report screen when the report button is clicked.
+     * @param actionEvent The event triggered when the report button is clicked.*/
     public void onReportButton(ActionEvent actionEvent) throws IOException {
         //load Update report screen
         Parent report_Screen_parent = FXMLLoader.load(getClass().getResource("../View/Report_Screen.fxml"));
