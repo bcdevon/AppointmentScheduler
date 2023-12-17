@@ -13,17 +13,28 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**This is the AppointmentDAO class.
+ * It provides method to interact with the database for managing appointments.
+ * Including functions to retrieve all appointments, filter appointments by month or week,
+ * get appointments by contact,month start, and customer ID.*/
 public class AppointmentDAO {
 
-
+    /**This is the getAllAppointments method.
+     * This method gets all appointments from the database.
+     * @return List of all appointment in the database*/
     public List<Appointment> getAllAppointments() {
+        //Initialize a list to store appointments
         List<Appointment> appointments = new ArrayList<>();
         try {
+            //SQL statement to select all columns from the appointment table
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT * FROM appointments");
             String sql = "SELECT * FROM appointments";
             ResultSet resultSet = preparedStatement.executeQuery(sql);
+            // Iterate through the result set and create Appointment objects
             while (resultSet.next()) {
+                //extract appointment details from the result set
                 Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                //add the created appointment object to the list
                 appointments.add(appointment);
             }
         } catch (SQLException e) {
@@ -32,25 +43,25 @@ public class AppointmentDAO {
         return appointments;
     }
 
-    public List<Appointment> getAppointmentsByMonth(LocalDateTime startOfMonth, LocalDateTime endOfMonth) throws SQLException {
-        List<Appointment> appointments = new ArrayList<>();
-        String sql = "SELECT * FROM appointments WHERE start >= ? AND start <= ?";
-
-        try {
-            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
-            preparedStatement.setTimestamp(1, Timestamp.valueOf(startOfMonth));
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(endOfMonth));
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Appointment appointment = extractAppointmentFromResultSet(resultSet);
-                appointments.add(appointment);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return appointments;
-    }
+//    public List<Appointment> getAppointmentsByMonth(LocalDateTime startOfMonth, LocalDateTime endOfMonth) throws SQLException {
+//        List<Appointment> appointments = new ArrayList<>();
+//        String sql = "SELECT * FROM appointments WHERE start >= ? AND start <= ?";
+//
+//        try {
+//            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+//            preparedStatement.setTimestamp(1, Timestamp.valueOf(startOfMonth));
+//            preparedStatement.setTimestamp(2, Timestamp.valueOf(endOfMonth));
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            while (resultSet.next()) {
+//                Appointment appointment = extractAppointmentFromResultSet(resultSet);
+//                appointments.add(appointment);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return appointments;
+//    }
 
     public List<Appointment> getAppointmentsForWeek(LocalDateTime startOfWeek, LocalDateTime endOfWeek) throws SQLException {
         List<Appointment> appointments = new ArrayList<>();

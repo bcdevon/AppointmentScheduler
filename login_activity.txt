@@ -168,3 +168,5 @@
 2023-12-16 15:40:29 - User: test, Log In Attempt: Success
 2023-12-16 16:06:47 - User: test, Log In Attempt: Failure
 2023-12-16 16:06:51 - User: test, Log In Attempt: Success
+2023-12-17 16:03:34 - User: test, Log In Attempt: Failure
+2023-12-17 16:03:39 - User: test, Log In Attempt: Success
