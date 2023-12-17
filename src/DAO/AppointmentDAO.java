@@ -43,46 +43,12 @@ public class AppointmentDAO {
         return appointments;
     }
 
-//    public List<Appointment> getAppointmentsByMonth(LocalDateTime startOfMonth, LocalDateTime endOfMonth) throws SQLException {
-//        List<Appointment> appointments = new ArrayList<>();
-//        String sql = "SELECT * FROM appointments WHERE start >= ? AND start <= ?";
-//
-//        try {
-//            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
-//            preparedStatement.setTimestamp(1, Timestamp.valueOf(startOfMonth));
-//            preparedStatement.setTimestamp(2, Timestamp.valueOf(endOfMonth));
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//
-//            while (resultSet.next()) {
-//                Appointment appointment = extractAppointmentFromResultSet(resultSet);
-//                appointments.add(appointment);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return appointments;
-//    }
-
-    public List<Appointment> getAppointmentsForWeek(LocalDateTime startOfWeek, LocalDateTime endOfWeek) throws SQLException {
-        List<Appointment> appointments = new ArrayList<>();
-        String sql = "SELECT * FROM appointments WHERE start >= ? AND start <= ?";
-
-        try (PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)) {
-            preparedStatement.setTimestamp(1, Timestamp.valueOf(startOfWeek));
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(endOfWeek));
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Appointment appointment = extractAppointmentFromResultSet(resultSet);
-                appointments.add(appointment);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return appointments;
-    }
-
+    /**This is the extractAppointmentFromResultSet method.
+     * This method extract appointment details from a ResultSet and creates an appointment object.
+     * @param resultSet The resultset containting the appointment data.
+     * @return Appointment object created for resultset data.*/
     private static Appointment extractAppointmentFromResultSet(ResultSet resultSet) throws SQLException {
+        //Extract individual fields from the resultset
         int id = resultSet.getInt("Appointment_ID");
         String title = resultSet.getString("Title");
         String description = resultSet.getString("Description");
@@ -93,7 +59,7 @@ public class AppointmentDAO {
         LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
         int userID = resultSet.getInt("User_ID");
         int customerID = resultSet.getInt("Customer_ID");
-
+        //create and return an appointment object
         return new Appointment(id, title, description, location, type, start, end, customerID, userID, contactID);
     }
     public static ObservableList<Appointment> getAppointmentsByContactID(int contactID) {
