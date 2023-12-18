@@ -62,26 +62,42 @@ public class AppointmentDAO {
         //create and return an appointment object
         return new Appointment(id, title, description, location, type, start, end, customerID, userID, contactID);
     }
+
+    /**This is the getAppointmentsByContactID method.
+     * This method retrieves a list of appointments associated with a specific contact ID.
+     * @param contactID The contact ID of the appointments we are retrieving
+     * @return List of appointment objects for the specified contact.*/
     public static ObservableList<Appointment> getAppointmentsByContactID(int contactID) {
+        //Initialize an observablelist to store appointments
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        //SQL statement to select appointments for a specific contact ID
         String sql = "SELECT * FROM appointments WHERE Contact_ID = ?";
 
         try (PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, contactID);
+            //execute sql query
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            //loop thorugh result set and create appointments
             while (resultSet.next()) {
+                //Extract appointment details from the result set
                 Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                //add the created Appointment object to the list
                 appointments.add(appointment);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        //Return the observable list of Appointment objects
         return appointments;
     }
 
+    /**This is the getAppointmentsByMonthStart method.
+     * This method gets a list of appointments for a specified month.
+     * @param month The month the appointments are retrieved for.
+     * @return Observable list of Appointment objects for the selected month*/
     public static ObservableList<Appointment> getAppointmentsByMonthStart(int month) throws SQLException {
+        //Initialize observable list to store Appointment objects
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
         // Use a SQL query to get appointments for the specified month
@@ -91,34 +107,46 @@ public class AppointmentDAO {
             preparedStatement.setInt(1, month);
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            //loop throught the result set and create Appointment objects
             while (resultSet.next()) {
+                //extract appointment details from the result set
                 Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                //add the created Appointment objects to the list
                 appointments.add(appointment);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        //return the observable list Appointment objects
         return appointments;
 
     }
-    public static List<Appointment> getAppointmentsByCustomerId(int customerId) throws SQLException{
-        List<Appointment> appointments = new ArrayList<>();
 
+    /**This is the getAppointmentsByCustomerID method.
+     * This method retrieves a list of appointments for a specific customer.
+     * @param customerId The customer ID of the customer whos appointments we are getting.
+     * @return Lis of Appointment objects for the selected customer.*/
+    public static List<Appointment> getAppointmentsByCustomerId(int customerId) throws SQLException{
+        //Initialize a list to store Appointment objects
+        List<Appointment> appointments = new ArrayList<>();
+        //SQL query to select appointments for a specific customer ID
         String sql = "SELECT * FROM appointments WHERE Customer_ID = ?";
 
         try (PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, customerId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            //Loop thorugh the result set and create Appointment objects
             while (resultSet.next()) {
+                //Extract appointment details from the result set
                 Appointment appointment = extractAppointmentFromResultSet(resultSet);
+                //Add the created Appointment object to the list
                 appointments.add(appointment);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        //Return the list of Appointment objects
         return appointments;
     }
 }
