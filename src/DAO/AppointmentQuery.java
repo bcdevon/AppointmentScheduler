@@ -23,30 +23,6 @@ import java.util.List;
  * It includes methods for selecting, inserting, updating, and deleting appointment records. */
 public class AppointmentQuery {
 
-    /**This is the select mehod/.
-     * This method retrieves all methods from the Appointment table*/
-//    public static void select() throws SQLException {
-//        //SQL query to select all columns from the appointments table
-//        String sql = "SELECT * FROM appointments";
-//        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-//        //execute the sql query and retrieve result set
-//        ResultSet rs = ps.executeQuery();
-//        //Iterate through result set and print each appointment's details
-//        while (rs.next()){
-//            //retrieve appointment details from the result set
-//            int id = rs.getInt("Appointment_ID");
-//            String title = rs.getString("Title");
-//            String description = rs.getString("Description");
-//            String location = rs.getString("Location");
-//            String type = rs.getString("Type");
-//            int customerID = rs.getInt("Customer_ID");
-//            int userID = rs.getInt("User_ID");
-//            int contact = rs.getInt("Contact_ID");
-//            System.out.println(id + " " + title + " " + description + " " + location + " " + type + " " + customerID + " " + userID + " " + contact);
-//        }
-//
-//    }
-
     /**This is the insert method.
      * This method insert a new appointment into the appointments table in the database.
      * @param title The title of the appointment.
