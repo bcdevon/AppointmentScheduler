@@ -14,28 +14,52 @@ import java.util.ArrayList;
 import java.util.List;
 import Controller.report_Controller;
 
+/**This is the CustomerDAO class.
+ * This class manages customer related database operations.
+ * This class contains method for obtaining division and country details, as well as counting the number of customers in specific divisions.
+ * */
 public class CustomerDAO {
+
+    /**This is the getDivisionNameByID.
+     * This method gets the division name base on the provided division ID.
+     * @param divisionID The id of the division.
+     * @return The name of the division.*/
     public static String getDivisionNameByID(int divisionID) throws SQLException {
+        //Initialize division name
         String divisionName = null;
+        //SQL query to retrieve the division name based on the provided division ID
         String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
         try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)){
+            //Set the divsion ID parameter in the SQL query
             ps.setInt(1, divisionID);
+            //execute query get result set
             try (ResultSet resultSet = ps.executeQuery()){
                 if (resultSet.next()){
+                    //retrieve the division name from the result set
                     divisionName = resultSet.getString("Division");
                 }
             }
         }
         return divisionName;
     }
+
+    /**This is the getAllCustomers method.
+     * This method gets a list of all customers from the database.
+     * @return List of customers.*/
     public List<Customer> getAllCustomers(){
+        //Initialize list to store customers
         List<Customer> customers = new ArrayList<>();
         try {
+            //SQL query to select all customer from the database
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT * From customers");
             String sql = "SELECT * From customers";
+            //Execute the sql query
             ResultSet resultSet = preparedStatement.executeQuery(sql);
+            //Loop through the result set and create Customer objects
             while (resultSet.next()) {
+                //Create a new Customer
                 Customer customer = new Customer();
+                //Set the properties of the Customer based on the result set
                 customer.setId(resultSet.getInt("Customer_ID"));
                 customer.setName(resultSet.getString("Customer_Name"));
                 customer.setAddress(resultSet.getString("Address"));
@@ -43,6 +67,7 @@ public class CustomerDAO {
                 customer.setPhone(resultSet.getString("Phone"));
                 customer.setDivisionId(resultSet.getInt("Division_ID"));
                 customer.setDivision(getDivisionNameByID(customer.getDivisionId()));
+                //add the Customer to the list
                 customers.add(customer);
             }
         } catch (SQLException e) {
@@ -50,86 +75,68 @@ public class CustomerDAO {
         }
         return customers;
     }
-    /**get all countries method
-     * database query to get all the countries
-     * @return all the countries*/
+    /**This is the get all Countries method.
+     * This method get all the countries from the database and creates a list using only the countries names and IDs.
+     * @return List of country names and country IDs*/
     public static List<Country> getAllCountries() throws SQLException{
+        //Initialize an empty list to store Country objects
         List<Country> allCountries = new ArrayList<>();
+        //SQL query to select country ID and name from the countries table
         String sql = "SELECT Country_ID, Country FROM countries";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        //Execute the SQL query and retrieve the result set
         ResultSet resultSet = ps.executeQuery();
+        //Loop through the result set and create country objects
         while (resultSet.next()){
+            //Retrieve Country ID and name from the result set
             int countryID = resultSet.getInt("Country_ID");
             String countryName = resultSet.getString("Country");
+            //Create a new Country object and add it to the list
             allCountries.add(new Country(countryID, countryName));
         }
         return allCountries;
     }
 
-    /**get all divisions method
-     * database query to get all divisions
-     * @return all the divisions*/
+    /**This is the getAllDivisions method.
+     * This method retrieves an Observable list of all division from the database.
+     * @return ObservableList of divisions*/
     public static ObservableList<String> getAllDivisions() throws SQLException{
+        //Create an observable list to store division names
         ObservableList<String> allDivisions = FXCollections.observableArrayList();
+        //SQL query to select division names from the first level divisions table
         String sql = "SELECT Division FROM first_level_divisions";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        //Execute the SQL query and get the result set
         ResultSet resultSet = ps.executeQuery();
+        //Loop through the result set and add division names to the list
         while (resultSet.next()){
+            //add the value of the division column to the allDivisions list
             allDivisions.add(resultSet.getString("Division"));
         }
         return allDivisions;
     }
-//    int divisionId = -1;
-//        try {
-//        String sql = "SELECT Division_ID FROM first_level_divisions WHERE Division = ?";
-//        PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
-//        preparedStatement.setString(1, divisionName);
-//        ResultSet resultSet = preparedStatement.executeQuery();
-//
-//        if (resultSet.next()) {
-//            divisionId = resultSet.getInt("Division_ID");
-//        }
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//    }
-//        return divisionId;
 
-    public static int getCountryByDivisionID(int divisionId) {
-        int countryID = 0;
-        try {
-            //get the country by the division id from first level divisions
-            String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = ? ";
-            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-            ps.setInt(1, divisionId);
-            ResultSet resultSet = ps.executeQuery(sql);
-            countryID = resultSet.getInt("Country_ID");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return countryID;
-    }
-
+    /**This is the getDivisionByCountry method.
+     * This method retrieves a list of divisions based on the provided country.
+     * @param country The Country for which the division are retrieved.
+     * @return List of division names for the country.*/
     public static List<String> getDivisionsByCountry(Country country) throws SQLException {
+        //Create a list to store division names
         List<String> divisions = new ArrayList<>();
 
         try {
             // Get the country ID using the CountryStringConverter
             int countryId = CountryStringConverter.getcountryAsInt(country.getName());
-            System.out.println("Country ID: " + countryId);
-
-            // Use the country ID in the SQL query
+            //SQL query to select division names based on the country ID
             String sql = "SELECT Division FROM first_level_divisions WHERE Country_ID = ?";
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+            //Prepare the SQL statement with the country ID parameter
             preparedStatement.setInt(1, countryId);
-
-            System.out.println("SQL Query: " + sql + " with parameter " + countryId);
-
+            //Execute the SQL query
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            //Loop through the result set and add division names to the list
             while (resultSet.next()) {
                 String division = resultSet.getString("Division");
-                System.out.println("Division found: " + division);
                 divisions.add(division);
             }
         } catch (SQLException e) {
@@ -138,28 +145,6 @@ public class CustomerDAO {
 
         return divisions;
     }
-
-
-
-//    public static List<String> getDivisionsbyCountry(Country country) throws SQLException {
-//        List<String> divisions = new ArrayList<>();
-//        try {
-//            int countryId = CountryStringConverter.getcountryAsInt(country.getName());
-//            PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT Division From first_level_divisons WHERE Country_ID = ?");
-//            String sql = "SELECT Division From first_level_divisons WHERE Country_ID = ?";
-//            preparedStatement.setInt(1, countryId);
-//            System.out.println("SQL Query: " + sql);
-//            ResultSet resultSet = preparedStatement.executeQuery(sql);
-//            while (resultSet.next()){
-//                String division = resultSet.getString("Division");
-//                System.out.println("Division found: " + division);
-//                divisions.add(division);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return divisions;
-//    }
 
     public static int getCustomerCountByDivision(int divisionId) throws SQLException {
         int customerCount = 0;
@@ -196,20 +181,6 @@ public class CustomerDAO {
         return divisionId;
     }
 
-//    public static String getDivisionNameByID(int divisionID) throws SQLException{
-//        String divisionName = "";
-//        try {
-//            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
-//            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
-//            preparedStatement.setInt(1, divisionID);
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            divisionName = resultSet.getString("Division");
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return divisionName;
-//    }
-
     public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
         ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();
         String sql = "SELECT Customer_ID FROM customers";
@@ -241,50 +212,6 @@ public class CustomerDAO {
         }
         return allContactNames;
     }
-
-    public static ObservableList<Integer> getAppointmentsByContact(String contactName) throws SQLException {
-        ObservableList<Integer> allContactAppointments = FXCollections.observableArrayList();
-
-        // Step 1: Find contact ID by name
-        String contactIdSql = "SELECT Contact_ID FROM contacts WHERE Contact_Name = ?";
-        int contactId = -1;
-
-        try (PreparedStatement contactIdPs = JDBC.connection.prepareStatement(contactIdSql)) {
-            contactIdPs.setString(1, contactName);
-
-            try (ResultSet contactIdResultSet = contactIdPs.executeQuery()) {
-                if (contactIdResultSet.next()) {
-                    contactId = contactIdResultSet.getInt("Contact_ID");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (contactId == -1) {
-            // Contact not found
-            return allContactAppointments;
-        }
-
-        // Step 2: Find appointments by contact ID
-        String appointmentsSql = "SELECT Appointment_ID FROM appointments WHERE Contact_ID = ?";
-
-        try (PreparedStatement appointmentsPs = JDBC.connection.prepareStatement(appointmentsSql)) {
-            appointmentsPs.setInt(1, contactId);
-
-            try (ResultSet appointmentsResultSet = appointmentsPs.executeQuery()) {
-                while (appointmentsResultSet.next()) {
-                    int appointmentID = appointmentsResultSet.getInt("Appointment_ID");
-                    allContactAppointments.add(appointmentID);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return allContactAppointments;
-    }
-
 
     public static ObservableList<Integer> getAllUserIDs() throws SQLException {
         ObservableList<Integer> allUserIDs = FXCollections.observableArrayList();
@@ -333,10 +260,4 @@ public class CustomerDAO {
 
         return country;
     }
-
-
-
-    //left off here create function to add a customer to the myql database
-//    public static String addCustomer();
-
 }
