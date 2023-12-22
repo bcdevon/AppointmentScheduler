@@ -145,15 +145,21 @@ public class CustomerDAO {
 
         return divisions;
     }
-
+    /**This is the getCustomerCountByDivision method.
+     * This method retrieves the count of customers associated with a specific divison.
+     * @param divisionId The ID of the division to count customers for.
+     * @return  customerCount the number of customers in a specific division.*/
     public static int getCustomerCountByDivision(int divisionId) throws SQLException {
+        //Initialize customer count to default 0
         int customerCount = 0;
         try {
+            //SQL statements to count customers in the specified division.
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement("SELECT COUNT(*) AS CustomerCount FROM customers WHERE Division_ID = ?");
             String sql = "SELECT COUNT(*) AS customerCount FROM customers WHERE Division_ID = ?";
-            System.out.println("SQL Query" + sql + "with parameter " + divisionId);
+            //Set the divisionId as a parameter in the SQL query
             preparedStatement.setInt(1, divisionId);
 
+            //Execute the SQL query and retrieve the customer count
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     customerCount = resultSet.getInt("customerCount");
@@ -164,14 +170,22 @@ public class CustomerDAO {
         }
         return customerCount;
     }
+
+    /**This is the getDivisionIdByName method.
+     * This method gets the division ID based on the provided division name.
+     * @param divisionName The name of the division.
+     * @return The ID of the division.*/
     public static int getDivisionIdByName(String divisionName) throws SQLException {
+        //Initialize the default value of division ID
         int divisionId = -1;
         try {
+            //SQL statement to select division ID based on the division name.
             String sql = "SELECT Division_ID FROM first_level_divisions WHERE Division = ?";
             PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
             preparedStatement.setString(1, divisionName);
-            ResultSet resultSet = preparedStatement.executeQuery();
 
+            //Execute the SQL query and retrieve the division ID
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 divisionId = resultSet.getInt("Division_ID");
             }
@@ -181,14 +195,22 @@ public class CustomerDAO {
         return divisionId;
     }
 
+    /**This is the getAllCustomerIDs method.
+     * This method retrieves a list of all the customer IDs from the database.
+     * @return Observable list containing all customer IDs.*/
     public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
+        //create an observable list to for customer IDs
         ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();
+        //SQL query to select all Customer IDs from the customers table
         String sql = "SELECT Customer_ID FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        //Execute the query and add each customer ID to the list
         ResultSet resultSet = ps.executeQuery();
         try {
+            //Loop through the result set to extract customer IDs
             while (resultSet.next()) {
                 int customerID = resultSet.getInt("Customer_ID");
+                //Add the customer ID to the list of all customer IDs
                 allCustomerIDs.add(customerID);
             }
         } catch (SQLException e) {
@@ -197,14 +219,22 @@ public class CustomerDAO {
         return allCustomerIDs;
     }
 
+    /**This is the getAllContactNames method.
+     * This method retrieves a list of all contact names from the database.
+     * @return Observable List of all contact names.*/
     public static ObservableList<String> getAllContactNames() throws SQLException {
+        //Create an Observable List to hold all the contact names
         ObservableList<String> allContactNames = FXCollections.observableArrayList();
+        //SQL query to select all contact names from the contacts table of the database.
         String sql = "SELECT Contact_Name FROM contacts";
         PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+        //Execute the SQL query
         ResultSet resultSet = preparedStatement.executeQuery();
         try {
+            //Loop through the result set to extract contact names
             while (resultSet.next()){
                 String contactName = resultSet.getString("Contact_Name");
+                //add each contact name to the allContactNames list
                 allContactNames.add(contactName);
             }
         } catch (SQLException e) {
@@ -213,14 +243,22 @@ public class CustomerDAO {
         return allContactNames;
     }
 
+    /**This is the getAllUserIDs method.
+     * This method gets a list of all user IDs from the database.
+     * @return ObservableList containing all user IDs*/
     public static ObservableList<Integer> getAllUserIDs() throws SQLException {
+        //Create an Observable list for all the User IDs
         ObservableList<Integer> allUserIDs = FXCollections.observableArrayList();
+        //SQL query to select all user IDs from the users table
         String sql = "SELECT User_ID FROM users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        //Execute the SQL query
         ResultSet resultSet = ps.executeQuery();
         try{
+            //Loop through the result set to extract userIDs
             while (resultSet.next()) {
                 int userID = resultSet.getInt("User_ID");
+                //add each userId to the allUserIDs list
                 allUserIDs.add(userID);
             }
         } catch (SQLException e) {
@@ -229,12 +267,18 @@ public class CustomerDAO {
         return allUserIDs;
     }
 
+    /**This is the getCountryIDByDivisionID method.
+     * This method retrieves the country ID based on the provided division ID.
+     * @param divisionID The ID of the division
+     * @return The ID of the country associated with the division.*/
     public static int getCountryIDByDivisionID(int divisionID) throws SQLException {
-        int countryID = -1; // Default value indicating failure or no match
-
+        //Initialize countryID default value
+        int countryID = -1;
+        //SQL query to select country ID based on the division ID
         String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = ?";
         try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)) {
             ps.setInt(1, divisionID);
+            //Execute the query and retrieve the country ID
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     countryID = resultSet.getInt("Country_ID");
@@ -245,12 +289,18 @@ public class CustomerDAO {
         return countryID;
     }
 
+    /**This is getCountryByCountryID method.
+     * This method gets the country name based on the provided country ID.
+     * @param countryID The ID of the country
+     * @return country Name return the name of the country*/
     public static String getCountryByCountryID(int countryID) throws SQLException {
+        //Initialize the country string
         String country = null;
-
+        //SQL query to select the name of the country based on the country ID
         String sql = "SELECT Country FROM countries WHERE Country_ID = ?";
         try (PreparedStatement ps = JDBC.connection.prepareStatement(sql)) {
             ps.setInt(1, countryID);
+            //Execute the query and retrieve the country name
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     country = resultSet.getString("Country");
