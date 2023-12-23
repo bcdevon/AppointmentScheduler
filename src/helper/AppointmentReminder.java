@@ -14,7 +14,9 @@ import java.util.List;
  * */
 public class AppointmentReminder {
 
-    /**Check for upcoming appointments within the next 15 minutes*/
+    /**This is the checkAppointments method.
+     * This method checks for upcoming appointments within the next 15 minutes.
+     **/
     public static void checkAppointments(){
         try{
             //get the current time
@@ -45,28 +47,6 @@ public class AppointmentReminder {
             alert.showAndWait();
             //print the alert message
             System.out.println(alertContentText);
-
-
-//            if (!upcomingAppointments.isEmpty()) {
-//                // Notify the user about upcoming appointments
-//                Alert alert = new Alert(Alert.AlertType.WARNING);
-//                alert.setTitle("Appointment warning");
-//                alert.setContentText("Warning: You have upcoming appointments within the next 15 minutes.");
-//                alert.showAndWait();
-//                System.out.println("Warning: You have upcoming appointments within the next 15 minutes.");
-//
-//
-//                for (String appointment : upcomingAppointments) {
-//                    System.out.println(appointment);
-//                }
-//            } else {
-//                // Notify the user about upcoming appointments
-//                Alert alert = new Alert(Alert.AlertType.WARNING);
-//                alert.setTitle("Appointment warning");
-//                alert.setContentText("No upcoming appointments within the next 15 minutes.");
-//                alert.showAndWait();
-//                System.out.println("No upcoming appointments within the next 15 minutes.");
-//            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
