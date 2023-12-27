@@ -1,5 +1,7 @@
 package Model;
 
+/**This is the Customer class.
+ * This class represents a Customer in the application.*/
 public class Customer {
     private int id;
     private String name;
@@ -10,7 +12,15 @@ public class Customer {
     private String division;
     private String country;
 
-
+    /**This is the constructor to create a new customer.
+     * @param id The ID of the customer
+     * @param name The name of the customer
+     * @param address The address of the customer
+     * @param postal The postal code of the customer
+     * @param phone The phone number of the customer
+     * @param divisionId The ID of the division associated with the customer
+     * @param division The name of the division associated with the customer
+     * @param country The country associated with the customer*/
     public Customer(int id, String name, String address, String postal, String phone, int divisionId, String division, String country) {
         this.id = id;
         this.name = name;
@@ -23,10 +33,11 @@ public class Customer {
 
     }
 
+    /**This is the default constructor for the customer class.*/
     public Customer() {
-
     }
 
+    //Getter and setter method for each customer field.
     public int getId() {
         return id;
     }

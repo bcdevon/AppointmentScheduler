@@ -2,8 +2,12 @@ package helper;
 import java.util.HashMap;
 import java.util.Map;
 
+/**This is the MonthConverter class.
+ * This class is used for converting month names to corresponding integers.*/
 public class MonthConverter {
+    //The field to store the mapping of month names to integers
     private static final Map<String, Integer> monthMap;
+    //Initialization block to populate the monthMap
     static {
         //map month names to corresponding int
         monthMap = new HashMap<>();
@@ -20,9 +24,12 @@ public class MonthConverter {
         monthMap.put("November", 11);
         monthMap.put("December", 12);
     }
+    /**This is the getMonthAsint method.
+     * This method converts a month name to its corresponding integer.
+     * @param month The name of the month.
+     * @return The integer representation of the month. */
     public static int getMonthAsInt(String month) {
-
-
+        //retrieve and return the corresponding integer from the monthMap
         return monthMap.get(month);
     }
 
