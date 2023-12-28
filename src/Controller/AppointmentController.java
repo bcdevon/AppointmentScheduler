@@ -139,7 +139,8 @@ public class AppointmentController implements Initializable {
     /**This is the onADDAppointment method.
      * This is an event handler method that is called when the user clicks add appointment.
      * It navigates the user to the add appointment screen.
-     * @param actionEvent The event triggered when the Add button is clicked.*/
+     * @param actionEvent The event triggered when the Add button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onADDAppointment(ActionEvent actionEvent) throws IOException {
         //load Add Appointment screen
         Parent add_Appointment_parent = FXMLLoader.load(getClass().getResource("../View/add_Appointment.fxml"));
@@ -157,8 +158,8 @@ public class AppointmentController implements Initializable {
      * It also sets the fields and combo Boxes with the values from the selected appontment and
      * navigates to the update appointment screen.
      * @param actionEvent The event triggered when the Update button is clicked.
-     * @
-     * */
+     * @throws SQLException If a SQL exception occurs during the database operation.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onUpdateAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         //get the selected appointment
         Appointment selectedAppointment = AppointmentTable.getSelectionModel().getSelectedItem();
@@ -217,7 +218,8 @@ public class AppointmentController implements Initializable {
      * It gets the selected appointment and verifies an appointment was selected.
      * It then deletes the appointment from the database based on appointment ID
      * displaying an alert before deleting to make sure nothing is deleted by accident.
-     * @param actionEvent The event triggered when the delete button is clicked.*/
+     * @param actionEvent The event triggered when the delete button is clicked.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {
         //get selected appointment from the appointmentTable;
         Appointment selectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
@@ -249,7 +251,8 @@ public class AppointmentController implements Initializable {
     /**This is the onAddCustomer method.
      * This is an event handler method that is called when the Add Customer button is clicked.
      * It navigates to the add Customer Screen.
-     * @param actionEvent The event triggered when the Add customer button is clicked.*/
+     * @param actionEvent The event triggered when the Add customer button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
         //Load Add Customer Screen
         Parent add_Customer_parent = FXMLLoader.load(getClass().getResource("../View/add_Customer.fxml"));
@@ -266,7 +269,9 @@ public class AppointmentController implements Initializable {
      * It gets the selected customer verifies a customer was selected and navigates to the update customer screen.
      * The fields and combo boxes in the update screen are pre-populated with the values from
      * the selected customer.
-     * @param actionEvent The event triggered whe the update button is clicked.*/
+     * @param actionEvent The event triggered whe the update button is clicked.
+     * @throws SQLException If a SQL exception occurs during the database operation.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onUpdateCustomer(ActionEvent actionEvent) throws IOException, SQLException {
         //Get the selected customer from the table
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
@@ -309,7 +314,8 @@ public class AppointmentController implements Initializable {
      * has any appointments. If the customer has any appointments it displays a warning message
      * and does not delete the customer. If the customer has no appointments and the user confirms the
      * deletion the customer is deleted.
-     * @param actionEvent The event triggered when the delete button is clicked.*/
+     * @param actionEvent The event triggered when the delete button is clicked.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
         //get selected customer from the CustomerTable;
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
@@ -472,7 +478,8 @@ public class AppointmentController implements Initializable {
     /**This is the onReportButton method.
      * This is an event handler method that is called when the report button is clicked.
      * This method navigates to the report screen when the report button is clicked.
-     * @param actionEvent The event triggered when the report button is clicked.*/
+     * @param actionEvent The event triggered when the report button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onReportButton(ActionEvent actionEvent) throws IOException {
         //load Update report screen
         Parent report_Screen_parent = FXMLLoader.load(getClass().getResource("../View/Report_Screen.fxml"));

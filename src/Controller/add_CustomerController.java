@@ -66,7 +66,9 @@ public class add_CustomerController implements Initializable {
      * This is an event handler method that is called when the user clicks the save button to save an added Customer.
      * It gets values from the text fields, and combo Boxes it formats and converts the time and date.
      * It also gets information about the user who created the customer and the time it was created.
-     * @param actionEvent  The event triggered when the save button is clicked.*/
+     * @param actionEvent  The event triggered when the save button is clicked.
+     * @throws SQLException If a SQL exception occurs during the database operation.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
         //get current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -96,7 +98,8 @@ public class add_CustomerController implements Initializable {
     /**This is the onCancel method.
      * This is an event handler method that is called when the user clicks the cancel button.
      * The appointment will not be added and the application returns to the appointments screen.
-     * @param actionEvent The event triggered when the cancel button is clicked*/
+     * @param actionEvent The event triggered when the cancel button is clicked
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onCancel(ActionEvent actionEvent) throws IOException {
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);
@@ -111,7 +114,8 @@ public class add_CustomerController implements Initializable {
      * This is an event handler method that is called when a user selects a country.
      * It fetches divisions based on the selected country and populates the statebox
      * with the corresponding divisions.
-     * @param actionEvent The event triggered by selecting the country. */
+     * @param actionEvent The event triggered by selecting the country.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public void onCountrySelected(ActionEvent actionEvent) throws SQLException {
         // Get the selected country
         Country selectedCountry = countryBox.getValue();
@@ -133,7 +137,8 @@ public class add_CustomerController implements Initializable {
     /**This is the onDivisionSelected method.
      * This is an event handler method that is called when the user selects a division.
      * It gets the selected division and fetches the corresponding division ID and stores it
-     * in the divisionIDS field.*/
+     * in the divisionIDS field.
+     * @param actionEvent The event triggered by selecting a division.*/
     public void onDivisionSelected(ActionEvent actionEvent) {
         //Get the selected Divisions
         String selectedDivision = (String) stateBox.getValue();

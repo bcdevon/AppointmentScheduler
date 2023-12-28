@@ -19,7 +19,8 @@ public class AppointmentOverlap {
      * @param customerId The ID of the customer associated with the appointment.
      * @param newStartDateTime The start date and time of the new appointment.
      * @param newEndDateTime The end date and time of the new appointment.
-     * @return True if the new appointment overlaps an existing appointment, False if it does not.*/
+     * @return True if the new appointment overlaps an existing appointment, False if it does not.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static boolean appointmentOverlapChecker (int appointmentId, int customerId, LocalDateTime newStartDateTime, LocalDateTime newEndDateTime) throws SQLException {
         //Retrieve existing appointments for customer
         List<Appointment> customerAppointments = AppointmentDAO.getAppointmentsByCustomerId(customerId);

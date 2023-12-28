@@ -24,7 +24,9 @@ public abstract class CustomerQuery {
      * @param createdBy The user that created the new customer.
      * @param lastUpdatedby The Date and time the customer record was last updated.
      * @param lastUpdated The user that last updated the customer record.
-     * @return The number of rows affected by the insertion should be 1 if successful 0 if not.*/
+     * @param divisionId The ID of the division associated with the customer.
+     * @return The number of rows affected by the insertion should be 1 if successful 0 if not.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int insert(String name, String address, String postal, String phone, String createDate, String createdBy, String lastUpdated, String lastUpdatedby, int divisionId) throws SQLException {
         //Format the date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -49,7 +51,8 @@ public abstract class CustomerQuery {
         /**This is the delete method.
          * This method deletes  a customer record from the customers table based on the customer ID.
          * @param id The ID of the customer to delete.
-         *@return  The number of rows affected by the deletion.*/
+         *@return  The number of rows affected by the deletion.
+         * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int delete(int id) throws SQLException {
         //SQL query to delete a customer based on ID
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
@@ -73,7 +76,8 @@ public abstract class CustomerQuery {
          * @param lastUpdatedS The date and time the customer record was last updated.
          * @param lastUpdateByS The user that last updated the customer record.
          * @param divisionIDS The ID of the division associated with the customer.
-         * @return The number of rows affected by the customer 1 if successful 0 if not.*/
+         * @return The number of rows affected by the customer 1 if successful 0 if not.
+         * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int update(int customerIDS, String nameS, String addressS, String postalS, String phoneS, String createdateS, String createdbyS, String lastUpdatedS, String lastUpdateByS, int divisionIDS) throws SQLException {
         //SQL query to update an existing customer record
         String sql = "UPDATE customers SET Customer_Name =?, Address =?, Postal_Code =?, Phone =?, Create_Date =?, Created_By =?, Last_Update =?, Last_Updated_By =?, Division_ID =? WHERE Customer_ID = ?";

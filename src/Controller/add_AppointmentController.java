@@ -77,7 +77,9 @@ public class add_AppointmentController implements Initializable {
      * This is an eventhandler method that is called when the user clicks the save button to save an added appointment.
      * It gets values from the text fields, and combo Boxes it formats and converts the time and date.
      * It also verifies times are withing business hours before saving and checks for overlapping appointments
-     * @param actionEvent  The event triggered when the save button is clicked*/
+     * @param actionEvent  The event triggered when the save button is clicked
+     * @throws SQLException If a SQL exception occurs during the database operation.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
 
         //get current date and time
@@ -166,7 +168,8 @@ public class add_AppointmentController implements Initializable {
     /**This is the onCancel method.
      * This is an event handler method that is called when the user clicks the cancel button.
      * The appointment will not be added and the application returns to the appointments screen.
-     * @param actionEvent The event triggered when the cancel button is clicked*/
+     * @param actionEvent The event triggered when the cancel button is clicked
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onCancel(ActionEvent actionEvent) throws IOException {
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);

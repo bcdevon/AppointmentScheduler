@@ -95,7 +95,8 @@ public class AppointmentDAO {
     /**This is the getAppointmentsByMonthStart method.
      * This method gets a list of appointments for a specified month.
      * @param month The month the appointments are retrieved for.
-     * @return Observable list of Appointment objects for the selected month*/
+     * @return Observable list of Appointment objects for the selected month
+     *@throws SQLException If a SQL exception occurs during the database operation.*/
     public static ObservableList<Appointment> getAppointmentsByMonthStart(int month) throws SQLException {
         //Initialize observable list to store Appointment objects
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -125,7 +126,8 @@ public class AppointmentDAO {
     /**This is the getAppointmentsByCustomerID method.
      * This method retrieves a list of appointments for a specific customer.
      * @param customerId The customer ID of the customer whos appointments we are getting.
-     * @return Lis of Appointment objects for the selected customer.*/
+     * @return List of Appointment objects for the selected customer.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static List<Appointment> getAppointmentsByCustomerId(int customerId) throws SQLException{
         //Initialize a list to store Appointment objects
         List<Appointment> appointments = new ArrayList<>();

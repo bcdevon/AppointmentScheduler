@@ -38,7 +38,8 @@ public class AppointmentQuery {
      * @param customerID  The ID of the customer associated with the appointment.
      * @param userID The ID of the user associated with the appointment.
      * @param contact The ID of the contact associated with the appointment.
-     * @return The number of rows affected by the insertion 1 if successful 0 if not.*/
+     * @return The number of rows affected by the insertion 1 if successful 0 if not.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int insert(String title, String description, String location, String type, String start, String end, String createDate, String createdBy, String lastUpdated, String lastUpdatedby, int userID, int customerID, int contact) throws SQLException {
         //Format the date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -81,7 +82,8 @@ public class AppointmentQuery {
      * @param contact The ID of the contact associated with the appointment.
      * @param userID The ID of the user associated with the appointment.
      * @param customerID The ID of the customer associated with the appointment.
-     * @return The number of rows affected by the update 1 if successful 0 if not.*/
+     * @return The number of rows affected by the update 1 if successful 0 if not.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int update(int appointmentId, String title, String description, String location, String type, String start, String end, String createDate, String createdBy, String lastUpdated, String lastUpdatedby, int userID, int customerID, int contact) throws SQLException {
         //format the date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -111,7 +113,8 @@ public class AppointmentQuery {
     /**This is the delete method.
      * This method deletes an appointment record from the appointments table based on the provided appointment ID.
      * @param id The ID of the appointment to be deleted.
-     * @return The number of rows affected by the delete operation.*/
+     * @return The number of rows affected by the delete operation.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int delete(int id) throws SQLException {
         //SQL query to delete an appointment based on ID.
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
@@ -126,7 +129,8 @@ public class AppointmentQuery {
     /**This is the getContactIDByName method.
      * This method gets the contact ID based on the provided contact name.
      * @param contactName The name of the contact.
-     * @return The contact ID of the contact.*/
+     * @return The contact ID of the contact.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int getContactIDByName(String contactName) throws SQLException {
         // Default value if not found
         int contactID = -1;
@@ -150,7 +154,8 @@ public class AppointmentQuery {
     /**This is the getContactNamebyID method.
      * This method retrieves the contact named based on the provided contact ID.
      * @param contactID The ID of the contact.
-     * @return The name of the contact.*/
+     * @return The name of the contact.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static String getContactNamebyID(int contactID) throws SQLException {
         //SQL query to select the contact name based on the contact ID.
         String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = ?";
@@ -174,7 +179,8 @@ public class AppointmentQuery {
      * This method retrieves a list of appointments between the provided start and end times.
      * @param startTime The provided start time.
      * @param endTime The provided end time.
-     * @return A list of the appointments formatted as strings.*/
+     * @return A list of the appointments formatted as strings.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static List<String> getAppointmentsBetween(String startTime, String endTime) throws SQLException {
         //List to store appointment strings
         List<String> appointments = new ArrayList<>();

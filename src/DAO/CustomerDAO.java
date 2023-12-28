@@ -23,7 +23,8 @@ public class CustomerDAO {
     /**This is the getDivisionNameByID.
      * This method gets the division name base on the provided division ID.
      * @param divisionID The id of the division.
-     * @return The name of the division.*/
+     * @return The name of the division.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static String getDivisionNameByID(int divisionID) throws SQLException {
         //Initialize division name
         String divisionName = null;
@@ -77,7 +78,8 @@ public class CustomerDAO {
     }
     /**This is the get all Countries method.
      * This method get all the countries from the database and creates a list using only the countries names and IDs.
-     * @return List of country names and country IDs*/
+     * @return List of country names and country IDs.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static List<Country> getAllCountries() throws SQLException{
         //Initialize an empty list to store Country objects
         List<Country> allCountries = new ArrayList<>();
@@ -99,7 +101,8 @@ public class CustomerDAO {
 
     /**This is the getAllDivisions method.
      * This method retrieves an Observable list of all division from the database.
-     * @return ObservableList of divisions*/
+     * @return ObservableList of divisions.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static ObservableList<String> getAllDivisions() throws SQLException{
         //Create an observable list to store division names
         ObservableList<String> allDivisions = FXCollections.observableArrayList();
@@ -119,7 +122,8 @@ public class CustomerDAO {
     /**This is the getDivisionByCountry method.
      * This method retrieves a list of divisions based on the provided country.
      * @param country The Country for which the division are retrieved.
-     * @return List of division names for the country.*/
+     * @return List of division names for the country.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static List<String> getDivisionsByCountry(Country country) throws SQLException {
         //Create a list to store division names
         List<String> divisions = new ArrayList<>();
@@ -148,7 +152,8 @@ public class CustomerDAO {
     /**This is the getCustomerCountByDivision method.
      * This method retrieves the count of customers associated with a specific divison.
      * @param divisionId The ID of the division to count customers for.
-     * @return  customerCount the number of customers in a specific division.*/
+     * @return  customerCount the number of customers in a specific division.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int getCustomerCountByDivision(int divisionId) throws SQLException {
         //Initialize customer count to default 0
         int customerCount = 0;
@@ -174,7 +179,8 @@ public class CustomerDAO {
     /**This is the getDivisionIdByName method.
      * This method gets the division ID based on the provided division name.
      * @param divisionName The name of the division.
-     * @return The ID of the division.*/
+     * @return The ID of the division.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int getDivisionIdByName(String divisionName) throws SQLException {
         //Initialize the default value of division ID
         int divisionId = -1;
@@ -197,7 +203,8 @@ public class CustomerDAO {
 
     /**This is the getAllCustomerIDs method.
      * This method retrieves a list of all the customer IDs from the database.
-     * @return Observable list containing all customer IDs.*/
+     * @return Observable list containing all customer IDs.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static ObservableList<Integer> getAllCustomerIDs() throws SQLException {
         //create an observable list to for customer IDs
         ObservableList<Integer> allCustomerIDs = FXCollections.observableArrayList();
@@ -221,7 +228,8 @@ public class CustomerDAO {
 
     /**This is the getAllContactNames method.
      * This method retrieves a list of all contact names from the database.
-     * @return Observable List of all contact names.*/
+     * @return Observable List of all contact names.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static ObservableList<String> getAllContactNames() throws SQLException {
         //Create an Observable List to hold all the contact names
         ObservableList<String> allContactNames = FXCollections.observableArrayList();
@@ -245,7 +253,8 @@ public class CustomerDAO {
 
     /**This is the getAllUserIDs method.
      * This method gets a list of all user IDs from the database.
-     * @return ObservableList containing all user IDs*/
+     * @return ObservableList containing all user IDs
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static ObservableList<Integer> getAllUserIDs() throws SQLException {
         //Create an Observable list for all the User IDs
         ObservableList<Integer> allUserIDs = FXCollections.observableArrayList();
@@ -270,7 +279,8 @@ public class CustomerDAO {
     /**This is the getCountryIDByDivisionID method.
      * This method retrieves the country ID based on the provided division ID.
      * @param divisionID The ID of the division
-     * @return The ID of the country associated with the division.*/
+     * @return The ID of the country associated with the division.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static int getCountryIDByDivisionID(int divisionID) throws SQLException {
         //Initialize countryID default value
         int countryID = -1;
@@ -291,8 +301,9 @@ public class CustomerDAO {
 
     /**This is getCountryByCountryID method.
      * This method gets the country name based on the provided country ID.
-     * @param countryID The ID of the country
-     * @return country Name return the name of the country*/
+     * @param countryID The ID of the country.
+     * @return country Name return the name of the country.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
     public static String getCountryByCountryID(int countryID) throws SQLException {
         //Initialize the country string
         String country = null;
