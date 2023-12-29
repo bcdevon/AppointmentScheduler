@@ -142,7 +142,9 @@ public class report_Controller implements Initializable {
     /**This is the populate monthly report method.
      * This method retrieves appointments for the selected month,
      * counts appointments by type, and displays results in the table.
-     * */
+     * The use of a lambda expression here captures the intent of the code for each appointment,
+     * The typeCountMap. This clearly conveys the purpose of the loop and makes the code more maintainable.
+     * Count occurrences of each type using Map.forEach this is one of the uses of a lambda expression*/
     private void populateMonthlyReport() {
         //Get selected month from combo box
         String selectedMonth = (String) reportMonth.getValue();
@@ -169,9 +171,9 @@ public class report_Controller implements Initializable {
             // Create a new list for displaying in the TableView
             ObservableList<Report> resultReport = FXCollections.observableArrayList();
 
-            //The use of a lambda expression here captures the intent of the code:for each appointment,
-            // the typeCountMap. This clearly conveys the purpose of the loop and makes the code more maintainable.
-            // Count occurrences of each type using Map.forEach this is one of the uses of a lambda expression
+            //The use of a lambda expression here captures the intent of the code for each appointment,
+            // and updates the typeCountMap. This clearly conveys the purpose of the loop and makes the code more maintainable.
+            // Count occurrences of each type using Map.forEach
             Map<String, Long> typeCountMap = new HashMap<>();
             //iterate over each appointment and update the typeCountMap.
             appointments.forEach(appointment -> {
@@ -192,9 +194,12 @@ public class report_Controller implements Initializable {
 
 
 
-    /**This is the populateContactScheduleReport method.
+    /**Lambda Expression here, This is the populateContactScheduleReport method.
      * This method gets the appointments for the chosen contact.
-     * It then populates the contact schedule report table based on the selected contact name*/
+     * It then populates the contact schedule report table based on the selected contact name.
+     * Get appointments for the contact using a lambda expression
+     * The lambda expression is concise, showing the logic for each Appointment.
+     * It eliminates the need for explicit iteration using traditional loops.*/
     private void populateContactScheduleReport() {
         // Clear existing items
         contactScheduleReport.getItems().clear();
@@ -207,11 +212,12 @@ public class report_Controller implements Initializable {
                 // Get contact ID based on the selected name
                 int contactID = AppointmentQuery.getContactIDByName(selectedContactName);
 
-                // get appointments for the contact using lambda expression
-                // The lambda express is concise, showing the logic for each Appointment.
-                // It eliminates the need for explicit iteration using traditional loops.
+                /*The lambda expression is concise, showing the logic for each Appointment.
+                 It eliminates the need for explicit iteration using traditional loops.
+                 The lambda expression specifies to add each appointment to the contactScheduleReport.*/
+                //Retrieve the appointments for a specific contact by contact ID
                 AppointmentDAO.getAppointmentsByContactID(contactID).forEach(appointment ->
-                        //add each appointment to the contact schedule table
+                        //For each appointment add it to the contact schedule table
                         contactScheduleReport.getItems().add(appointment));
 
             } catch (SQLException e) {

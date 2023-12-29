@@ -76,8 +76,8 @@ public class LoginController implements Initializable {
      * This is an event handler method that is called when the login button is clicked.
      * It authenticates the user and navigates to the main application screen or
      * displays an error message if username and password don't match.
-     * @param actionEvent The event triggered when the login button is clicked
-     * @throws SQLException If a SQL exception occurs during the database operation.*/
+     * @param actionEvent The event triggered when the login button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {
         String enteredUsername = usernameTF.getText();
         String enteredPassword = passwordTF.getText();
