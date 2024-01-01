@@ -61,7 +61,7 @@ public class report_Controller implements Initializable {
     public TableColumn divisionCol;
     public TableColumn customerCol;
 
-    /**This is the initialize method.
+    /** This is the initialize method.
      * This method is called during initialization and sets up combo boxes, cell value factories and initial data.
      * @param url The location of the Report_Screen.fxml.
      * @param resourceBundle resources used for initialization.*/
@@ -91,14 +91,9 @@ public class report_Controller implements Initializable {
             e.printStackTrace();
         }
     }
-    /**
-     * Populates the Location Report table with data based on the selected country.
-     * This method fetches divisions and their respective customer counts for the selected country
-     * from the database and updates the locationReportTable accordingly. It also configures
-     * the necessary TableColumn properties for the country, division, and customer count.
-     */
 
-    /**This is the populateLocationReport method.
+
+    /** This is the populateLocationReport method.
      * This method populates the location report with data based on the selected country.
      * This method gets divisions and their customer counts for the selected country and displays
      * them in the table.*/
@@ -139,7 +134,7 @@ public class report_Controller implements Initializable {
         }
     }
 
-    /**This is the populate monthly report method.
+    /**This is the populateMonthlyReport() method.
      * This method retrieves appointments for the selected month,
      * counts appointments by type, and displays results in the table.
      * The use of a lambda expression here captures the intent of the code for each appointment,

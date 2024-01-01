@@ -126,6 +126,22 @@ public class AppointmentQuery {
         return rowsAffected;
     }
 
+    /**This is the deleteAppointmentsByCustomer method.
+     * This method deletes appointment records from the appointment table based on customer ID.
+     * @param customerID The ID of the customer appointments to be deleted.
+     * @return The number of rows affected by the delete operation.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
+    public static int deleteAppointmentsByCustomer (int customerID) throws SQLException {
+        //SQL query to delete an appointment based on the customer ID.
+    String sql = "Delete FROM appointments WHERE Customer_ID = ?";
+    PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+    //Set the customerID parameter for the SQL query
+    ps.setInt(1, customerID);
+    //Execute the SQL query
+    int rowsAffected = ps.executeUpdate();
+    return rowsAffected;
+    }
+
     /**This is the getContactIDByName method.
      * This method gets the contact ID based on the provided contact name.
      * @param contactName The name of the contact.
@@ -210,5 +226,4 @@ public class AppointmentQuery {
 
         return appointments;
     }
-
 }
