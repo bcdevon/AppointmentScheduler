@@ -169,10 +169,6 @@ public class AppointmentController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/update_Appointments.fxml"));
             Parent update_Appointment_parent = loader.load();
 
-
-
-
-
             // Access the controller of the update screen
             update_AppointmentsController updateController = loader.getController();
 
@@ -232,7 +228,7 @@ public class AppointmentController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete");
         alert.setHeaderText("Delete Appointment");
-        alert.setContentText("Do you want to delete this Appointment");
+        alert.setContentText("Are you sure you want to delete Appointment ID: " + selectedAppointment.getId() + " Type: " + selectedAppointment.getType());
 
         //Wait for response and check if they clicked ok
         Optional<ButtonType> result = alert.showAndWait();

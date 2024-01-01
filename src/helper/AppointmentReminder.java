@@ -36,6 +36,7 @@ public class AppointmentReminder {
             } else {
                 alertContentText = "Warning: You have upcoming appointments within the next 15 minutes.";
                 //add upcoming appointment details to alert message.
+                DateTimeFormatter localFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 for (String appointment : upcomingAppointments) {
                     alertContentText += "\n" + appointment;
                 }
