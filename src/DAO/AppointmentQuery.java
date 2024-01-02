@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -203,6 +204,7 @@ public class AppointmentQuery {
         //SQL query to select appointments between start and end time.
         String sql = "SELECT * FROM appointments WHERE Start >= ? AND Start <= ?";
 
+        DateTimeFormatter dbDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         try (PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql)) {
             //Set the start and end time parameters
@@ -212,13 +214,29 @@ public class AppointmentQuery {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 //Iterate over the result set and add appointments to the list
                 while (resultSet.next()) {
+                    String startString = resultSet.getString("Start");
+                    String endString = resultSet.getString("End");
+                    LocalDateTime startUtcDateTime = LocalDateTime.parse(startString, dbDateTimeFormatter);
+                    LocalDateTime endUtcDateTime = LocalDateTime.parse(endString, dbDateTimeFormatter);
+
+                    // Convert the start time to the computer's default time zone.
+                    ZoneId utcZoneId = ZoneId.of("UTC");
+                    ZoneId computerDefaultZone = ZoneId.systemDefault();
+
+                    ZonedDateTime startZonedDateTime = startUtcDateTime.atZone(utcZoneId);
+                    ZonedDateTime localStartZonedDateTime = startZonedDateTime.withZoneSameInstant(computerDefaultZone);
+
+                    ZonedDateTime endZonedDateTime = endUtcDateTime.atZone(utcZoneId);
+                    ZonedDateTime localEndZonedDateTime = endZonedDateTime.withZoneSameInstant(computerDefaultZone);
+
+
                     String appointmentInfo = String.format(
                             "Appointment_ID: %d, Title: %s, Start: %s, End: %s",
                             resultSet.getInt("Appointment_ID"),
                             resultSet.getString("Title"),
-                            resultSet.getString("Start"),
+                            localStartZonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                            localEndZonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                             resultSet.getString("End"));
-
                     appointments.add(appointmentInfo);
                 }
             }
