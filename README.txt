@@ -1,9 +1,12 @@
-Title: Appointment Scheduler
-Purpose:The purpose of this application is to manage customer records and appointments. Allowing users to
+Title:
+Appointment Scheduler
+
+Purpose:
+The purpose of this application is to manage customer records and appointments. Allowing users to
 add, update, and delete information.
 
-Author:Brady Devon
-Contact:bdevon2@wgu.edu
+Author: Brady Devon
+Contact: bdevon2@wgu.edu
 Appointment Scheduler Application Version: Version 1
 Date: 12/28/2023
 IDE version: IntelliJ IDEA Community Edition 2023.2.2
@@ -17,8 +20,9 @@ the division will not show up.
 mysql-connector-java-8.0.25.
 
 How to Run the program:
+Install javafx-sdk-17.0.1\lib
 1. Launch appointment scheduler application.
-2. Login window displays. Enter username test and password test, or username admin and password admin to login.
+2. Login window will display. Enter username test and password test, or username admin and password admin to login.
 3. Warning displays indicating if any meetings are within 15 min of current time press ok.
 4. Appointment screen displays showing all appointments and customers.
 5. Displayed appointments can be filtered by selecting month, week, or all radio button.
