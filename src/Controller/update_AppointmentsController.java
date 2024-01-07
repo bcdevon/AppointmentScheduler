@@ -28,20 +28,47 @@ import java.util.ResourceBundle;
  * This class handles updating existing appointments, checking for appointment overlaps,
  * and saving updates.*/
 public class update_AppointmentsController implements Initializable {
+
+    /** Text field for updating the appointment ID. */
     public TextField updateAppointmentIDTF;
+
+    /**Text field for updating the appointment Title. */
     public TextField updateTitleTF;
+
+    /**Text field for updating the appointment Description. */
     public TextField updateDescriptionTF;
+
+    /**Text field for updating the appointment Location. */
     public TextField updateLocationTF;
+
+    /**Text field for updating the appointment Type. */
     public TextField updateTypeTF;
+
+    /**Button for saving the appointment update. */
     public Button saveUpdateButton;
+
+    /**Button for canceling the appointment update*/
     public Button cancelUpdateButton;
+
+    /**Date picker for updating the appointment start date. */
     public DatePicker updateStartDate;
+
+    /**Date picker for updating the appointment end date. */
     public DatePicker updateEndDate;
-    
+
+    /**Combo box for updating the customer ID associated with the appointment. */
     public ComboBox updateCustomerIDComboBox;
+
+    /**Combo box for updating the user id associated with the appointment. */
     public ComboBox updateUserIDComboBox;
+
+    /**Combo box for the updating the start time of the appointment. */
     public ComboBox updateStartTimeComboBox;
+
+    /**Combo box for updating the end time fo the appointment. */
     public ComboBox updateEndTimeComboBox;
+
+    /**Combo box for updating the contact associated with the appointment. */
     public ComboBox updateContactComboBox;
 
     /**This is the initialize method.

@@ -28,14 +28,32 @@ import helper.JDBC;
  * This class handles user authentication and navigation to the main application screen.
  * */
 public class LoginController implements Initializable {
+
+    /**Button for user login. */
     public Button loginButton;
+
+    /**Button for exiting the application. */
     public Button exitButton;
+
+    /**Text field for entering the username. */
     public TextField usernameTF;
+
+    /**Text field for entering the password*/
     public TextField passwordTF;
+
+    /**Label displaying the text TimeZone. */
     public Label timeZoneText;
+
+    /**Label for displaying the text Username. */
     public Label userNameText;
+
+    /**Label for displaying the text Password. */
     public Label passwordText;
+
+    /**Text field for displaying the current time zone. */
     public TextField zoneIDTF;
+
+    /**Text field for displaying the current date and time. */
     public TextField dateTimeTF;
 
     /**This is the initialize method.

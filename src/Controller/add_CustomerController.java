@@ -33,13 +33,29 @@ import java.util.ResourceBundle;
  * This class handles adding customers, save or cancel when a customer is added.
  * It also manages values in text fields and combo boxes*/
 public class add_CustomerController implements Initializable {
+
+    /** Text field for customer ID. */
     public TextField addIDTF;
+
+    /** Text field for customer name. */
     public TextField addNameTF;
+
+    /** Text field for customer address. */
     public TextField addAddressTF;
+
+    /** Text field for customer postal code. */
     public TextField addPostalCodeTF;
+
+    /** Text field for customer phone number. */
     public TextField addPhoneTF;
+
+    /** Combo box for selecting a country. */
     public ComboBox <Country> countryBox;
+
+    /** Combo box for selecting a state. */
     public ComboBox stateBox;
+
+    /** Variable to store the selected division ID. */
     private int divisionIDS;
 
     /**This is the initialize method.

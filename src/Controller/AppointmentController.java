@@ -37,32 +37,89 @@ import java.util.ResourceBundle;
  * This is the controller class for managing appointments in the application.
  * It handles interactions between the user interface and the data access objects.*/
 public class AppointmentController implements Initializable {
+
+    /**Toggle group for appointment filter. */
     public ToggleGroup appointmentFilter;
+
+    /**TableView for displaying appointment information. */
     public TableView<Appointment> AppointmentTable;
+
+    /**TableColumn for appointment ID. */
     public TableColumn apptIDCol;
+
+    /**TableColumn for appointment title. */
     public TableColumn apptTitleCol;
+
+    /**TableColumn for appointment description. */
     public TableColumn apptDescriptionCol;
+
+    /**TableColumn for appointment location. */
     public TableColumn apptLocationCol;
+
+    /**TableColumn for appointment contact. */
     public TableColumn apptContactCol;
+
+    /**TableColumn for appointment Type. */
     public TableColumn apptTypeCol;
+
+    /**TableColumn for appointment start date/time. */
     public TableColumn apptStartCol;
+    
+    /**TableColumn for appointment end date/time. */
     public TableColumn apptEndCol;
+    
+    /**TableColumn for Customer ID associated with the appointment. */
     public TableColumn apptCustomerIDCol;
+    
+    /**TableColumn for User ID associated with the appointment. */
     public TableColumn apptUserIDCol;
+    
+    /**TableView for displaying customer information. */
     public TableView CustomerTable;
+    
+    /**TableColumn for Customer ID. */
     public TableColumn customerIDCol;
+    
+    /**TableColumn for Customer name. */
     public TableColumn customerNameCol;
+    
+    /**TableColumn for Customer Address. */
     public TableColumn customerAddressCol;
+    
+    /**TableColumn for Customer Postal Code. */
     public TableColumn customerPostalCodeCol;
+
+    /**TableColumn for customer phone number. */
     public TableColumn customerPhoneNumberCol;
+
+    /**RadioButton for selecting the month filter. */
     public RadioButton Month;
+
+    /**RadioButton for selecting the week filter. */
     public RadioButton Week;
+    
+    /**RadioButton for selecting the all filter. */
     public RadioButton All;
+
+    /**Button for generating reports. */
     public Button reportButton;
+
+    /**Button for deleting appointments. */
     public Button deleteappointmentButton;
+
+    /**TableColumn for Division Name. */
     public TableColumn DivisionNameCol;
+
+    /**TableColumn for Division Name. */
     public TableColumn DivisionIDCol;
-    //Default filter selection
+
+    /**The selected filter for appointments ("Month," "Week," or "All").
+     * Controls the display of appointments based on the chosen filter.
+     * Used in conjunction with filter selection methods.
+     * @see #onMonthSelected(ActionEvent) 
+     * @see #onWeekSelected(ActionEvent)
+     * @see #onAllSelected(ActionEvent)
+     */
     private String selectedFilter;
 
     /**This is the initialize method.

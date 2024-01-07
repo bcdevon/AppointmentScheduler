@@ -40,25 +40,65 @@ import java.util.ResourceBundle;
  * It manages the interaction between the UI components and the data access objects.
  * It initializes the tableviews columns and combo boxes */
 public class report_Controller implements Initializable {
+
+    /** Table view for displaying monthly reports. */
     public TableView monthlyReportTable;
+
+    /**Table column for the month in the monthly report */
     public TableColumn monthCol;
+
+    /**Table column for the appointment Type in the monthly report */
     public TableColumn scheduleTypeCol;
+
+    /**Table column for the number of appointments by type or "count" in the monthly report */
     public TableColumn countCol;
+
+    /** Table view for displaying a report of appointments by contact "contact schedule report". */
     public TableView contactScheduleReport;
+
+    /**Table column for the appointment ID in the contact schedule report */
     public TableColumn appointmentIDCol;
+
+    /**Table column for the appointment title in the contact schedule report. */
     public TableColumn titleCol;
+
+    /**Table column for the appointment type in the contact schedule report. */
     public TableColumn typeCol;
+
+    /**Table column for the appointment description in the contact schedule report. */
     public TableColumn descriptionCol;
+
+    /**Table column for the start date/time in the contact schedule report. */
     public TableColumn startCol;
+
+    /**Table column for the end date/time in the contact schedule report. */
     public TableColumn endCol;
+
+    /**Table column for the customer ID associated with the appointment in the contact schedule report. */
     public TableColumn customerIDCol;
+
+    /**combo box for selecting the report month to generate the monthly report. */
     public ComboBox reportMonth;
+
+    /**combo box for selecting the contact to generate the contact schedule report. */
     public ComboBox reportContact;
+
+    /**back button for navigating back to the appointment screen. */
     public Button backButton;
+
+    /**combo box for selecting the country to generate the location report. */
     public ComboBox<Country> reportLocationBox;
+
+    /** Table view for displaying the location report. */
     public TableView locationReportTable;
+
+    /**Table column for the customer location by country in the location report. */
     public TableColumn locationCol;
+
+    /**Table column for customer division in the location report. */
     public TableColumn divisionCol;
+
+    /**Table column displaying the number of customers in a specific country and division. */
     public TableColumn customerCol;
 
     /** This is the initialize method.

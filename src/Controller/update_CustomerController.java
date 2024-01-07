@@ -30,17 +30,32 @@ import java.util.ResourceBundle;
  * the customer information in the database and handles input validation.*/
 public class update_CustomerController implements Initializable {
 
+    /**Text field for updating the customer ID. */
     public TextField updateIDTF;
+
+    /**Text field for updating the customer name. */
     public TextField updateNameTF;
+
+    /**Text field for updating the customer address. */
     public TextField updateAddressTF;
+
+    /**Text field for updating the customer postal code. */
     public TextField updatePostalCodeTF;
+
+    /**Text field for updating the customer phone number. */
     public TextField updatePhoneTF;
+
+    /**Combo box to update the Country associated with the customer. */
     public ComboBox <Country> updateCountryComboBox;
+
+    /**Combo box to update the division associated with the customer. */
     public ComboBox updateDivisionComboBox;
+
+    /**Private variable to store the Division ID. */
     private int divisionIDS;
 
     /**This is the initialize method.
-     * This method is called during intialization and sets up the Country and Division Combo Boxes.
+     * This method is called during initialization and sets up the Country and Division Combo Boxes.
      * @param url The location of the update_Customer.fxml.
      * @param resourceBundle resources used for initialization.*/
     @Override
