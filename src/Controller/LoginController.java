@@ -28,14 +28,32 @@ import helper.JDBC;
  * This class handles user authentication and navigation to the main application screen.
  * */
 public class LoginController implements Initializable {
+
+    /**Button for user login. */
     public Button loginButton;
+
+    /**Button for exiting the application. */
     public Button exitButton;
+
+    /**Text field for entering the username. */
     public TextField usernameTF;
+
+    /**Text field for entering the password*/
     public TextField passwordTF;
+
+    /**Label displaying the text TimeZone. */
     public Label timeZoneText;
+
+    /**Label for displaying the text Username. */
     public Label userNameText;
+
+    /**Label for displaying the text Password. */
     public Label passwordText;
+
+    /**Text field for displaying the current time zone. */
     public TextField zoneIDTF;
+
+    /**Text field for displaying the current date and time. */
     public TextField dateTimeTF;
 
     /**This is the initialize method.
@@ -76,8 +94,8 @@ public class LoginController implements Initializable {
      * This is an event handler method that is called when the login button is clicked.
      * It authenticates the user and navigates to the main application screen or
      * displays an error message if username and password don't match.
-     * @param actionEvent The event triggered when the login button is clicked
-     * @throws SQLException If a SQL exception occurs during the database operation.*/
+     * @param actionEvent The event triggered when the login button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution.*/
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {
         String enteredUsername = usernameTF.getText();
         String enteredPassword = passwordTF.getText();

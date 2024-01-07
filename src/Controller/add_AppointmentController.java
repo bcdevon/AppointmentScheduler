@@ -32,18 +32,44 @@ import java.util.ResourceBundle;
  * It also manages values in textfields, combo boxes, and a date picker.
  * */
 public class add_AppointmentController implements Initializable {
+
+    /** Text field for appointment ID. */
     public TextField addAppointmentTF;
+
+    /** Text field for appointment Title. */
     public TextField addTitleTF;
+
+    /** Text field for the description of the appointment. */
     public TextField addDescriptionTF;
+
+    /** Text field for the location of the appointment. */
     public TextField addLocationTF;
+
+    /** Text field for the type of appointment. */
     public TextField addTypeTF;
+
+    /** Date picker for selecting the start date of the appointment. */
     public DatePicker addStartDate;
+
+    /** Date picker for selecting the end date of the appointment. */
     public DatePicker addEndDate;
+
+    /** Button to save the appointment. */
     public Button saveButton;
+
+    /** Combo box for selecting the start time of the appointment. */
     public ComboBox addStartTimeBox;
+
+    /** Combo box for selecting the end time of the appointment. */
     public ComboBox addEndTimeBox;
+
+    /** Combo box for selecting the contact ID associated with the appointment. */
     public ComboBox contactIDComboBox;
+
+    /** Combo box for selecting the customer ID associated with the appointment. */
     public ComboBox customerIDComboBox;
+
+    /** Combo box for selecting the user ID associated with the appointment. */
     public ComboBox userIDComboBox;
 
     /**This is the initialize method.
@@ -101,7 +127,7 @@ public class add_AppointmentController implements Initializable {
         // Define Eastern Time Zone
         ZoneId easternTimeZone = ZoneId.of("America/New_York");
 
-// Create ZonedDateTime objects with the local time and your time zone
+        // Create ZonedDateTime objects with the local time and your time zone
         ZonedDateTime startZonedDateTime = ZonedDateTime.of(startDateTime, localTimeZone);
         ZonedDateTime endZonedDateTime = ZonedDateTime.of(endDateTime, localTimeZone);
 

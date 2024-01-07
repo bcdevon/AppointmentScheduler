@@ -10,7 +10,9 @@ import java.time.format.DateTimeFormatter;
 /**This is the UserLog class.
  * This class provides methods for recording user login attempts.*/
 public class UserLog {
+
     //The path to the log file where the login attempts will be recorded
+    /**The constant `LOG_FILE_PATH` represents the path to the log file where login attempts will be recorded. */
     private static final String LOG_FILE_PATH =  "login_activity.txt";
     /**This is the loginAttempt method.
      * This method logs a user login attempt by adding a message to the log file.

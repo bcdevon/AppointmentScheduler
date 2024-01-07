@@ -40,28 +40,68 @@ import java.util.ResourceBundle;
  * It manages the interaction between the UI components and the data access objects.
  * It initializes the tableviews columns and combo boxes */
 public class report_Controller implements Initializable {
+
+    /** Table view for displaying monthly reports. */
     public TableView monthlyReportTable;
+
+    /**Table column for the month in the monthly report */
     public TableColumn monthCol;
+
+    /**Table column for the appointment Type in the monthly report */
     public TableColumn scheduleTypeCol;
+
+    /**Table column for the number of appointments by type or "count" in the monthly report */
     public TableColumn countCol;
+
+    /** Table view for displaying a report of appointments by contact "contact schedule report". */
     public TableView contactScheduleReport;
+
+    /**Table column for the appointment ID in the contact schedule report */
     public TableColumn appointmentIDCol;
+
+    /**Table column for the appointment title in the contact schedule report. */
     public TableColumn titleCol;
+
+    /**Table column for the appointment type in the contact schedule report. */
     public TableColumn typeCol;
+
+    /**Table column for the appointment description in the contact schedule report. */
     public TableColumn descriptionCol;
+
+    /**Table column for the start date/time in the contact schedule report. */
     public TableColumn startCol;
+
+    /**Table column for the end date/time in the contact schedule report. */
     public TableColumn endCol;
+
+    /**Table column for the customer ID associated with the appointment in the contact schedule report. */
     public TableColumn customerIDCol;
+
+    /**combo box for selecting the report month to generate the monthly report. */
     public ComboBox reportMonth;
+
+    /**combo box for selecting the contact to generate the contact schedule report. */
     public ComboBox reportContact;
+
+    /**back button for navigating back to the appointment screen. */
     public Button backButton;
+
+    /**combo box for selecting the country to generate the location report. */
     public ComboBox<Country> reportLocationBox;
+
+    /** Table view for displaying the location report. */
     public TableView locationReportTable;
+
+    /**Table column for the customer location by country in the location report. */
     public TableColumn locationCol;
+
+    /**Table column for customer division in the location report. */
     public TableColumn divisionCol;
+
+    /**Table column displaying the number of customers in a specific country and division. */
     public TableColumn customerCol;
 
-    /**This is the initialize method.
+    /** This is the initialize method.
      * This method is called during initialization and sets up combo boxes, cell value factories and initial data.
      * @param url The location of the Report_Screen.fxml.
      * @param resourceBundle resources used for initialization.*/
@@ -91,14 +131,9 @@ public class report_Controller implements Initializable {
             e.printStackTrace();
         }
     }
-    /**
-     * Populates the Location Report table with data based on the selected country.
-     * This method fetches divisions and their respective customer counts for the selected country
-     * from the database and updates the locationReportTable accordingly. It also configures
-     * the necessary TableColumn properties for the country, division, and customer count.
-     */
 
-    /**This is the populateLocationReport method.
+
+    /** This is the populateLocationReport method.
      * This method populates the location report with data based on the selected country.
      * This method gets divisions and their customer counts for the selected country and displays
      * them in the table.*/
@@ -139,10 +174,12 @@ public class report_Controller implements Initializable {
         }
     }
 
-    /**This is the populate monthly report method.
+    /**This is the populateMonthlyReport() method.
      * This method retrieves appointments for the selected month,
      * counts appointments by type, and displays results in the table.
-     * */
+     * The use of a lambda expression here captures the intent of the code for each appointment,
+     * The typeCountMap. This clearly conveys the purpose of the loop and makes the code more maintainable.
+     * Count occurrences of each type using Map.forEach this is one of the uses of a lambda expression*/
     private void populateMonthlyReport() {
         //Get selected month from combo box
         String selectedMonth = (String) reportMonth.getValue();
@@ -169,9 +206,9 @@ public class report_Controller implements Initializable {
             // Create a new list for displaying in the TableView
             ObservableList<Report> resultReport = FXCollections.observableArrayList();
 
-            //The use of a lambda expression here captures the intent of the code:for each appointment,
-            // the typeCountMap. This clearly conveys the purpose of the loop and makes the code more maintainable.
-            // Count occurrences of each type using Map.forEach this is one of the uses of a lambda expression
+            //The use of a lambda expression here captures the intent of the code for each appointment,
+            // and updates the typeCountMap. This clearly conveys the purpose of the loop and makes the code more maintainable.
+            // Count occurrences of each type using Map.forEach
             Map<String, Long> typeCountMap = new HashMap<>();
             //iterate over each appointment and update the typeCountMap.
             appointments.forEach(appointment -> {
@@ -192,9 +229,12 @@ public class report_Controller implements Initializable {
 
 
 
-    /**This is the populateContactScheduleReport method.
+    /**Lambda Expression here, This is the populateContactScheduleReport method.
      * This method gets the appointments for the chosen contact.
-     * It then populates the contact schedule report table based on the selected contact name*/
+     * It then populates the contact schedule report table based on the selected contact name.
+     * Get appointments for the contact using a lambda expression
+     * The lambda expression is concise, showing the logic for each Appointment.
+     * It eliminates the need for explicit iteration using traditional loops.*/
     private void populateContactScheduleReport() {
         // Clear existing items
         contactScheduleReport.getItems().clear();
@@ -207,11 +247,12 @@ public class report_Controller implements Initializable {
                 // Get contact ID based on the selected name
                 int contactID = AppointmentQuery.getContactIDByName(selectedContactName);
 
-                // get appointments for the contact using lambda expression
-                // The lambda express is concise, showing the logic for each Appointment.
-                // It eliminates the need for explicit iteration using traditional loops.
+                /*The lambda expression is concise, showing the logic for each Appointment.
+                 It eliminates the need for explicit iteration using traditional loops.
+                 The lambda expression specifies to add each appointment to the contactScheduleReport.*/
+                //Retrieve the appointments for a specific contact by contact ID
                 AppointmentDAO.getAppointmentsByContactID(contactID).forEach(appointment ->
-                        //add each appointment to the contact schedule table
+                        //For each appointment add it to the contact schedule table
                         contactScheduleReport.getItems().add(appointment));
 
             } catch (SQLException e) {

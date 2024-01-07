@@ -37,32 +37,89 @@ import java.util.ResourceBundle;
  * This is the controller class for managing appointments in the application.
  * It handles interactions between the user interface and the data access objects.*/
 public class AppointmentController implements Initializable {
+
+    /**Toggle group for appointment filter. */
     public ToggleGroup appointmentFilter;
+
+    /**TableView for displaying appointment information. */
     public TableView<Appointment> AppointmentTable;
+
+    /**TableColumn for appointment ID. */
     public TableColumn apptIDCol;
+
+    /**TableColumn for appointment title. */
     public TableColumn apptTitleCol;
+
+    /**TableColumn for appointment description. */
     public TableColumn apptDescriptionCol;
+
+    /**TableColumn for appointment location. */
     public TableColumn apptLocationCol;
+
+    /**TableColumn for appointment contact. */
     public TableColumn apptContactCol;
+
+    /**TableColumn for appointment Type. */
     public TableColumn apptTypeCol;
+
+    /**TableColumn for appointment start date/time. */
     public TableColumn apptStartCol;
+    
+    /**TableColumn for appointment end date/time. */
     public TableColumn apptEndCol;
+    
+    /**TableColumn for Customer ID associated with the appointment. */
     public TableColumn apptCustomerIDCol;
+    
+    /**TableColumn for User ID associated with the appointment. */
     public TableColumn apptUserIDCol;
+    
+    /**TableView for displaying customer information. */
     public TableView CustomerTable;
+    
+    /**TableColumn for Customer ID. */
     public TableColumn customerIDCol;
+    
+    /**TableColumn for Customer name. */
     public TableColumn customerNameCol;
+    
+    /**TableColumn for Customer Address. */
     public TableColumn customerAddressCol;
+    
+    /**TableColumn for Customer Postal Code. */
     public TableColumn customerPostalCodeCol;
+
+    /**TableColumn for customer phone number. */
     public TableColumn customerPhoneNumberCol;
+
+    /**RadioButton for selecting the month filter. */
     public RadioButton Month;
+
+    /**RadioButton for selecting the week filter. */
     public RadioButton Week;
+    
+    /**RadioButton for selecting the all filter. */
     public RadioButton All;
+
+    /**Button for generating reports. */
     public Button reportButton;
+
+    /**Button for deleting appointments. */
     public Button deleteappointmentButton;
+
+    /**TableColumn for Division Name. */
     public TableColumn DivisionNameCol;
+
+    /**TableColumn for Division Name. */
     public TableColumn DivisionIDCol;
-    //Default filter selection
+
+    /**The selected filter for appointments ("Month," "Week," or "All").
+     * Controls the display of appointments based on the chosen filter.
+     * Used in conjunction with filter selection methods.
+     * @see #onMonthSelected(ActionEvent) 
+     * @see #onWeekSelected(ActionEvent)
+     * @see #onAllSelected(ActionEvent)
+     */
     private String selectedFilter;
 
     /**This is the initialize method.
@@ -169,10 +226,6 @@ public class AppointmentController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/update_Appointments.fxml"));
             Parent update_Appointment_parent = loader.load();
 
-
-
-
-
             // Access the controller of the update screen
             update_AppointmentsController updateController = loader.getController();
 
@@ -232,7 +285,7 @@ public class AppointmentController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete");
         alert.setHeaderText("Delete Appointment");
-        alert.setContentText("Do you want to delete this Appointment");
+        alert.setContentText("Are you sure you want to delete Appointment ID: " + selectedAppointment.getId() + " Type: " + selectedAppointment.getType());
 
         //Wait for response and check if they clicked ok
         Optional<ButtonType> result = alert.showAndWait();
@@ -312,65 +365,81 @@ public class AppointmentController implements Initializable {
      * This is an event handler method that is called when the delete customer button is clicked.
      * It gets the selected customer, verifies a customer is selected and checks if the customer
      * has any appointments. If the customer has any appointments it displays a warning message
-     * and does not delete the customer. If the customer has no appointments and the user confirms the
+     * and the user must confirm they want to delete the customer and all associated appointments.
+     * If the customer has no appointments and the user confirms the
      * deletion the customer is deleted.
      * @param actionEvent The event triggered when the delete button is clicked.
      * @throws SQLException If a SQL exception occurs during the database operation.*/
     public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
-        //get selected customer from the CustomerTable;
+        // Get selected customer from the CustomerTable;
         Customer selectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
-
         // Print selected customer information
         System.out.println("Selected Customer: " + selectedCustomer);
-
-        //If no part is selected, return and do nothing
-        if (selectedCustomer == null){
+        // If no customer is selected, return and do nothing
+        if (selectedCustomer == null) {
             System.out.println("No customer selected. Exiting.");
             return;
         }
-
         // Check if the customer has appointments
         if (hasAppointments(selectedCustomer.getId())) {
-            // Display a message indicating that the customer has appointments
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Customer has Appointments");
-            alert.setContentText("This customer has appointments. Please delete the appointments before deleting the customer.");
-            alert.showAndWait();
-            return; // Do not proceed with deletion
-        }
-
-        // Print information about the selected customer
-        System.out.println("Selected Customer ID: " + selectedCustomer.getId());
-        //Display a confirmation dialog
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete");
-        alert.setHeaderText("Delete Customer");
-        alert.setContentText("Do you want to delete this Customer");
-
-        //Wait for response and check if they clicked ok
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
-            System.out.println("User confirmed deletion.");
-            //Delete Customer if ok is clicked
-            int deletedCustomerID = selectedCustomer.getId();
-            int rowsAffected = CustomerQuery.delete(deletedCustomerID);
-            // Print the number of rows affected
-            System.out.println("Rows affected after deletion: " + rowsAffected);
-
-            if(rowsAffected > 0){
-                //Customer was deleted updated customer table
-                populateCustomerTable();
-                System.out.println("Customer deleted");
+            // Display a confirmation dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Delete Customer and Appointments");
+            alert.setContentText("This customer has appointments. Do you want to delete the customer and associated appointments?");
+            // Wait for response and check if they clicked OK
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                System.out.println("User confirmed deletion.");
+                // Delete Appointments first
+                deleteAppointments(selectedCustomer.getId());
+                // Then delete the Customer
+                int deletedCustomerID = selectedCustomer.getId();
+                int rowsAffected = CustomerQuery.delete(deletedCustomerID);
+                // Print the number of rows affected
+                System.out.println("Rows affected after deletion: " + rowsAffected);
+                if (rowsAffected > 0) {
+                    // Customer and Appointments were deleted, update customer table
+                    populateCustomerTable();
+                    System.out.println("Customer and associated Appointments deleted");
+                }
+            }
+        } else {
+            // No appointments, proceed with deletion
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Delete Customer");
+            alert.setContentText("Do you want to delete this Customer");
+            // Wait for response and check if they clicked OK
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                System.out.println("User confirmed deletion.");
+                // Delete Customer
+                int deletedCustomerID = selectedCustomer.getId();
+                int rowsAffected = CustomerQuery.delete(deletedCustomerID);
+                // Print the number of rows affected
+                System.out.println("Rows affected after deletion: " + rowsAffected);
+                if (rowsAffected > 0) {
+                    // Customer was deleted, update customer table
+                    populateCustomerTable();
+                    System.out.println("Customer deleted");
+                }
             }
         }
-
-
-
-
-
-
     }
+
+    /**This is the deleteAppointments method.
+     * This method deletes all appointments associated with the customer.
+     * @param customerId The ID of the customer whose appointments need to be deleted.
+     * @throws SQLException If a SQL exception occurs during the database operation.*/
+    private void deleteAppointments(int customerId) throws SQLException {
+        // Delete all appointments associated with the customer
+        int rowsAffected = AppointmentQuery.deleteAppointmentsByCustomer(customerId);
+        System.out.println("Rows affected after deleting appointments: " + rowsAffected);
+        //update the appointment table to display the appointment deletions.
+        populateAppointmentTable();
+    }
+
     /**This is the hadAppointments method.
      * This method gets appointments from the database based on the cusotmer ID
      * and checks if there are any appointments for that customer.
