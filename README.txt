@@ -7,7 +7,7 @@ add, update, and delete information.
 
 Author: Brady Devon
 Contact: bdevon2@wgu.edu
-Appointment Scheduler Application Version: Version 1
+Appointment Scheduler Application Version: Version 1.2
 Date: 12/28/2023
 IDE version: IntelliJ IDEA Community Edition 2023.2.2
 java version "17.0.1" 2021-10-19 LTS
