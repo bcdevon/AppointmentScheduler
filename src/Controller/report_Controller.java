@@ -272,7 +272,8 @@ public class report_Controller implements Initializable {
     /**This is the onBackButton method.
      * This is and event handler method theat is called when the back button is clicked.
      * It navigates to the Appointments screen.
-     * @param actionEvent The action event triggered when the back button is clicked.*/
+     * @param actionEvent The action event triggered when the back button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution. */
     public void onBackButton(ActionEvent actionEvent) throws IOException {
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
         Scene appointment_scene = new Scene(appointment_parent);

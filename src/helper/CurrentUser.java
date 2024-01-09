@@ -3,7 +3,8 @@ import Model.User;
 /**This is the CurrentUser class.
  * This class is used to manage the currently loggin in user.*/
 public class CurrentUser {
-    //User field to store the current user
+
+    /**User field to store the current user*/
     private static User currentUser;
 
     /**This is the getCurrentUser method.

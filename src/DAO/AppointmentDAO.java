@@ -46,7 +46,8 @@ public class AppointmentDAO {
     /**This is the extractAppointmentFromResultSet method.
      * This method extract appointment details from a ResultSet and creates an appointment object.
      * @param resultSet The resultset containting the appointment data.
-     * @return Appointment object created for resultset data.*/
+     * @return Appointment object created for resultset data.
+     * @throws SQLException If a SQL exception occurs during the database operation. */
     private static Appointment extractAppointmentFromResultSet(ResultSet resultSet) throws SQLException {
         //Extract individual fields from the resultset
         int id = resultSet.getInt("Appointment_ID");

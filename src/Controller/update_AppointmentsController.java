@@ -103,7 +103,8 @@ public class update_AppointmentsController implements Initializable {
      * This is an event handler method that is called when the save button is clicked.
      * It saves the updated appointment after validating time and checking for overlaps.
      * @param actionEvent The event triggered when the Save button is clicked.
-     */
+     *@throws IOException  If an I/O exception occurs during the method execution.
+     *@throws SQLException If a SQL exception occurs during the database operation. */
     public void onSaveUpdate(ActionEvent actionEvent) throws SQLException, IOException {
         //get current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -195,7 +196,8 @@ public class update_AppointmentsController implements Initializable {
     /**This is the onCancelUpdate method.
      * This is an event handler method that is called when the cancel button is clicked.
      * It returns to the appointment screen without saving the update.
-     * @param actionEvent The event triggered when the cancel button is clicked.*/
+     * @param actionEvent The event triggered when the cancel button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution. */
     public void onCancelUpdate(ActionEvent actionEvent) throws IOException {
         //return to appointment screen without updating
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));

@@ -5,9 +5,11 @@ import java.util.Map;
 /**This is the MonthConverter class.
  * This class is used for converting month names to corresponding integers.*/
 public class MonthConverter {
-    //The field to store the mapping of month names to integers
+
+    /**A map to store month names and their corresponding integers. */
     private static final Map<String, Integer> monthMap;
-    //Initialization block to populate the monthMap
+    /**Initializes the monthMap with predefined values.
+     * The keys are month names the values are corresponding integers. */
     static {
         //map month names to corresponding int
         monthMap = new HashMap<>();

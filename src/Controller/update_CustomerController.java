@@ -83,7 +83,9 @@ public class update_CustomerController implements Initializable {
     /**This is the onSave method.
      * This is an event handler method that is called when the user clicks the save button.
      * It saves the updated customer information to the database and navigates back to the appointments screen.
-     * @param actionEvent The event triggered when the save button is clicked.*/
+     * @param actionEvent The event triggered when the save button is clicked.
+     * @throws IOException  If an I/O exception occurs during the method execution.
+     * @throws SQLException If a SQL exception occurs during the database operation. */
     public void onSave(ActionEvent actionEvent) throws IOException, SQLException {
         //get the current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -115,7 +117,8 @@ public class update_CustomerController implements Initializable {
     /**This is the onCancel method.
      * This is an event handler method that is called when the cancel button is clicked.
      * It navigates to the appointments screen and does not save any updates.
-     * @param actionEvent The event triggered when the cancel button is clicked.*/
+     * @param actionEvent The event triggered when the cancel button is clicked.
+     * @throws IOException If an I/O exception occurs during the method execution. */
     public void onCancel(ActionEvent actionEvent) throws IOException {
         //Navigate to appointment screen
         Parent appointment_parent = FXMLLoader.load(getClass().getResource("../View/Appointments.fxml"));
@@ -147,7 +150,8 @@ public class update_CustomerController implements Initializable {
 
     /**This is the onUpdateDivisionSelected method.
      * This is an event handler method that is called when a division is selected.
-     * If a division is selected this method will retrieve the division ID.*/
+     * If a division is selected this method will retrieve the division ID.
+     * @param actionEvent The event triggered when a division is selected. */
     public void onUpdateDivisionSelected(ActionEvent actionEvent) {
         //get the selected division.
         String selectedDivision = (String) updateDivisionComboBox.getValue();

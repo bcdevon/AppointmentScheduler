@@ -11,7 +11,9 @@ public class User {
     private String username;
 
     /**This is the User constructor.
-     * It constructs a User with the specified userID and username*/
+     * It constructs a User with the specified userID and username.
+     * @param userID The unique ID of the user.
+     * @param username The username associated with the user. */
     public User(int userID, String username){
         this.userID = userID;
         this.username = username;
