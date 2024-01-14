@@ -6,7 +6,7 @@ The purpose of this application is to manage customer records and appointments. 
 add, update, and delete information.
 
 Author: Brady Devon
-Contact: bdevon2@wgu.edu
+Contact: brady.devon0@gmail.com
 Appointment Scheduler Application Version: Version 1
 Date: 12/28/2023
 IDE version: IntelliJ IDEA Community Edition 2023.2.2
